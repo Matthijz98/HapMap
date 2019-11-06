@@ -4,6 +4,9 @@ class Categories(models.Model):
     categorie_name = models.CharField(max_length=255)
     categorie_img = models.CharField(max_length=255, blank=True, null=True)
 
+    def __str__(self):
+        return self.categorie_name
+
 class Recipes(models.Model):
     recipe_title = models.CharField(max_length=255)
     recipe_description = models.TextField(blank=True, null=True)
