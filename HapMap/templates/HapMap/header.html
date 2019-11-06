@@ -25,6 +25,7 @@
     <link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet">
 
   <title>HapMap.nl</title>
+
   <script>
   function showResult(str) {
     if (str.length==0) {
@@ -44,7 +45,7 @@
         document.getElementById("resultcard").style.display = "block";
       }
     }
-    xmlhttp.open("GET","/ajax/search.php?q="+str,true);
+    xmlhttp.open("GET","/ajax_calls/search/?q="+str,true);
     xmlhttp.send();
   }
   </script>
@@ -55,5 +56,17 @@
     {% block content %}
     {% endblock %}
 </body>
-
+<script>
+        $(document).ready(function(){
+            $("#txtSearch").autocomplete({
+                source: "/ajax_calls/search/",
+                minLength: 2,
+                open: function(){
+                    setTimeout(function () {
+                        $('.ui-autocomplete').css('z-index', 99);
+                    }, 0);
+                }
+              });
+        });
+</script>
 </html>
