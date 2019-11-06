@@ -1,6 +1,11 @@
 <html>
 
 <head>
+    {% load static %}
+
+    <link href="{% static 'tinymce/css/prism.css' %}" rel="stylesheet">
+    <link href="{% static 'HapMap/css/index.css' %}" rel="stylesheet">
+
     <meta charset="latin1_german1_ci">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -19,8 +24,6 @@
 
     <link href="https://cdn.materialdesignicons.com/4.4.95/css/materialdesignicons.min.css" rel="stylesheet">
 
-
-    <link rel="stylesheet" type="text/css" href="assets/css/index.css">
   <title>HapMap.nl</title>
   <script>
   function showResult(str) {
@@ -48,36 +51,9 @@
 </head>
 
 <body>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 col-xs-12" >
-        <div class="card mx-auto">
-          <div class="card-header">
-            Zoek een recept
-          </div>
-          <div class="card-body">
-              {% for recept in recipes %}
-                {{ recept }}
-              {% endfor %}
-            <form div="searchform">
-              <div class="input-group">
-                <input class="form-control" id="search" placeholder="wrap" onkeyup="showResult(this.value)">
-                <div class="input-group-append">
-                  <span class="input-group-text mdi mdi-magnify"></span>
-                </div>
-              </div>
-              <div class="card results shadow" style="display: none;" id="resultcard">
-                <div class="list-group list-group-flush" id="livesearch">
-                </div>
-              </div>
 
-            </form>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
+    {% block content %}
+    {% endblock %}
 </body>
 
 </html>

@@ -1,0 +1,22 @@
+body {
+
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.searchform{
+  margin-bottom: 0px !important;
+}
+
+.zeropadding{
+  padding: 0px 0px 0px 0px !important;
+}
+
+
+.autocomplete {
+  /*the container must be positioned relative:*/
+  position: relative;
+  display: inline-block;
+}
