@@ -1,0 +1,109 @@
+{% extends 'HapMap/header.html' %}
+
+{% block content %}
+
+  <script>
+      var div = document.getElementById("dom-target");
+      var count = 10
+      var recept_id = div.textContent;
+      function plus(){
+          var countEl = document.getElementById("count");
+          count++;
+          countEl.value = count;
+         update_recept()
+      }
+      function minus(){
+        var countEl = document.getElementById("count");
+        if (count > 1) {
+          count--;
+          countEl.value = count;
+          update_recept()
+        }
+      }
+
+
+    function update_recept() {
+      if (window.XMLHttpRequest) {
+        // code for IE7+, Firefox, Chrome, Opera, Safari
+        xmlhttp=new XMLHttpRequest();
+      } else {  // code for IE6, IE5
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+      }
+      xmlhttp.onreadystatechange=function() {
+        if (this.readyState==4 && this.status==200) {
+          document.getElementById("ingredienten").innerHTML=this.responseText;
+        }
+      }
+      xmlhttp.open("GET","/ajax/ingredienten.php?id="+recept_id+"&p="+count+"",true);
+      xmlhttp.send();
+    }
+
+    function changeCounter(number){
+      if (number == ""){
+        count = 0;
+      }else{
+        count = number;
+      }
+
+      update_recept();
+    }
+    $( document ).ready(function() {
+      update_recept();
+    });
+
+  </script>
+
+</head>
+
+<body>
+  <div class="container">
+
+
+    <div class="recept_header">
+      <img src="/static/HapMap/img/recipe/{{ recipe.recipe_img }}" class="card-img-top" alt="...">
+      <h1 class="centered">{{ recipe }}</h1>
+    </div>
+
+
+    </br>
+    <div class="card">
+      <div class="card-header">
+        Ingredienten
+      </div>
+      <div class="card-body zeropadding">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Ingredient</th>
+              <th scope="col">hoeveelheid p.p.</th>
+              <th scope="col">Alergieën</th>
+              <th scope="col">hoeveelheid totaal</th>
+            </tr>
+          </thead>
+          <tbody id=ingredienten>
+
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer">
+        <div class="input-group mb-3">
+
+          <input id="count" type="text" class="form-control" value="10" onkeyup="changeCounter(this.value)">
+          <div class="input-group-prepend">
+            <button class="btn btn-outline-secondary" id="moins" type="button" onclick="minus()">-</button>
+            <button class="btn btn-outline-secondary" id="plus" type="button" onclick="plus()">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </br>
+    <div class="card">
+      <div class="card-header">
+        Recept
+      </div>
+      <div class="card-body">
+        {{ recipe.description }}
+      </div>
+    </div>
+  </div>
+{% endblock %}

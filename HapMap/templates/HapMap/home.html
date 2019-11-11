@@ -3,34 +3,41 @@
 {% load static %}
 
 {% block content %}
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 col-xs-12" >
-        <div class="card mx-auto">
-          <div class="card-header">
-            Zoek een recept
-          </div>
-          <div class="card-body">
-              {% for recept in recipes %}
-                {{ recept }}
-              {% endfor %}
-            <form div="searchform">
-              <div class="input-group">
-                <input class="form-control" id="search" placeholder="wrap" onkeyup="showResult(this.value)">
-                <div class="input-group-append">
-                  <span class="input-group-text mdi mdi-magnify"></span>
-                </div>
-              </div>
-              <div class="card results shadow" style="display: none;" id="resultcard">
-                <div class="list-group list-group-flush" id="livesearch">
-                </div>
-              </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-xs-12">
 
-            </form>
-          </div>
+                <div class="card mx-auto">
+                    <div class="card-body ">
+                        <a class="text-center">Zie alle {{ recipe_count }} recepten</a>
+                    </div>
+                </div>
+
+                <div class="card mx-auto">
+                    <div class="card-header">
+                        Zoek een recept
+                    </div>
+
+                    <div class="card-body">
+                        <form div="searchform">
+                            <div class="input-group">
+                                <input class="form-control" id="search" placeholder="wrap"
+                                       onkeyup="showResult(this.value)">
+                                <div class="input-group-append">
+                                    <span class="input-group-text mdi mdi-magnify"></span>
+                                </div>
+                            </div>
+                            ¶
+                            <div class="card results shadow" style="display: none;" id="resultcard">
+                                <div class="list-group list-group-flush" id="livesearch">
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
         </div>
-      </div>
-
     </div>
-  </div>
 {% endblock %}

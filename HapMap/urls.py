@@ -21,5 +21,6 @@ urlpatterns = [
     path('', views.homepage, name="homepage"),
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
-    path(r'ajax_calls/search/', views.receptSearch),
+    path('ajax_calls/search/', views.receptSearch),
+    path('recipe/<int:recipeId>', views.recipeDetails),
 ]
