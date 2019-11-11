@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, request
-from .models import Recipes
+from .models import Recipes, RecipeDetails, Ingredient
 import json
 
 def homepage(request):
@@ -13,9 +13,19 @@ def receptSearch(request):
     q = request.GET.get('q', '')
     search_qs = Recipes.objects.filter(recipe_title__icontains=q)
     results = []
-    print(q)
     for r in search_qs:
         results.append({"name": r.recipe_title, "url": str("/recipe/" + str(r.id))})
+    data = json.dumps(results)
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
+
+def receptIngredient(request):
+    persons = request.GET.get("persons", "")
+    recipe = request.GET.get("recipe", "")
+    search_qs = RecipeDetails.objects.filter(recipe_id=recipe)
+    results = []
+    for r in search_qs:
+        results.append({"name": Ingredient.objects.get(id=r.ingredient_id).ingredient_name, "amount_per_person": str(r.amount), "amount_total":str(float(r.amount) * int(persons))})
     data = json.dumps(results)
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
