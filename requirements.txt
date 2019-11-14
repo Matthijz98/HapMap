@@ -1,3 +1,5 @@
 gunicorn
 django
 django-tinymce4-lite
+postgres
+psycopg2
