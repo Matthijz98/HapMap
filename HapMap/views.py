@@ -19,7 +19,7 @@ def receptSearch(request):
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
 
-def receptIngredient(request):
+def recipeIngredient(request):
     persons = request.GET.get("persons", "")
     recipe = request.GET.get("recipe", "")
     search_qs = RecipeDetails.objects.filter(recipe_id=recipe)
@@ -34,3 +34,8 @@ def recipeDetails(request, recipeId):
     return render(request=request,
                   template_name="HapMap/recipe.html",
                   context={"recipe": Recipes.objects.get(id=recipeId)})
+
+def recipes(request):
+    return render(request=request,
+                  template_name="HapMap/recipes.html",
+                  context={"recipes": Recipes.objects.all()})

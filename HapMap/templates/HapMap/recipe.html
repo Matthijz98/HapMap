@@ -3,9 +3,8 @@
 {% block content %}
 
   <script>
-      var div = document.getElementById("dom-target");
+
       var count = 10
-      var recept_id = div.textContent;
       function plus(){
           var countEl = document.getElementById("count");
           count++;
@@ -23,19 +22,15 @@
 
 
     function update_recept() {
-      if (window.XMLHttpRequest) {
-        // code for IE7+, Firefox, Chrome, Opera, Safari
-        xmlhttp=new XMLHttpRequest();
-      } else {  // code for IE6, IE5
-        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-      }
-      xmlhttp.onreadystatechange=function() {
-        if (this.readyState==4 && this.status==200) {
-          document.getElementById("ingredienten").innerHTML=this.responseText;
-        }
-      }
-      xmlhttp.open("GET","/ajax/ingredienten.php?id="+recept_id+"&p="+count+"",true);
-      xmlhttp.send();
+          var tabel = document.getElementById("ingredienten");
+
+              $.getJSON("http://127.0.0.1:8000/ajax_calls/recipe_ingredient/?persons="+count+"&recipe="+{{ recipe.id }} ,function(data) {
+              $.each(data, function (key, entry) {
+                  console.log(entry.name)
+                  tabel.append($('<p>' + entry.name +'</p>'));
+              })
+          });
+          document.getElementById("resultcard").style.display = "block";
     }
 
     function changeCounter(number){
@@ -99,10 +94,10 @@
     </br>
     <div class="card">
       <div class="card-header">
-        Recept
+        {{ recipe.recipe_title }}
       </div>
       <div class="card-body">
-        {{ recipe.description }}
+        {{ recipe.recipe_description | safe}}
       </div>
     </div>
   </div>

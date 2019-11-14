@@ -1,0 +1,22 @@
+{% extends 'HapMap/header.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="card-deck">
+            {% for recipe in recipes %}
+                <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{ recipe.recipe_title }}</h5>
+                  <p class="card-text">{{ recipe.recipe_description | safe }}</p>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">{{ recipe.recipe_categorie }}</small>
+                </div>
+              </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

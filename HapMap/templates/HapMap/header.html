@@ -26,9 +26,7 @@
           document.getElementById("resultcard").style.display = "none";
       } if (str.length>0){
         $.getJSON("http://127.0.0.1:8000/ajax_calls/search/?q="+str ,function(data) {
-              console.log(data)
               $.each(data, function (key, entry) {
-                  console.log(entry.url)
                 dropdown.append($('<a href="'+entry.url+'" class="list-group-item list-group-item-action">'+entry.name+'</a>'));
               })
           });
