@@ -25,7 +25,7 @@ SECRET_KEY = 'pu!ghk(+g4oc_@pf@+66di797*_#+i^_-3!mo@j20-^lu756m5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 TINYMCE_DEFAULT_CONFIG = {
     'height': 360,
