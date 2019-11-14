@@ -108,7 +108,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSOWRD': 'HapMapWachtwoord',
+        'PASSWORD': 'HapMapWachtwoord',
         'HOST': 'db',
         'PORT': 5432,
     }
