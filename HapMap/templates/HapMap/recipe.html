@@ -24,7 +24,7 @@
     function update_recept() {
           var tabel = document.getElementById("ingredienten");
 
-              $.getJSON("http://127.0.0.1:8000/ajax_calls/recipe_ingredient/?persons="+count+"&recipe="+{{ recipe.id }} ,function(data) {
+              $.getJSON("../ajax_calls/recipe_ingredient/?persons="+count+"&recipe="+{{ recipe.id }} ,function(data) {
               $.each(data, function (key, entry) {
                   console.log(entry.name)
                   tabel.append($('<p>' + entry.name +'</p>'));
