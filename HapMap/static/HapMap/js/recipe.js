@@ -3,8 +3,6 @@ let count = 10;
 let recipe_id = document.getElementById("recipe_id").textContent;
 let table = $('#ingredienten');
 
-console.log(table)
-
 function plus(){
     var countEl = document.getElementById("count");
     count++;
@@ -26,8 +24,7 @@ function update_recept() {
     table.html('')
     $.getJSON("../ajax_calls/recipe_ingredient/?persons="+count+"&recipe="+ recipe_id ,function(data) {
         $.each(data, function (key, entry) {
-            console.log(table)
-            table.append($('<tr> <th>'+ entry.name +'</th><td>'+ entry.amount_per_person +'</td><td></td><td>'+ entry.amount_total +'</td></tr>'));
+            table.append($('<tr> <th>'+ entry.name +'</th><td>'+ entry.amount_per_person + " " + entry.unit +'</td><td></td><td>'+ entry.amount_total + " " + entry.unit+'</td></tr>'));
         })
     });
 }

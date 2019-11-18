@@ -12,10 +12,15 @@ function showResult(str) {
     } if (str.length>0){
         // if string is not empty get sjon data and give search string as get variable
         $.getJSON("/ajax_calls/search/?q="+str ,function(data) {
-              $.each(data, function (key, entry){
+            console.log(data)
+            if (data.length == 0){
+                dropdown.append($('<a class="list-group-item list-group-item-action">No results found</a>'));
+            }else {
+                $.each(data, function (key, entry) {
                     // append a link for every result in the json data
-                    dropdown.append($('<a href="'+entry.url+'" class="list-group-item list-group-item-action">'+entry.name+'</a>'));
-            })
+                    dropdown.append($('<a href="' + entry.url + '" class="list-group-item list-group-item-action">' + entry.name + '</a>'));
+                })
+            }
         });
         // un-hide the result card so the results can been
         document.getElementById("resultcard").style.display = "block";
