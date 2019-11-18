@@ -2,55 +2,10 @@
 
 {% block content %}
 
-  <script>
-
-      var count = 10
-      function plus(){
-          var countEl = document.getElementById("count");
-          count++;
-          countEl.value = count;
-         update_recept()
-      }
-      function minus(){
-        var countEl = document.getElementById("count");
-        if (count > 1) {
-          count--;
-          countEl.value = count;
-          update_recept()
-        }
-      }
-
-
-    function update_recept() {
-          var tabel = document.getElementById("ingredienten");
-
-              $.getJSON("../ajax_calls/recipe_ingredient/?persons="+count+"&recipe="+{{ recipe.id }} ,function(data) {
-              $.each(data, function (key, entry) {
-                  console.log(entry.name)
-                  tabel.append($('<p>' + entry.name +'</p>'));
-              })
-          });
-          document.getElementById("resultcard").style.display = "block";
-    }
-
-    function changeCounter(number){
-      if (number == ""){
-        count = 0;
-      }else{
-        count = number;
-      }
-
-      update_recept();
-    }
-    $( document ).ready(function() {
-      update_recept();
-    });
-
-  </script>
-
 </head>
 
 <body>
+    <div id="recipe_id" style="display: none">{{ recipe.id }}</div>
   <div class="container">
 
 
@@ -101,4 +56,7 @@
       </div>
     </div>
   </div>
+
+     {% load static %}
+  <script src="{% static 'HapMap/js/recipe.js' %}"></script>
 {% endblock %}
