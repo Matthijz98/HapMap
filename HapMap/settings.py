@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-dev = (os.environ['DEV'], False)
+dev = (os.getenv('DEV'), False)
+print(dev[0])
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -101,7 +102,8 @@ WSGI_APPLICATION = 'HapMap.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-if dev == False:
+if dev[0] == "False":
+    print("production mode")
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -115,6 +117,7 @@ if dev == False:
 
     DEBUG = False
 else:
+    print("dev mode")
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',

@@ -11,7 +11,9 @@
                 <img src="{% static 'HapMap/img/recipe/' %}{{ recipe.recipe_img }}" class="card-img-top" alt="...">
                 <div class="card-body">
                   <h5 class="card-title">{{ recipe.recipe_title }}</h5>
-                  <p class="card-text">{{ recipe.recipedetails_set | safe }}</p>
+                  <p class="card-text">{{ recipe.recipedetails | safe }}
+                    <a href="../recipe/{{ recipe.id }}">Bekijk hele recept</a>
+                  </p>
                 </div>
                 <div class="card-footer">
                   <small class="text-muted">{{ recipe.recipe_categorie }}</small>
