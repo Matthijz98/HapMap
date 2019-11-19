@@ -25,7 +25,7 @@ def recipeIngredient(request):
     search_qs = RecipeDetails.objects.filter(recipe_id=recipe)
     results = []
     for r in search_qs:
-        results.append({"name": Ingredient.objects.get(id=r.ingredient_id).ingredient_name, "amount_per_person": str(r.amount), "amount_total":str(float(r.amount) * int(persons))})
+        results.append({"name": Ingredient.objects.get(id=r.ingredient_id).ingredient_name, "amount_per_person": str(r.amount), "amount_total":str(float(r.amount) * int(persons)), "unit": str(r.unit)})
     data = json.dumps(results)
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
