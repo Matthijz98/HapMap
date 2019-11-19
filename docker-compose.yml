@@ -23,11 +23,12 @@ services:
     restart: unless-stopped
     environment:
       - DEV=False
+      - DEBUG=False
 
   stable_dev:
+    image: matthijz98/hap-map:dev
     volumes:
       - hapmap-data:/static/HapMap/img
-    build: .
     ports:
       - "8002:8002"
     command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8002"
@@ -35,7 +36,8 @@ services:
       - db
     restart: unless-stopped
     environment:
-      - DEV=True
+      - DEV=False
+      - DEBUG=True
 
 volumes:
   hapmap-db-data:
