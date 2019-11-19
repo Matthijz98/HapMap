@@ -11,19 +11,22 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+dev = (os.getenv('DEV'), False)
+debug = (os.getenv('DEBUG'), False)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+if debug[0] == "True":
+    DEBUG = True
+else:
+    DEBUG = False
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'pu!ghk(+g4oc_@pf@+66di797*_#+i^_-3!mo@j20-^lu756m5'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -103,17 +106,27 @@ WSGI_APPLICATION = 'HapMap.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'HapMapWachtwoord',
-        'HOST': 'db',
-        'PORT': 5432,
+if dev[0] == "False":
+    print("production mode")
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'postgres',
+            'USER': 'postgres',
+            'PASSWORD': 'HapMapWachtwoord',
+            'HOST': 'db',
+            'PORT': 5432,
+        }
     }
-}
 
+else:
+    print("dev mode")
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

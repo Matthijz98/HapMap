@@ -3,20 +3,23 @@
 {% load static %}
 
 {% block content %}
-    <div class="container">
-        <div class="card-deck">
-            {% for recipe in recipes %}
+
+    <div class="card-columns">
+        {% for recipe in recipes %}
+
                 <div class="card">
-                <img src="..." class="card-img-top" alt="...">
+                <img src="{% static 'HapMap/img/recipe/' %}{{ recipe.recipe_img }}" class="card-img-top" alt="...">
                 <div class="card-body">
                   <h5 class="card-title">{{ recipe.recipe_title }}</h5>
-                  <p class="card-text">{{ recipe.recipe_description | safe }}</p>
+                  <p class="card-text">{{ recipe.recipedetails | safe }}
+                    <a href="../recipe/{{ recipe.id }}">Bekijk hele recept</a>
+                  </p>
                 </div>
                 <div class="card-footer">
                   <small class="text-muted">{{ recipe.recipe_categorie }}</small>
                 </div>
               </div>
-            {% endfor %}
-        </div>
+
+        {% endfor %}
     </div>
 {% endblock %}

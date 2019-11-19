@@ -8,30 +8,35 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_PASSWORD: HapMapWachtwoord
       POSTGRES_DB: HapMap
-
+    restart: unless-stopped
 
   stable_app:
-    build: .
-    ports:
-      - "8000:8000"
-    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
-    depends_on:
-      - db
-    links:
-      - db:db
-
-
-  stable_dev:
-    image: matthijz98/hap-map:dev
+    volumes:
+      - hapmap-data:/static/HapMap/img
+    image: matthijz98/hap-map:latest
     ports:
       - "8001:8001"
     command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8001"
     depends_on:
       - db
-    links:
-      - db:db
+    restart: unless-stopped
+    environment:
+      - DEV=False
+
+  stable_dev:
+    volumes:
+      - hapmap-data:/static/HapMap/img
+    build: .
+    ports:
+      - "8002:8002"
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8002"
+    depends_on:
+      - db
+    restart: unless-stopped
+    environment:
+      - DEV=True
 
 volumes:
   hapmap-db-data:
+  hapmap-data:
