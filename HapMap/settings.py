@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/2.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
-
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 import os
 dev = (os.getenv('DEV'), False)
 debug = (os.getenv('DEBUG'), False)
@@ -21,9 +22,6 @@ if debug[0] == "True":
     DEBUG = True
 else:
     DEBUG = False
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'pu!ghk(+g4oc_@pf@+66di797*_#+i^_-3!mo@j20-^lu756m5'
@@ -119,6 +117,11 @@ if dev[0] == "False":
         }
     }
 
+    # Track all the errors with Sentry
+    sentry_sdk.init(
+        dsn="https://71ac3d5ae6cf426a8c676063581a3120@sentry.io/1831521",
+        integrations=[DjangoIntegration()]
+    )
 else:
     print("dev mode")
     DATABASES = {
