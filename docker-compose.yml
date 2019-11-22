@@ -13,7 +13,7 @@ services:
 
   stable_app:
     volumes:
-      - hapmap-data:/static/HapMap/img
+      - hapmap-data:/code/HapMap/static/HapMap/img
     image: matthijz98/hap-map:latest
     ports:
       - "8001:8001"
@@ -23,12 +23,12 @@ services:
     restart: unless-stopped
     environment:
       - DEV=False
-      - DEBUG=False
+      - DEBUG=True
 
   stable_dev:
     image: matthijz98/hap-map:dev
     volumes:
-      - hapmap-data:/static/HapMap/img
+      - hapmap-data:/code/HapMap/static/HapMap/img
     ports:
       - "8002:8002"
     command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8002"
@@ -39,6 +39,29 @@ services:
       - DEV=False
       - DEBUG=True
 
+  hapamp-data-ftp:
+    image: stilliard/pure-ftpd:hardened
+    ports:
+      - "21:21"
+      - "30000-30009:30000-30009"
+    volumes:
+      - hapmap-data:/home/username/
+      - ftp-data:/etc/pure-ftpd/passwd
+    environment:
+      PUBLICHOST: "localhost"
+      FTP_USER_NAME: root
+      FTP_USER_PASS: password
+      FTP_USER_HOME: /home/username
+    restart: always
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+
 volumes:
   hapmap-db-data:
   hapmap-data:
+  ftp-data:

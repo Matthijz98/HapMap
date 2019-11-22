@@ -48,7 +48,7 @@ class Ingredient(models.Model):
 class RecipeDetails(models.Model):
     recipe_id = models.ForeignKey(Recipes, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
-    amount = models.DecimalField(max_digits=6, decimal_places=2)
+    amount = models.DecimalField(max_digits=8, decimal_places=3)
     unit = models.ForeignKey(Units, on_delete=models.CASCADE)
 
     def __str__(self):
