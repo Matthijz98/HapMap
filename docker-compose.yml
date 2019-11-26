@@ -50,6 +50,7 @@ services:
     ports:
       - 8080:8080
 
+
   nginx:
       image: matthijz98/hap-map:nginx
       restart: always
@@ -61,6 +62,7 @@ services:
         - "8001:80"
       links:
         - stable_app
+
 
 volumes:
   hapmap-db-data:
