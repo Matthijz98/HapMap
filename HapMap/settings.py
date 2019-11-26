@@ -21,20 +21,6 @@ debug = (os.getenv('DEBUG'), False)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.2/howto/static-files/
-
-STATIC_URL = '/static/'
-
-PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-
-STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
-
-print(STATIC_ROOT)
-
-
-
-
 if debug[0] == "True":
     DEBUG = True
 else:
@@ -43,7 +29,10 @@ else:
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'pu!ghk(+g4oc_@pf@+66di797*_#+i^_-3!mo@j20-^lu756m5'
 
-ALLOWED_HOSTS = ['*']
+if dev[0] == "True":
+    ALLOWED_HOSTS = ['*']
+else:
+    ALLOWED_HOSTS = ['hapmap.nl', '94.208.72.54']
 
 TINYMCE_DEFAULT_CONFIG = {
     'height': 360,
@@ -180,3 +169,13 @@ USE_L10N = True
 USE_TZ = True
 
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/2.2/howto/static-files/
+
+STATIC_URL = '/static/'
+
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+
+print(STATIC_ROOT)
