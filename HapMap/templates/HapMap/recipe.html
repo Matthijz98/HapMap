@@ -6,7 +6,7 @@
 
 <body>
     <div id="recipe_id" style="display: none">{{ recipe.id }}</div>
-  <div class="container">
+  <div class="container-fluid">
 
 
     <div class="recept_header">
@@ -14,9 +14,7 @@
       <h1 class="centered">{{ recipe }}</h1>
     </div>
 
-
-    </br>
-    <div class="card">
+    <div class="card recipe_card">
       <div class="card-header">
         Ingredienten
       </div>
@@ -46,8 +44,7 @@
         </div>
       </div>
     </div>
-    </br>
-    <div class="card">
+    <div class="card recipe_card">
       <div class="card-header">
         {{ recipe.recipe_title }}
       </div>

@@ -12,7 +12,6 @@ function showResult(str) {
     } if (str.length>0){
         // if string is not empty get sjon data and give search string as get variable
         $.getJSON("/ajax_calls/search/?q="+str ,function(data) {
-            console.log(data)
             if (data.length == 0){
                 dropdown.append($('<a class="list-group-item list-group-item-action">No results found</a>'));
             }else {
