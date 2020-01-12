@@ -36,10 +36,7 @@ else:
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'pu!ghk(+g4oc_@pf@+66di797*_#+i^_-3!mo@j20-^lu756m5'
 
-if dev[0] == "True":
-    ALLOWED_HOSTS = ['*']
-else:
-    ALLOWED_HOSTS = ['hapmap.nl', '94.208.72.54']
+ALLOWED_HOSTS = ['*']
 
 TINYMCE_DEFAULT_CONFIG = {
     'height': 360,
@@ -85,6 +82,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
