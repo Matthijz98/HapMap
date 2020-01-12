@@ -3,3 +3,4 @@ django
 django-tinymce4-lite
 psycopg2-binary
 sentry-sdk
+whitenoise
