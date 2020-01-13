@@ -77,7 +77,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'HapMap.apps.MainConfig',
-    # 'tinymce',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
