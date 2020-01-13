@@ -8,11 +8,18 @@
     <div id="recipe_id" style="display: none">{{ recipe.id }}</div>
   <div class="container-fluid zeropadding">
 
-
     <div class="recept_header">
       <img src="/static/HapMap/img/recipe/{{ recipe.recipe_img }}" class="card-img-top" alt="...">
       <h1 class="centered recipe_title">{{ recipe }}</h1>
     </div>
+
+    <nav class="card" aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">recipe</li>
+        <li class="breadcrumb-item"><a href="#">{{ recipe.recipe_categorie }}</a></li>
+        <li class="breadcrumb-item active">{{ recipe.recipe_title }}</li>
+      </ol>
+    </nav>
 
     <div class="card recipe_card">
       <div class="card-header">
