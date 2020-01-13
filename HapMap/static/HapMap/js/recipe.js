@@ -20,7 +20,7 @@ function minus(){
 }
 
 function update_recept() {
-    
+    table.empty();
     $.getJSON("../ajax_calls/recipe_ingredient/?persons="+count+"&recipe="+ recipe_id ,function(data) {
         $.each(data, function (key, entry) {
             table.append($('<tr> <th>'+ entry.name +'</th><td>'+ entry.amount_per_person + " " + entry.unit +'</td><td></td><td>'+ entry.amount_total + " " + entry.unit+'</td></tr>'));
