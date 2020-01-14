@@ -40,7 +40,12 @@ def recipeDetails(request, recipeId):
 
 
 def recipes(request):
+    cat = request.GET.get("cat", '')
+    if cat == '':
+        context = Recipes.objects.all()
+    else:
+        context = Recipes.objects.all().filter(recipe_categorie__categorie_name=cat)
     return render(request=request,
                   template_name="HapMap/recipes.html",
-                  context={"recipes": Recipes.objects.all()})
+                  context={"recipes": context})
 
