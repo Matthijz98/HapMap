@@ -13,6 +13,7 @@ import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 import os
 
+APPRISE_URL = "tgram://bot1023273761:AAFEDKSCOxJvHja5LgF9i1BfheEkSOeImT0/?format=html"
 
 dev = (os.getenv('DEV'), False)
 debug = (os.getenv('DEBUG'), False)
@@ -78,6 +79,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'HapMap.apps.MainConfig',
     'tinymce',
+    'meta',
 ]
 
 MIDDLEWARE = [
