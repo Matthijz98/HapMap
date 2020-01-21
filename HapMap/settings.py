@@ -13,7 +13,7 @@ import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 import os
 
-APPRISE_URL = "tgram://bot1023273761:AAFEDKSCOxJvHja5LgF9i1BfheEkSOeImT0/?format=html"
+APPRISE_URL = (os.getenv('APPRISE'), False)
 
 dev = (os.getenv('DEV'), False)
 debug = (os.getenv('DEBUG'), False)
