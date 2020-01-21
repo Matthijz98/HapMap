@@ -17,6 +17,7 @@ APPRISE_URL = "tgram://bot1023273761:AAFEDKSCOxJvHja5LgF9i1BfheEkSOeImT0/?format
 
 dev = (os.getenv('DEV'), False)
 debug = (os.getenv('DEBUG'), False)
+imgproxyhost = (os.getenv('IMG-PROXY'), 'localhost')[0]
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

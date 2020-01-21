@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, request
 from .models import Recipes, RecipeDetails, Ingredient
 import json
+from .settings import imgproxyhost
 
 
 def homepage(request):
@@ -47,5 +48,5 @@ def recipes(request):
         context = Recipes.objects.all().filter(recipe_categorie__categorie_name=cat)
     return render(request=request,
                   template_name="HapMap/recipes.html",
-                  context={"recipes": context})
+                  context={"recipes": context, "imgproxy": imgproxyhost})
 

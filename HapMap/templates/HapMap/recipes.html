@@ -8,7 +8,7 @@
         {% for recipe in recipes %}
 
                 <div class="card">
-                <img src="{% static 'HapMap/img/recipe/' %}{{ recipe.recipe_img }}" class="card-img-top" alt="...">
+                <img src="{{ imgproxy }}/insecure/fit/600/0/no/0/plain/{{ recipe.recipe_img }}" class="card-img-top" alt="...">
                 <div class="card-body">
                   <h5 class="card-title">{{ recipe.recipe_title }}</h5>
                   <p class="card-text">{{ recipe.recipedetails | safe }}
