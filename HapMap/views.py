@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, request
 from .models import Recipes, RecipeDetails, Ingredient
+import random
 import json
 
 
@@ -12,7 +13,7 @@ def homepage(request):
 
 def receptSearch(request):
     q = request.GET.get('q', '')
-    search_qs = Recipes.objects.filter(recipe_title__icontains=q)
+    search_qs = Recipes.objects.filter(recipe_title__icontains=q)[:10]
     results = []
     for r in search_qs:
         results.append({"name": r.recipe_title, "url": str("/recipe/" + str(r.id))})
@@ -42,9 +43,9 @@ def recipeDetails(request, recipeId):
 def recipes(request):
     cat = request.GET.get("cat", '')
     if cat == '':
-        context = Recipes.objects.all()
+        context = Recipes.objects.all().order_by('?')
     else:
-        context = Recipes.objects.all().filter(recipe_categorie__categorie_name=cat)
+        context = Recipes.objects.all().order_by('?').filter(recipe_categorie__categorie_name=cat)
     return render(request=request,
                   template_name="HapMap/recipes.html",
                   context={"recipes": context})

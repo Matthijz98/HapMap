@@ -2,16 +2,15 @@
 let count = 10;
 let recipe_id = document.getElementById("recipe_id").textContent;
 let table = $('#ingredienten');
+let countEl = document.getElementById("count");
 
 function plus(){
-    var countEl = document.getElementById("count");
     count++;
     countEl.value = count;
     update_recept()
 }
 
 function minus(){
-    var countEl = document.getElementById("count");
     if (count > 1) {
         count--;
         countEl.value = count;
@@ -29,10 +28,15 @@ function update_recept() {
 }
 
 function changeCounter(number){
-    if (number == ""){
-        count = 0;
+    if (isNaN(number)){
+        count = 0
+        $('#count').addClass('is-invalid')
+    }else if(count = ' '){
+        count = 0
+        $('#count').removeClass('is-invalid')
     }else{
         count = number;
+        $('#count').removeClass('is-invalid')
     }
     update_recept();
 }
