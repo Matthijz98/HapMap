@@ -20,11 +20,10 @@ function minus(){
 }
 
 function update_recept() {
-
-    table.html('')
+    table.empty();
     $.getJSON("../ajax_calls/recipe_ingredient/?persons="+count+"&recipe="+ recipe_id ,function(data) {
         $.each(data, function (key, entry) {
-            table.append($('<tr> <th>'+ entry.name +'</th><td>'+ entry.amount_per_person + " " + entry.unit +'</td><td></td><td>'+ entry.amount_total + " " + entry.unit+'</td></tr>'));
+            table.append($('<tr> <th>'+ entry.name +'</th><td>'+ parseFloat(entry.amount_per_person).toFixed(2) + " " + entry.unit +'</td><td></td><td>'+ parseFloat(entry.amount_total).toFixed(2) + " " + entry.unit+'</td></tr>'));
         })
     });
 }

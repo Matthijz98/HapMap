@@ -1,4 +1,9 @@
 from django.db import models
+from .settings import APPRISE_URL
+import apprise
+
+apobj = apprise.Apprise()
+apobj.add(APPRISE_URL)
 
 class Categories(models.Model):
     categorie_name = models.CharField(max_length=255)
@@ -16,6 +21,16 @@ class Recipes(models.Model):
 
     def __str__(self):
         return self.recipe_title
+
+    def save(self, *args, **kwargs):
+        url = 'http://hapmap.nl/recipe/' + str(self.pk)
+
+        apobj.notify(
+            body='Title: ' + self.recipe_title + '\nCategorie: ' + str(self.recipe_categorie) + '\nUrl: ' + url,
+            title='New or updated recipe: ' + self.recipe_title,
+        )
+        super().save(*args, **kwargs)
+        return self
 
 class Units(models.Model):
     unit_name = models.CharField(max_length=255)
@@ -48,7 +63,7 @@ class Ingredient(models.Model):
 class RecipeDetails(models.Model):
     recipe_id = models.ForeignKey(Recipes, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
-    amount = models.DecimalField(max_digits=6, decimal_places=2)
+    amount = models.DecimalField(max_digits=8, decimal_places=3)
     unit = models.ForeignKey(Units, on_delete=models.CASCADE)
 
     def __str__(self):

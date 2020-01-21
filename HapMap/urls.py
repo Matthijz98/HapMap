@@ -17,12 +17,16 @@ from django.contrib import admin
 from django.urls import path, include
 from . import views
 
+def trigger_error(request):
+    division_by_zero = 1 / 0
+
 urlpatterns = [
     path('', views.homepage, name="homepage"),
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
-    path('ajax_calls/search/', views.receptSearch),
-    path('ajax_calls/recipe_ingredient/', views.recipeIngredient),
-    path('recipe/<int:recipeId>', views.recipeDetails),
-    path('recipes/', views.recipes)
+    path('ajax_calls/search/', views.receptSearch, name="ajax/receptSearch"),
+    path('ajax_calls/recipe_ingredient/', views.recipeIngredient, name="ajax/recipe_ingredient"),
+    path('recipe/<int:recipeId>', views.recipeDetails, name="recipe"),
+    path('recipes/', views.recipes, name="recipes"),
+    path('sentry-debug/', trigger_error),
 ]
