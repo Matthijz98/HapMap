@@ -14,7 +14,6 @@ from sentry_sdk.integrations.django import DjangoIntegration
 import os
 
 APPRISE_URL = (os.getenv('APPRISE'), False)
-
 dev = (os.getenv('DEV'), False)
 debug = (os.getenv('DEBUG'), False)
 
