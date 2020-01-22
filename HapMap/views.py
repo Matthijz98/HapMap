@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, request
+from django.http import HttpResponse, request, Http404
 from .models import Recipes, RecipeDetails, Ingredient
 import random
 import json
@@ -35,9 +35,13 @@ def recipeIngredient(request):
 
 
 def recipeDetails(request, recipeId):
+    try:
+        recipe = Recipes.objects.get(id=recipeId)
+    except Recipes.DoesNotExist:
+        raise Http404("Poll does not exist")
     return render(request=request,
                   template_name="HapMap/recipe.html",
-                  context={"recipe": Recipes.objects.get(id=recipeId)})
+                  context={"recipe": recipe})
 
 
 def recipes(request):
