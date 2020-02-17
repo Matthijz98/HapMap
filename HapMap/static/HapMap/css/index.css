@@ -17,6 +17,8 @@
 
 .results{
   margin: 0 !important;
+  position: absolute !important;
+  width: calc(100% - 40px);
 }
 
 @media (min-width: 768px) {

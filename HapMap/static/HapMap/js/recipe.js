@@ -31,10 +31,7 @@ function changeCounter(number){
     if (isNaN(number)){
         count = 0
         $('#count').addClass('is-invalid')
-    }else if(count = ' '){
-        count = 0
-        $('#count').removeClass('is-invalid')
-    }else{
+    }else {
         count = number;
         $('#count').removeClass('is-invalid')
     }
