@@ -24,11 +24,18 @@ def receptSearch(request):
 
 def recipeIngredient(request):
     persons = request.GET.get("persons", "")
+    if (persons == ''):
+        persons = 0
     recipe = request.GET.get("recipe", "")
     search_qs = RecipeDetails.objects.filter(recipe_id=recipe)
     results = []
     for r in search_qs:
-        results.append({"name": Ingredient.objects.get(id=r.ingredient_id).ingredient_name, "amount_per_person": str(r.amount).replace('.', ','), "amount_total":str(float(r.amount) * int(persons)).replace('.', ','), "unit": str(r.unit)})
+        results.append({
+            "name": Ingredient.objects.get(id=r.ingredient_id).ingredient_name,
+            "amount_per_person": str(r.amount).replace('.', ','),
+            "amount_total": str(float(r.amount) * int(persons)).replace('.', ','),
+            "unit": str(r.unit)
+        })
     data = json.dumps(results)
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
@@ -38,7 +45,7 @@ def recipeDetails(request, recipeId):
     try:
         recipe = Recipes.objects.get(id=recipeId)
     except Recipes.DoesNotExist:
-        raise Http404("Poll does not exist")
+        raise Http404("Recipe not found")
     return render(request=request,
                   template_name="HapMap/recipe.html",
                   context={"recipe": recipe})
