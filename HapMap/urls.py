@@ -29,4 +29,5 @@ urlpatterns = [
     path('recipe/<int:recipeId>', views.recipeDetails, name="recipe"),
     path('recipes/', views.recipes, name="recipes"),
     path('sentry-debug/', trigger_error),
+    path('ads.txt', views.adsview)
 ]

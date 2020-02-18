@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, request, Http404
 from .models import Recipes, RecipeDetails, Ingredient
-import random
 import json
 
 
@@ -61,3 +60,7 @@ def recipes(request):
                   template_name="HapMap/recipes.html",
                   context={"recipes": context})
 
+
+def adsview(request):
+    line = "google.com, pub-1287147359957350, DIRECT, f08c47fec0942fa0"
+    return HttpResponse(line)
