@@ -1,18 +1,18 @@
 from django.shortcuts import render
 from django.http import HttpResponse, request, Http404
-from .models import Recipes, RecipeDetails, Ingredient
+from .models import Recipe, RecipeDetail, Ingredient
 import json
 
 
 def homepage(request):
     return render(request=request,
                   template_name="HapMap/home.html",
-                  context={"recipes": Recipes.objects.all, "recipe_count": Recipes.objects.count()})
+                  context={"recipes": Recipe.objects.all, "recipe_count": Recipe.objects.count()})
 
 
 def receptSearch(request):
     q = request.GET.get('q', '')
-    search_qs = Recipes.objects.filter(recipe_title__icontains=q)[:10]
+    search_qs = Recipe.objects.filter(recipe_title__icontains=q)[:10]
     results = []
     for r in search_qs:
         results.append({"name": r.recipe_title, "url": str("/recipe/" + str(r.id))})
@@ -26,7 +26,7 @@ def recipeIngredient(request):
     if (persons == ''):
         persons = 0
     recipe = request.GET.get("recipe", "")
-    search_qs = RecipeDetails.objects.filter(recipe_id=recipe)
+    search_qs = RecipeDetail.objects.filter(recipe_id=recipe)
     results = []
     for r in search_qs:
         results.append({
@@ -42,8 +42,8 @@ def recipeIngredient(request):
 
 def recipeDetails(request, recipeId):
     try:
-        recipe = Recipes.objects.get(id=recipeId)
-    except Recipes.DoesNotExist:
+        recipe = Recipe.objects.get(id=recipeId)
+    except Recipe.DoesNotExist:
         raise Http404("Recipe not found")
     return render(request=request,
                   template_name="HapMap/recipe.html",
@@ -53,9 +53,9 @@ def recipeDetails(request, recipeId):
 def recipes(request):
     cat = request.GET.get("cat", '')
     if cat == '':
-        context = Recipes.objects.all().order_by('?')
+        context = Recipe.objects.all().order_by('?')
     else:
-        context = Recipes.objects.all().order_by('?').filter(recipe_categorie__categorie_name=cat)
+        context = Recipe.objects.all().order_by('?').filter(recipe_categorie__categorie_name=cat)
     return render(request=request,
                   template_name="HapMap/recipes.html",
                   context={"recipes": context})
