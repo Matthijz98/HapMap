@@ -5,12 +5,14 @@ import apprise
 apobj = apprise.Apprise()
 apobj.add(APPRISE_URL)
 
+
 class Categories(models.Model):
     categorie_name = models.CharField(max_length=255)
     categorie_img = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return self.categorie_name
+
 
 class Recipes(models.Model):
     recipe_title = models.CharField(max_length=255)
@@ -22,15 +24,6 @@ class Recipes(models.Model):
     def __str__(self):
         return self.recipe_title
 
-    def save(self, *args, **kwargs):
-        url = 'http://hapmap.nl/recipe/' + str(self.pk)
-
-        apobj.notify(
-            body='Title: ' + self.recipe_title + '\nCategorie: ' + str(self.recipe_categorie) + '\nUrl: ' + url,
-            title='New or updated recipe: ' + self.recipe_title,
-        )
-        super().save(*args, **kwargs)
-        return self
 
 class Units(models.Model):
     unit_name = models.CharField(max_length=255)
@@ -38,17 +31,20 @@ class Units(models.Model):
     def __str__(self):
         return self.unit_name
 
+
 class Ingredients(models.Model):
     ingredient_name = models.CharField(max_length=255)
 
     def __str__(self):
         return self.ingredient_name
 
+
 class Webshop(models.Model):
     webshop_name = models.CharField(max_length=255)
 
     def __str__(self):
         return self.webshop_name
+
 
 class Ingredient(models.Model):
     ingredient_name = models.CharField(max_length=255)
@@ -60,6 +56,7 @@ class Ingredient(models.Model):
     def __str__(self):
         return self.ingredient_name
 
+
 class RecipeDetails(models.Model):
     recipe_id = models.ForeignKey(Recipes, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
@@ -68,3 +65,12 @@ class RecipeDetails(models.Model):
 
     def __str__(self):
         return str(self.ingredient)
+
+class Alergie(models.Model):
+    Allergie_name = models.CharField(max_length=64)
+
+class Alt_Ingeredient(models.Model):
+    for_recipe_detail = models.ForeignKey(RecipeDetails, on_delete=models.CASCADE)
+    alt_ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+    for_allergie = models.ForeignKey(Alergie, on_delete=models.CASCADE)

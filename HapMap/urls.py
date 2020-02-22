@@ -26,5 +26,6 @@ urlpatterns = [
     path('ajax_calls/recipe_ingredient/', views.recipeIngredient, name="ajax/recipe_ingredient"),
     path('recipe/<int:recipeId>', views.recipeDetails, name="recipe"),
     path('recipes/', views.recipes, name="recipes"),
-    path('ads.txt', views.adsview)
+    path('ads.txt', views.adsview),
+    path(r'^_nested_admin/', include('nested_admin.urls')),
 ]
