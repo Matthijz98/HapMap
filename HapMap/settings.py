@@ -30,6 +30,7 @@ STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 
 if debug[0] == "True":
     DEBUG = True
+    FILER_DEBUG = True
 else:
     DEBUG = False
 
@@ -79,6 +80,9 @@ INSTALLED_APPS = [
     'HapMap.apps.MainConfig',
     'tinymce',
     'meta',
+    'easy_thumbnails',
+    'filer',
+    'mptt',
 ]
 
 MIDDLEWARE = [
@@ -173,3 +177,27 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+##################
+# Filer settings #
+##################
+THUMBNAIL_HIGH_RESOLUTION = True
+
+THUMBNAIL_PROCESSORS = (
+    'easy_thumbnails.processors.colorspace',
+    'easy_thumbnails.processors.autocrop',
+    #'easy_thumbnails.processors.scale_and_crop',
+    'filer.thumbnail_processors.scale_and_crop_with_subject_location',
+    'easy_thumbnails.processors.filters',
+)
+
+DEFAULT_FILER_SERVERS = {
+    'private': {
+        'main': {
+            'ENGINE': 'filer.server.backends.default.DefaultServer',
+        },
+        'thumbnails': {
+            'ENGINE': 'filer.server.backends.default.DefaultServer',
+        }
+    }
+}

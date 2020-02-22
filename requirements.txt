@@ -6,3 +6,8 @@ sentry-sdk
 whitenoise
 django-meta
 apprise
+django-mptt
+easy_thumbnails
+django-polymorphic
+Pillow
+django-filer

@@ -2,68 +2,70 @@
 
 {% block content %}
 
-</head>
+    </head>
 
-<body>
+    <body>
     <div id="recipe_id" style="display: none">{{ recipe.id }}</div>
-  <div class="container-fluid zeropadding">
+    <div class="container-fluid zeropadding">
 
-    <div class="recept_header">
-      <img src="/static/HapMap/img/recipe/{{ recipe.recipe_img }}" class="card-img-top" alt="...">
-      <h1 class="centered recipe_title">{{ recipe }}</h1>
-    </div>
+        <div class="recept_header">
+            <img src="/static/HapMap/img/recipe/{{ recipe.recipe_img }}" class="card-img-top" alt="...">
+            <h1 class="centered recipe_title">{{ recipe }}</h1>
+        </div>
 
-    <nav class="card breadcrumb-card" aria-label="breadcrumb">
-      <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/recipes">Recipes</a></li>
-          <li class="breadcrumb-item active"><a href="/recipes?cat={{ recipe.recipe_categorie }}">{{ recipe.recipe_categorie }}</a></li>
-          <li class="breadcrumb-item active"><a href="#">{{ recipe.recipe_title }}</a></li>
-      </ol>
-    </nav>
+        <nav class="card breadcrumb-card" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/recipes">Recipes</a></li>
+                <li class="breadcrumb-item active"><a
+                        href="/recipes?cat={{ recipe.recipe_categorie }}">{{ recipe.recipe_categorie }}</a></li>
+                <li class="breadcrumb-item active"><a href="#">{{ recipe.recipe_title }}</a></li>
+            </ol>
+        </nav>
 
-    <div class="card recipe_card">
-      <div class="card-header">
-        Ingredienten
-      </div>
-      <div class="card-body zeropadding">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Ingredient</th>
-              <th scope="col">hoeveelheid p.p.</th>
-              <th scope="col">Alergieën</th>
-              <th scope="col">hoeveelheid totaal</th>
-            </tr>
-          </thead>
-          <tbody id=ingredienten>
+        <div class="card recipe_card">
+            <div class="card-header">
+                Ingredienten
+            </div>
+            <div class="card-body zeropadding">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Ingredient</th>
+                        <th scope="col">hoeveelheid p.p.</th>
+                        <th scope="col">Alergieën</th>
+                        <th scope="col">hoeveelheid totaal</th>
+                    </tr>
+                    </thead>
+                    <tbody id=ingredienten>
 
-          </tbody>
-        </table>
-      </div>
-      <div class="card-footer">
-        <div class="input-group mb-3">
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer">
+                <div class="input-group mb-3">
 
-          <input id="count" type="text" class="form-control" value="10" onkeyup="changeCounter(this.value)">
-          <div class="input-group-prepend">
-            <button class="btn btn-outline-secondary" id="moins" type="button" onclick="minus()">-</button>
-            <button class="btn btn-outline-secondary" id="plus" type="button" onclick="plus()">+</button>
-          </div>
-            <div class="invalid-feedback">
-                Not a valid number.
+                    <input id="count" type="text" class="form-control" value="10" onkeyup="changeCounter(this.value)">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-secondary" id="moins" type="button" onclick="minus()">-</button>
+                        <button class="btn btn-outline-secondary" id="plus" type="button" onclick="plus()">+</button>
+                    </div>
+                    <div class="invalid-feedback">
+                        Not a valid number.
+                    </div>
+                </div>
             </div>
         </div>
-      </div>
-    </div>
-    <div class="card recipe_card">
-      <div class="card-header">
-        {{ recipe.recipe_title }}
-      </div>
-      <div class="card-body">
-        {{ recipe.recipe_description | safe}}
-      </div>
-    </div>
-  </div>
 
-     {% load static %}
-  <script src="{% static 'HapMap/js/recipe.js' %}"></script>
+        <div class="card recipe_card">
+            <div class="card-header">
+                {{ recipe.recipe_title }}
+            </div>
+            <div class="card-body">
+                {{ recipe.recipe_description | safe }}
+            </div>
+        </div>
+    </div>
+
+    {% load static %}
+    <script src="{% static 'HapMap/js/recipe.js' %}"></script>
 {% endblock %}

@@ -1,9 +1,11 @@
 from django.db import models
+from filer.fields.image import FilerImageField
 from .settings import APPRISE_URL
 import apprise
 
 apobj = apprise.Apprise()
 apobj.add(APPRISE_URL)
+
 
 class Categories(models.Model):
     categorie_name = models.CharField(max_length=255)
@@ -12,25 +14,17 @@ class Categories(models.Model):
     def __str__(self):
         return self.categorie_name
 
+
 class Recipes(models.Model):
     recipe_title = models.CharField(max_length=255)
     recipe_description = models.TextField(blank=True, null=True)
-    recipe_img = models.CharField(max_length=255, blank=True, null=True)
+    recipe_img = FilerImageField(null=True, blank=True, related_name="product_img", on_delete=models.CASCADE)
     recipe_tip = models.TextField(blank=True)
     recipe_categorie = models.ForeignKey(Categories, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.recipe_title
 
-    def save(self, *args, **kwargs):
-        url = 'http://hapmap.nl/recipe/' + str(self.pk)
-
-        apobj.notify(
-            body='Title: ' + self.recipe_title + '\nCategorie: ' + str(self.recipe_categorie) + '\nUrl: ' + url,
-            title='New or updated recipe: ' + self.recipe_title,
-        )
-        super().save(*args, **kwargs)
-        return self
 
 class Units(models.Model):
     unit_name = models.CharField(max_length=255)
@@ -38,17 +32,20 @@ class Units(models.Model):
     def __str__(self):
         return self.unit_name
 
+
 class Ingredients(models.Model):
     ingredient_name = models.CharField(max_length=255)
 
     def __str__(self):
         return self.ingredient_name
 
+
 class Webshop(models.Model):
     webshop_name = models.CharField(max_length=255)
 
     def __str__(self):
         return self.webshop_name
+
 
 class Ingredient(models.Model):
     ingredient_name = models.CharField(max_length=255)
