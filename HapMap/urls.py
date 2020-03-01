@@ -24,6 +24,8 @@ urlpatterns = [
     path('tinymce/', include('tinymce.urls')),
     path('ajax_calls/search/', views.receptSearch, name="ajax/receptSearch"),
     path('ajax_calls/recipe_ingredient/', views.recipeIngredient, name="ajax/recipe_ingredient"),
+    path('ajax_calls/recipe_ingredient/allergie/', views.recipeIngredientAllergie, name="ajax/recipe_ingredient/allergie"),
+    path('ajax_calls/allergies/', views.recipe_allergies),
     path('recipe/<int:recipeId>', views.recipeDetails, name="recipe"),
     path('recipes/', views.recipes, name="recipes"),
     path('ads.txt', views.adsview),

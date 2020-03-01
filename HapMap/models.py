@@ -1,9 +1,4 @@
 from django.db import models
-from .settings import APPRISE_URL
-import apprise
-
-apobj = apprise.Apprise()
-apobj.add(APPRISE_URL)
 
 
 class Categorie(models.Model):
@@ -32,8 +27,16 @@ class Unit(models.Model):
         return self.unit_name
 
 
+class Alergie(models.Model):
+    Allergie_name = models.CharField(max_length=64)
+
+    def __str__(self):
+        return str(self.Allergie_name)
+
+
 class Ingredient(models.Model):
     ingredient_name = models.CharField(max_length=255)
+    allergies = models.ManyToManyField(Alergie)
 
     def __str__(self):
         return self.ingredient_name
@@ -46,7 +49,7 @@ class Webshop(models.Model):
         return self.webshop_name
 
 
-class Ingredient(models.Model):
+class IngredientDetails(models.Model):
     ingredient_name = models.CharField(max_length=255)
     ingredient_description = models.TextField(blank=True, null=True)
     ingredient_price = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
@@ -66,11 +69,6 @@ class RecipeDetail(models.Model):
     def __str__(self):
         return str(self.ingredient)
 
-class Alergie(models.Model):
-    Allergie_name = models.CharField(max_length=64)
-
-    def __str__(self):
-        return str(self.Allergie_name)
 
 class Alt_Ingeredient(models.Model):
     for_recipe_detail = models.ForeignKey(RecipeDetail, on_delete=models.CASCADE)

@@ -3,7 +3,6 @@ from django.http import HttpResponse, request, Http404
 from .models import Recipe, RecipeDetail, Ingredient
 import json
 
-
 def homepage(request):
     return render(request=request,
                   template_name="HapMap/home.html",
@@ -40,6 +39,27 @@ def recipeIngredient(request):
     return HttpResponse(data, mimetype)
 
 
+def recipeIngredientAllergie(request):
+    def calcallergie():
+        return 0
+
+
+    allergies = request.GET.dict()
+    for allergie in allergies:
+        return allergie
+
+    recipe = request.GET.get("recipe", "")
+    search_qs = RecipeDetail.objects.filter(recipe_id=recipe)
+    results = []
+    for r in search_qs:
+        results.append({
+            "name": Ingredient.objects.get(id=r.ingredient_id).ingredient_name,
+            "allergie": calcallergie(),
+        })
+    data = json.dumps(results)
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
+
 def recipeDetails(request, recipeId):
     try:
         recipe = Recipe.objects.get(id=recipeId)
@@ -64,3 +84,25 @@ def recipes(request):
 def adsview(request):
     line = "google.com, pub-1287147359957350, DIRECT, f08c47fec0942fa0"
     return HttpResponse(line)
+
+def recipe_allergies(request):
+
+    ingredients = RecipeDetail.objects.all().filter(recipe_id=request.GET.get("recipe", ''))
+    results = []
+    for ingredient in ingredients:
+        for allergie in Ingredient.objects.get(id=ingredient.ingredient_id).allergies.values():
+            if allergie in results:
+                pass
+            else:
+                results.append({
+                    "allgerie": allergie
+                })
+    # remove duplicates
+    res_list = []
+    for i in range(len(results)):
+        if results[i] not in results[i + 1:]:
+            res_list.append(results[i])
+    data = json.dumps(res_list)
+    mimetype = 'application/json'
+    return HttpResponse(data, mimetype)
+
