@@ -49,16 +49,25 @@ let allergies = false
 let footer = $('#cardfooter')
 let default_input = $('#default-input')
 let allergie_input = $('.allerieform')
+let allergieoptionbutton = $('#allergieoptionbutton')
 
 function updateAllergie() {
     $('.allergie-input').each(function (index) {
-      console.log(this.id + ' : '+ this.value)
+      console.log(this.id + '&'+ this.value)
     })
 }
 
 
 function enableallergie() {
     if(allergies == false) {
+        footer.append($('' +
+                    '<div class="input-group mb-3 allerieform id="noallergie">\n' +
+                    '          Geen allergie<input id="noallergie_input" type="text" class="form-control allergie-input" value="10" onkeyup="updateAllergie()">\n' +
+                    '            <div class="invalid-feedback">\n' +
+                    '                Not a valid number.\n' +
+                    '            </div>\n' +
+                    '        </div>'));
+        allergieoptionbutton.html("Hide allergie option")
         $.getJSON("../ajax_calls/allergies/?recipe=" + recipe_id, function (data) {
             $.each(data, function (key, entry) {
                 footer.append($('' +
@@ -76,6 +85,7 @@ function enableallergie() {
         $('.allerieform').remove();
         default_input.show();
         allergies = false;
+        allergieoptionbutton.html("Show allergy options")
     }
 
 }
