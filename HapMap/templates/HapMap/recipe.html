@@ -24,7 +24,7 @@
     <div class="card recipe_card">
       <div class="card-header">
           <p class="float-left align-middle" style="margin-bottom: unset">Ingredienten</p>
-          <button class="btn btn-primary btn-sm float-right" style="padding-bottom: 1px; padding-top: 1px;" onclick="enableallergie()">Show allergy options</button>
+          <button class="btn btn-primary btn-sm float-right" id="allergieoptionbutton" style="padding-bottom: 1px; padding-top: 1px;" onclick="enableallergie()">Show allergy options</button>
       </div>
       <div class="card-body zeropadding">
         <table class="table table-striped">
@@ -32,7 +32,7 @@
             <tr>
               <th scope="col">Ingredient</th>
               <th scope="col">hoeveelheid p.p.</th>
-              <th scope="col">Alergieën</th>
+              <th scope="col">Allergieën</th>
               <th scope="col">hoeveelheid totaal</th>
             </tr>
           </thead>
