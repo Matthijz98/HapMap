@@ -40,21 +40,36 @@ def recipeIngredient(request):
 
 
 def recipeIngredientAllergie(request):
-    def calcallergie():
-        return 0
+    def calctotal(ammount):
+        total = 0
+        for a in ammount.values():
+            total += int(a)
+        return total
 
+    def calcallergie(recipedetails, ingredient, allergies):
+        result = []
+        total = calctotal(ammounts)
+        # First calc the total amount of persons
+        for allergie in ingredient_info.allergies.values_list():
+            print(allergie[1])
+            result.append({allergie[1]: str(int(ammounts.get(allergie[1].lower())) * recipedetails.amount)})
+            total -= int(ammounts.get(allergie[1].lower()))
+        result.append({'none': str(total * recipedetails.amount)})
+        return result
 
-    allergies = request.GET.dict()
-    for allergie in allergies:
-        return allergie
+    # Get the allegies from the url and remove the recipe key value
+    ammounts = request.GET.dict()
+    del ammounts['recipe']
 
     recipe = request.GET.get("recipe", "")
     search_qs = RecipeDetail.objects.filter(recipe_id=recipe)
     results = []
-    for r in search_qs:
+    for ingredient in search_qs:
+        ingredient_info = Ingredient.objects.get(id=ingredient.ingredient_id)
         results.append({
-            "name": Ingredient.objects.get(id=r.ingredient_id).ingredient_name,
-            "allergie": calcallergie(),
+            "name": ingredient_info.ingredient_name,
+            "amount": calcallergie(ingredient, ingredient_info, ammounts),
+            "unit": str(ingredient.unit)
         })
     data = json.dumps(results)
     mimetype = 'application/json'
