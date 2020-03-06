@@ -6,6 +6,10 @@
   padding: 0px 0px 0px 0px !important;
 }
 
+.zeromargin{
+  margin: 0px 0px 0px 0px !important;
+}
+
 .card {
   margin: 1em !important;
   border: none !important;

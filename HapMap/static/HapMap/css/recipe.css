@@ -78,3 +78,11 @@ body {
     padding-right: 10% !important;
   }
 }
+
+/*
+  Alt allergie stuff
+*/
+.alt-allergie-card{
+  margin: 0 0 0 15px !important;
+  padding: 0 !important;
+}

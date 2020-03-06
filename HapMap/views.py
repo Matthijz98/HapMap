@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, request, Http404
-from .models import Recipe, RecipeDetail, Ingredient
+from .models import Recipe, RecipeDetail, Ingredient, Alt_Ingeredient, Alergie
 import json
 
 def homepage(request):
@@ -28,8 +28,10 @@ def recipeIngredient(request):
     search_qs = RecipeDetail.objects.filter(recipe_id=recipe)
     results = []
     for r in search_qs:
+        ingredient = Ingredient.objects.get(id=r.ingredient_id)
         results.append({
-            "name": Ingredient.objects.get(id=r.ingredient_id).ingredient_name,
+            "name": ingredient.ingredient_name,
+            "allergies": "".join(list(str(ingredient.allergies.values_list()[0][1]))),
             "amount_per_person": str(r.amount).replace('.', ','),
             "amount_total": str(float(r.amount) * int(persons)).replace('.', ','),
             "unit": str(r.unit)
@@ -40,6 +42,8 @@ def recipeIngredient(request):
 
 
 def recipeIngredientAllergie(request):
+    total = 0
+
     def calctotal(ammount):
         total = 0
         for a in ammount.values():
@@ -47,14 +51,32 @@ def recipeIngredientAllergie(request):
         return total
 
     def calcallergie(recipedetails, ingredient, allergies):
-        result = []
+        # Make empty result opject
+        result = dict()
+        result['json'] = []
+        # Calculate the total amount of persons
         total = calctotal(ammounts)
-        # First calc the total amount of persons
+        # loop trough the allergies
         for allergie in ingredient_info.allergies.values_list():
-            print(allergie[1])
-            result.append({allergie[1]: str(int(ammounts.get(allergie[1].lower())) * recipedetails.amount)})
-            total -= int(ammounts.get(allergie[1].lower()))
-        result.append({'none': str(total * recipedetails.amount)})
+            try:
+                alt_ingredient = Alt_Ingeredient.objects.get(for_recipe_detail=recipedetails.id, for_allergie_id=allergie[0])
+                result['json'].append({
+                    'name': str(alt_ingredient.alt_ingredient.ingredient_name),
+                    'amount_per_person': str(alt_ingredient.amount),
+                    'amount_total': str(int(ammounts.get(allergie[1].lower())) * recipedetails.amount),
+                    'unit': str(alt_ingredient.unit),
+                    'for_allergie': str(allergie[1]).lower()
+                })
+                total -= int(ammounts.get(allergie[1].lower()))
+            except Alt_Ingeredient.DoesNotExist:
+                result['json'].append({
+                    'name': "Geen opgegeven",
+                    'amount_per_person': 0,
+                    'amount_total': 0,
+                    'unit': "",
+                    'for_allergie': str(allergie[1]).lower()
+                })
+        result['total'] = total
         return result
 
     # Get the allegies from the url and remove the recipe key value
@@ -62,18 +84,22 @@ def recipeIngredientAllergie(request):
     del ammounts['recipe']
 
     recipe = request.GET.get("recipe", "")
-    search_qs = RecipeDetail.objects.filter(recipe_id=recipe)
+    recipedetail = RecipeDetail.objects.filter(recipe_id=recipe)
     results = []
-    for ingredient in search_qs:
+    for ingredient in recipedetail:
         ingredient_info = Ingredient.objects.get(id=ingredient.ingredient_id)
+        alt = calcallergie(ingredient, ingredient_info, ammounts)
         results.append({
             "name": ingredient_info.ingredient_name,
-            "amount": calcallergie(ingredient, ingredient_info, ammounts),
-            "unit": str(ingredient.unit)
+            "unit": str(ingredient.unit),
+            "amount_per_person": str(ingredient.amount).replace('.', ','),
+            "amount_total": str(ingredient.amount * alt['total']).replace('.', ','),
+            "alternatives": alt['json']
         })
     data = json.dumps(results)
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
+
 
 def recipeDetails(request, recipeId):
     try:
@@ -99,6 +125,7 @@ def recipes(request):
 def adsview(request):
     line = "google.com, pub-1287147359957350, DIRECT, f08c47fec0942fa0"
     return HttpResponse(line)
+
 
 def recipe_allergies(request):
 

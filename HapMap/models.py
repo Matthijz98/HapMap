@@ -28,10 +28,10 @@ class Unit(models.Model):
 
 
 class Alergie(models.Model):
-    Allergie_name = models.CharField(max_length=64)
+    allergie_name = models.CharField(max_length=64)
 
     def __str__(self):
-        return str(self.Allergie_name)
+        return str(self.allergie_name)
 
 
 class Ingredient(models.Model):
