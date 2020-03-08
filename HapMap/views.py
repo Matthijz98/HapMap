@@ -21,6 +21,12 @@ def receptSearch(request):
 
 
 def recipeIngredient(request):
+    def allergies(a):
+        allergiesstring = []
+        for b in a.values_list():
+            allergiesstring.append(str(b[1]))
+        return ', '.join(allergiesstring)
+
     persons = request.GET.get("persons", "")
     if (persons == ''):
         persons = 0
@@ -31,7 +37,7 @@ def recipeIngredient(request):
         ingredient = Ingredient.objects.get(id=r.ingredient_id)
         results.append({
             "name": ingredient.ingredient_name,
-            "allergies": "".join(list(str(ingredient.allergies.values_list()[0][1]))),
+            "allergies": str(allergies(ingredient.allergies)),
             "amount_per_person": str(r.amount).replace('.', ','),
             "amount_total": str(float(r.amount) * int(persons)).replace('.', ','),
             "unit": str(r.unit)
