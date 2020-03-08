@@ -62,7 +62,7 @@ function updateAllergie() {
         table.append(
             $.map(data, function(entry, key) {
                 table.append('<tr> <th>'+ entry.name +'</th><td>'+ parseFloat(entry.amount_per_person).toFixed(2) + " " + entry.unit +'</td><td></td><td>'+ parseFloat(entry.amount_total).toFixed(2) + " " + entry.unit+'</td></tr>').append(
-                    '<td colspan="4" class="zeropadding"><div class="card" style="margin: 0 !important;"><div class="card-header">Alternatief</div><div class="card card-body alt-allergie-card"><table class="table table-striped zeromargin"><thead><tr><th>Voor allergie</th>' +
+                    '<td colspan="4" class="zeropadding"><div class="card alt-allergie-card" style="margin: 0 !important;"><div class="card-header alt-header">Alternatief</div><div class="card card-body alt-allergie-card"><table class="table table-striped zeromargin"><thead><tr><th>Voor allergie</th>' +
                     '              <th scope="col">Ingredient</th>\n' +
                     '              <th scope="col">hoeveelheid p.p.</th>\n' +
                     '              <th scope="col">Allergieën</th>\n' +

@@ -36,7 +36,7 @@ class Alergie(models.Model):
 
 class Ingredient(models.Model):
     ingredient_name = models.CharField(max_length=255)
-    allergies = models.ManyToManyField(Alergie)
+    allergies = models.ManyToManyField(Alergie, blank=True, null=True)
 
     def __str__(self):
         return self.ingredient_name

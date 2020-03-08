@@ -85,4 +85,11 @@ body {
 .alt-allergie-card{
   margin: 0 0 0 15px !important;
   padding: 0 !important;
+  border-bottom: 1px solid rgba(0,0,0,.125) !important;
+  box-shadow: unset !important;
+}
+
+.alt-header{
+  padding: .25rem 0.75rem !important;
+  border-radius: unset!important;
 }
