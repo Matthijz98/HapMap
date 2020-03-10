@@ -6,3 +6,4 @@ sentry-sdk
 whitenoise
 django-meta
 apprise
+django-nested-admin

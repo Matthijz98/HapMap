@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     'HapMap.apps.MainConfig',
     'tinymce',
     'meta',
+    'nested_admin',
 ]
 
 MIDDLEWARE = [

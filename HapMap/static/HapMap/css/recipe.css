@@ -1,5 +1,5 @@
 body {
-  background-color: #d1d1d1 !important;
+  background-color: #E5E6EA !important;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -77,4 +77,19 @@ body {
     padding-left: 10% !important;
     padding-right: 10% !important;
   }
+}
+
+/*
+  Alt allergie stuff
+*/
+.alt-allergie-card{
+  margin: 0 0 0 15px !important;
+  padding: 0 !important;
+  border-bottom: 1px solid rgba(0,0,0,.125) !important;
+  box-shadow: unset !important;
+}
+
+.alt-header{
+  padding: .25rem 0.75rem !important;
+  border-radius: unset!important;
 }

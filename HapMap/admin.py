@@ -1,16 +1,28 @@
 from django.contrib import admin
-from .models import Recipes, RecipeDetails, Categories, Ingredient, Units
+from .models import Recipe, RecipeDetail, Categorie, Ingredient, Unit, Alt_Ingeredient, Alergie
 from tinymce.widgets import TinyMCE
 from django.db import models
+import nested_admin
+
 
 class IngredientAdmin(admin.ModelAdmin):
     search_fields = ['ingredient_name']
 
-class ReceptDetailsAdmin(admin.StackedInline):
-    model = RecipeDetails
-    autocomplete_fields = ['ingredient']
 
-class RecipesAdmin(admin.ModelAdmin):
+class AltAdmin(nested_admin.NestedStackedInline):
+    model = Alt_Ingeredient
+    # classes = ['collapse']
+    extra = 0
+
+
+class ReceptDetailsAdmin(nested_admin.NestedStackedInline):
+    model = RecipeDetail
+    autocomplete_fields = ['ingredient']
+    inlines = [AltAdmin]
+    extra = 1
+
+
+class RecipesAdmin(nested_admin.NestedModelAdmin):
     formfield_overrides = {
         models.TextField: {'widget': TinyMCE}
     }
@@ -19,7 +31,8 @@ class RecipesAdmin(admin.ModelAdmin):
     ]
 
 
-admin.site.register(Recipes, RecipesAdmin)
-admin.site.register(Categories)
+admin.site.register(Recipe, RecipesAdmin)
+admin.site.register(Categorie)
 admin.site.register(Ingredient, IngredientAdmin)
-admin.site.register(Units)
+admin.site.register(Unit)
+admin.site.register(Alergie)
