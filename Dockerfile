@@ -10,8 +10,8 @@ WORKDIR /code
 
 # Install dependencies
 RUN pip install pipenv
-COPY requirements.txt /code/
+COPY HapMap/requirements.txt /code/
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy project
-COPY . /code/
+COPY ./HapMap /code/
