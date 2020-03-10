@@ -6,20 +6,18 @@
 
     <div class="card-columns">
         {% for recipe in recipes %}
-
-                <div class="card">
-                <img src="{% static 'HapMap/img/recipe/' %}{{ recipe.recipe_img }}" class="card-img-top" alt="...">
+            <div class="card">
+                <a href="../recipe/{{ recipe.id }}">
+                   <img src="{% static 'HapMap/img/recipe/' %}{{ recipe.recipe_img }}" class="card-img-top" alt="...">
+                </a>
                 <div class="card-body">
-                  <h5 class="card-title">{{ recipe.recipe_title }}</h5>
-                  <p class="card-text">{{ recipe.recipedetails | safe }}
-                    <a href="../recipe/{{ recipe.id }}">Bekijk hele recept</a>
-                  </p>
+                    <h5 class="card-title">{{ recipe.recipe_title }}</h5>
+                    <a href="../recipe/{{ recipe.id }}" class="stretched-link">Bekijk hele recept</a>
                 </div>
                 <div class="card-footer">
                     <small class="text-muted"><a href="?cat={{ recipe.recipe_categorie }}">{{ recipe.recipe_categorie }}</a></small>
                 </div>
-              </div>
-
+            </div>
         {% endfor %}
     </div>
 {% endblock %}

@@ -20,14 +20,15 @@ function minus(){
 
 function update_recept() {
     table.empty();
-    $.getJSON("../ajax_calls/recipe_ingredient/?persons="+count+"&recipe="+ recipe_id ,function(data) {
+    $.getJSON("../ajax_calls/recipe_ingredient/?persons="+count+"&recipe="+ recipe_id, function(data) {
         $.each(data, function (key, entry) {
             table.append($('<tr> <th>'+ entry.name +'</th><td>'+ parseFloat(entry.amount_per_person).toFixed(2) + " " + entry.unit +'</td><td>'+ entry.allergies +'</td><td>'+ parseFloat(entry.amount_total).toFixed(2) + " " + entry.unit+'</td></tr>'));
         })
     });
 }
 
-function changeCounter(number){
+function changeCounter(id, number){
+    console.log(number)
     if (isNaN(number)){
         count = 0
         $('#count').addClass('is-invalid')
@@ -54,14 +55,20 @@ let allergieoptionbutton = $('#allergieoptionbutton')
 function updateAllergie() {
     allergies = {}
     $('.allergie-input').each(function (index) {
-        allergies[this.id] = this.value
+        if(isNaN(this.value)){
+            $('#'+this.id).addClass('is-invalid')
+        }else{
+            $('#'+this.id).removeClass('is-invalid')
+            allergies[this.id] = this.value
+        }
+
     })
     allergies['recipe'] = recipe_id
     $.getJSON('../ajax_calls/recipe_ingredient/allergie/?' + $.param(allergies), function (data) {
         table.empty();
         table.append(
             $.map(data, function(entry, key) {
-                table.append('<tr> <th>'+ entry.name +'</th><td>'+ parseFloat(entry.amount_per_person).toFixed(2) + " " + entry.unit +'</td><td></td><td>'+ parseFloat(entry.amount_total).toFixed(2) + " " + entry.unit+'</td></tr>').append(
+                table.append('<tr class="table-primary"> <th>'+ entry.name +'</th><td>'+ parseFloat(entry.amount_per_person).toFixed(2) + " " + entry.unit +'</td><td></td><td>'+ parseFloat(entry.amount_total).toFixed(2) + " " + entry.unit+'</td></tr>').append(
                     '<td colspan="4" class="zeropadding"><div class="card alt-allergie-card" style="margin: 0 !important;"><div class="card-header alt-header">Alternatief</div><div class="card card-body alt-allergie-card"><table class="table table-striped zeromargin"><thead><tr><th>Voor allergie</th>' +
                     '              <th scope="col">Ingredient</th>\n' +
                     '              <th scope="col">hoeveelheid p.p.</th>\n' +
@@ -108,5 +115,6 @@ function enableallergie() {
         default_input.show();
         allergies = false;
         allergieoptionbutton.html("Show allergy options")
+        update_recept()
     }
 }
