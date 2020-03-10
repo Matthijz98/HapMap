@@ -5,7 +5,7 @@ import json
 
 def homepage(request):
     return render(request=request,
-                  template_name="HapMap/home.html",
+                  template_name="recipebook/home.html",
                   context={"recipes": Recipe.objects.all, "recipe_count": Recipe.objects.count()})
 
 
@@ -113,7 +113,7 @@ def recipeDetails(request, recipeId):
     except Recipe.DoesNotExist:
         raise Http404("Recipe not found")
     return render(request=request,
-                  template_name="HapMap/recipe.html",
+                  template_name="recipebook/recipe.html",
                   context={"recipe": recipe})
 
 
@@ -124,7 +124,7 @@ def recipes(request):
     else:
         context = Recipe.objects.all().order_by('?').filter(recipe_categorie__categorie_name=cat)
     return render(request=request,
-                  template_name="HapMap/recipes.html",
+                  template_name="recipebook/recipes.html",
                   context={"recipes": context})
 
 

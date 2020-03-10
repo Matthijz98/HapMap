@@ -77,6 +77,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'HapMap.apps.MainConfig',
+    'recipebook',
     'tinymce',
     'meta',
     'nested_admin',
