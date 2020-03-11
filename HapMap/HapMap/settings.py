@@ -76,7 +76,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'HapMap.apps.MainConfig',
+    'hapmap.apps.MainConfig',
     'recipebook',
     'tinymce',
     'meta',
@@ -94,7 +94,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'HapMap.urls'
+ROOT_URLCONF = 'hapmap.urls'
 
 TEMPLATES = [
     {
@@ -112,7 +112,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'HapMap.wsgi.application'
+WSGI_APPLICATION = 'hapmap.wsgi.application'
 
 
 # Database
