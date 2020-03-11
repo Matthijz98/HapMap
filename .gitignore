@@ -6,3 +6,5 @@ __pycache__/
 db.sqlite3
 
 HapMap/migrations/
+
+HapMap/recipebook/migrations/
