@@ -23,7 +23,7 @@ services:
     restart: unless-stopped
     environment:
       - DEV=False
-      - DEBUG=False
+      - DEBUG=True
     ports:
       - 8001:8001
 
