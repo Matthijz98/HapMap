@@ -75,7 +75,7 @@ function updateAllergie() {
                         '<td></td>' +
                         '<td>' + parseFloat(entry.amount_total).toFixed(2) + " " + entry.unit + '</td>' +
                     '</tr>'+
-                    '<td colspan="4" class="zeropadding">' +
+                    (entry.alternatives != '' ? '<td colspan="4" class="zeropadding">' +
                         '<div class="card alt-allergie-card" style="margin: 0 !important;">' +
                             '<div class="card-header alt-header">Alternatief</div>' +
                                 '<div class="card card-body alt-allergie-card">' +
@@ -104,7 +104,7 @@ function updateAllergie() {
                                     '</table>' +
                             '</div>' +
                         '</div>' +
-                    '</td>'
+                    '</td>': '')
                 )
             })
         )
