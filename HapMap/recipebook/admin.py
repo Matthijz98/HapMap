@@ -11,7 +11,7 @@ class IngredientAdmin(admin.ModelAdmin):
 
 class AltAdmin(nested_admin.NestedStackedInline):
     model = Alt_Ingeredient
-    # classes = ['collapse']
+    autocomplete_fields = ['ingredient']
     extra = 0
 
 
