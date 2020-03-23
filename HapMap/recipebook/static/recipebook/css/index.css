@@ -88,4 +88,13 @@
   }
 }
 
-
+/*
+  Footer styling
+*/
+footer{
+  flex-shrink: none;
+  background:#152736 ;
+  color: white;
+  padding: .75rem 1.25rem;
+  text-align: center;
+}

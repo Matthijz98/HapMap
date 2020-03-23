@@ -1,23 +1,25 @@
-{% extends 'recipebook/header.html' %}
-
-{% load static %}
-
-{% block content %}
-
-    <div class="card-columns">
-        {% for recipe in recipes %}
-            <div class="card">
-                <a href="../recipe/{{ recipe.id }}">
-                   <img src="{% static 'HapMap/img/recipe/' %}{{ recipe.recipe_img }}" class="card-img-top" alt="...">
-                </a>
-                <div class="card-body">
-                    <h5 class="card-title">{{ recipe.recipe_title }}</h5>
-                    <a href="../recipe/{{ recipe.id }}" class="stretched-link">Bekijk hele recept</a>
+<html>
+    <head>
+       {% include 'recipebook/header.html' %}
+        {% load static %}
+        <title>HapMap Recipes</title>
+    </head>
+    <body>
+        <div class="card-columns">
+            {% for recipe in recipes %}
+                <div class="card">
+                    <a href="../recipe/{{ recipe.id }}">
+                       <img src="{% static 'HapMap/img/recipe/' %}{{ recipe.recipe_img }}" class="card-img-top" alt="...">
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ recipe.recipe_title }}</h5>
+                        <a href="../recipe/{{ recipe.id }}" class="stretched-link">Bekijk hele recept</a>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted"><a href="?cat={{ recipe.recipe_categorie }}">{{ recipe.recipe_categorie }}</a></small>
+                    </div>
                 </div>
-                <div class="card-footer">
-                    <small class="text-muted"><a href="?cat={{ recipe.recipe_categorie }}">{{ recipe.recipe_categorie }}</a></small>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-{% endblock %}
+            {% endfor %}
+        </div>
+    </body>
+</html>

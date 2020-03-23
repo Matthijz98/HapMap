@@ -1,58 +1,65 @@
-{% extends 'recipebook/header.html' %}
+<html>
+    <head>
+       {% include 'recipebook/header.html' %}
+        <title>HapMap.nl</title>
+    </head>
 
-{% load static %}
+<body>
+    {% load static %}
 
-{% block content %}
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col">
+    {% block content %}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
 
-                <div class="card search_card">
-                    <div class="card-body ">
-                        <a class="text-center" href="/recipes">Zie alle {{ recipe_count }} recepten</a>
+                    <div class="card search_card">
+                        <div class="card-body ">
+                            <a class="text-center" href="/recipes">Zie alle {{ recipe_count }} recepten</a>
+                        </div>
                     </div>
-                </div>
 
-                <div class="card search_card">
-                    <div class="card-header">
-                        Zoek een recept
-                    </div>
+                    <div class="card search_card">
+                        <div class="card-header">
+                            Zoek een recept
+                        </div>
 
-                    <div class="card-body">
-                        <form div="searchform">
-                            <div class="input-group">
-                                <input class="form-control" id="search" placeholder="wrap"
-                                       onkeyup="showResult(this.value)">
-                                <div class="input-group-append">
-                                    <span class="input-group-text mdi mdi-magnify"></span>
+                        <div class="card-body">
+                            <form div="searchform">
+                                <div class="input-group">
+                                    <input class="form-control" id="search" placeholder="wrap"
+                                           onkeyup="showResult(this.value)">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text mdi mdi-magnify"></span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card results shadow" style="display: none;" id="resultcard">
-                                <div class="list-group list-group-flush" id="livesearch">
+                                <div class="card results shadow" style="display: none;" id="resultcard">
+                                    <div class="list-group list-group-flush" id="livesearch">
+                                    </div>
                                 </div>
-                            </div>
 
-                        </form>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="card search_card">
+                        <div class="card-body zeropadding">
+                            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                            <!-- under search -->
+                            <ins class="adsbygoogle"
+                                 style="display:block"
+                                 data-ad-client="ca-pub-1287147359957350"
+                                 data-ad-slot="7516612267"
+                                 data-ad-format="auto"
+                                 data-full-width-responsive="true"></ins>
+                            <script>
+                                 (adsbygoogle = window.adsbygoogle || []).push({});
+                            </script>
+                        </div>
                     </div>
                 </div>
 
-                <div class="card search_card">
-                    <div class="card-body zeropadding">
-                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <!-- under search -->
-                        <ins class="adsbygoogle"
-                             style="display:block"
-                             data-ad-client="ca-pub-1287147359957350"
-                             data-ad-slot="7516612267"
-                             data-ad-format="auto"
-                             data-full-width-responsive="true"></ins>
-                        <script>
-                             (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                    </div>
-                </div>
             </div>
-
         </div>
-    </div>
-{% endblock %}
+    {% endblock %}
+    </body>
+</html>
