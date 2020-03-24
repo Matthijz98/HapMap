@@ -173,8 +173,5 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_L10N = True
-# DATE_FORMAT = "Y-m-d"
-# DATETIME_FORMAT = 'd-m-Y H:M:S'
-
 
 USE_TZ = True
