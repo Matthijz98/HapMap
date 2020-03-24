@@ -1,70 +1,74 @@
-{% extends 'recipebook/header.html' %}
+<html>
+    <head>
+       {% include 'recipebook/header.html' %}
+        <title>HapMap Recipes</title>
+    </head>
+    <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NLHXLNL"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+        <div id="recipe_id" style="display: none">{{ recipe.id }}</div>
+      <div class="container-fluid zeropadding">
 
-{% block content %}
+        <div class="recept_header">
+          <img src="/static/HapMap/img/recipe/big/{{ recipe.recipe_img }}" class="card-img-top" alt="...">
+          <h1 class="centered recipe_title">{{ recipe }}</h1>
+        </div>
 
-</head>
+        <nav class="card breadcrumb-card" aria-label="breadcrumb">
+          <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/recipes">Recipes</a></li>
+              <li class="breadcrumb-item active"><a href="/recipes?cat={{ recipe.recipe_categorie }}">{{ recipe.recipe_categorie }}</a></li>
+              <li class="breadcrumb-item active"><a href="#">{{ recipe.recipe_title }}</a></li>
+          </ol>
+        </nav>
 
-<body>
-    <div id="recipe_id" style="display: none">{{ recipe.id }}</div>
-  <div class="container-fluid zeropadding">
-
-    <div class="recept_header">
-      <img src="/static/HapMap/img/recipe/{{ recipe.recipe_img }}" class="card-img-top" alt="...">
-      <h1 class="centered recipe_title">{{ recipe }}</h1>
-    </div>
-
-    <nav class="card breadcrumb-card" aria-label="breadcrumb">
-      <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/recipes">Recipes</a></li>
-          <li class="breadcrumb-item active"><a href="/recipes?cat={{ recipe.recipe_categorie }}">{{ recipe.recipe_categorie }}</a></li>
-          <li class="breadcrumb-item active"><a href="#">{{ recipe.recipe_title }}</a></li>
-      </ol>
-    </nav>
-
-    <div class="card recipe_card">
-      <div class="card-header">
-          <p class="float-left align-middle" style="margin-bottom: unset">Ingredienten</p>
-          <button class="btn btn-primary btn-sm float-right" id="allergieoptionbutton" style="padding-bottom: 1px; padding-top: 1px;" onclick="enableallergie()">Show allergy options</button>
-      </div>
-      <div class="card-body zeropadding">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Ingredient</th>
-              <th scope="col">hoeveelheid p.p.</th>
-              <th scope="col">Allergieën</th>
-              <th scope="col">hoeveelheid totaal</th>
-            </tr>
-          </thead>
-          <tbody id=ingredienten>
-
-          </tbody>
-        </table>
-      </div>
-      <div class="card-footer" id="cardfooter">
-        <div class="input-group mb-3" style="margin-bottom: 0px !important;" id="default-input">
-
-          <input id="count" type="text" class="form-control" value="10" onkeyup="changeCounter(this.id, this.value)">
-          <div class="input-group-prepend">
-            <button class="btn btn-outline-secondary" id="moins" type="button" onclick="minus()">-</button>
-            <button class="btn btn-outline-secondary" id="plus" type="button" onclick="plus()">+</button>
+        <div class="card recipe_card">
+          <div class="card-header">
+              <p class="float-left align-middle" style="margin-bottom: unset">Ingredienten</p>
+              <button class="btn btn-primary btn-sm float-right" id="allergieoptionbutton" style="padding-bottom: 1px; padding-top: 1px;" onclick="enableallergie()">Show allergy options</button>
           </div>
-            <div class="invalid-feedback">
-                Not a valid number.
+          <div class="card-body zeropadding">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Ingredient</th>
+                  <th scope="col">hoeveelheid p.p.</th>
+                  <th scope="col">Allergieën</th>
+                  <th scope="col">hoeveelheid totaal</th>
+                </tr>
+              </thead>
+              <tbody id=ingredienten>
+
+              </tbody>
+            </table>
+          </div>
+          <div class="card-footer" id="cardfooter">
+            <div class="input-group mb-3" style="margin-bottom: 0px !important;" id="default-input">
+
+              <input id="count" type="text" class="form-control" value="10" onkeyup="changeCounter(this.id, this.value)">
+              <div class="input-group-prepend">
+                <button class="btn btn-outline-secondary" id="moins" type="button" onclick="minus()">-</button>
+                <button class="btn btn-outline-secondary" id="plus" type="button" onclick="plus()">+</button>
+              </div>
+                <div class="invalid-feedback">
+                    Not a valid number.
+                </div>
             </div>
+          </div>
+        </div>
+        <div class="card recipe_card">
+          <div class="card-header">
+            {{ recipe.recipe_title }}
+          </div>
+          <div class="card-body">
+            {{ recipe.recipe_description | safe}}
+          </div>
         </div>
       </div>
-    </div>
-    <div class="card recipe_card">
-      <div class="card-header">
-        {{ recipe.recipe_title }}
-      </div>
-      <div class="card-body">
-        {{ recipe.recipe_description | safe}}
-      </div>
-    </div>
-  </div>
 
      {% load static %}
      <script src="{% static 'recipebook/js/recipe.js' %}"></script>
-{% endblock %}
+    </body>
+</html>

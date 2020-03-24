@@ -6,12 +6,18 @@ import nested_admin
 
 
 class IngredientAdmin(admin.ModelAdmin):
+    ordering = ["ingredient_name"]
     search_fields = ['ingredient_name']
+
+
+class AltIngredientAdmin(admin.ModelAdmin):
+    ordering = ["ingredient_name"]
+    search_fields = ["ingredient_name"]
 
 
 class AltAdmin(nested_admin.NestedStackedInline):
     model = Alt_Ingeredient
-    # classes = ['collapse']
+    autocomplete_fields = ['alt_ingredient']
     extra = 0
 
 
@@ -23,12 +29,18 @@ class ReceptDetailsAdmin(nested_admin.NestedStackedInline):
 
 
 class RecipesAdmin(nested_admin.NestedModelAdmin):
+    list_display = ('recipe_title', 'recipe_categorie', "updated_at", "created_at", "added_by")
     formfield_overrides = {
         models.TextField: {'widget': TinyMCE}
     }
     inlines = [
         ReceptDetailsAdmin
     ]
+    exclude = ['added_by', ]
+
+    def save_model(self, request, obj, form, change):
+        obj.added_by = request.user
+        super().save_model(request, obj, form, change)
 
 
 admin.site.register(Recipe, RecipesAdmin)

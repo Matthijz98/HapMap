@@ -53,7 +53,10 @@ def recipeIngredientAllergie(request):
     def calctotal(ammount):
         total = 0
         for a in ammount.values():
-            total += int(a)
+            if a.isnumeric():
+                total += int(a)
+            else:
+                total += 0
         return total
 
     def calcallergie(recipedetails, ingredient, allergies):
@@ -66,14 +69,18 @@ def recipeIngredientAllergie(request):
         for allergie in ingredient_info.allergies.values_list():
             try:
                 alt_ingredient = Alt_Ingeredient.objects.get(for_recipe_detail=recipedetails.id, for_allergie_id=allergie[0])
+                if ammounts.get(allergie[1].lower().isnumeric()):
+                    persons = int(ammounts.get(allergie[1].lower()))
+                else:
+                    persons = 0
                 result['json'].append({
                     'name': str(alt_ingredient.alt_ingredient.ingredient_name),
                     'amount_per_person': str(alt_ingredient.amount),
-                    'amount_total': str(int(ammounts.get(allergie[1].lower())) * recipedetails.amount),
+                    'amount_total': str(persons * recipedetails.amount),
                     'unit': str(alt_ingredient.unit),
                     'for_allergie': str(allergie[1]).lower()
                 })
-                total -= int(ammounts.get(allergie[1].lower()))
+                total -= persons
             except Alt_Ingeredient.DoesNotExist:
                 result['json'].append({
                     'name': "Geen opgegeven",
