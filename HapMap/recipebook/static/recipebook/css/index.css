@@ -25,6 +25,7 @@
   margin: 0 !important;
   position: absolute !important;
   width: calc(100% - 40px);
+  z-index: 1;
 }
 
 @media (min-width: 768px) {
