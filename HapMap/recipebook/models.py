@@ -22,6 +22,9 @@ class Recipe(models.Model):
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
     added_by = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL)
 
+    def __str__(self):
+        return self.recipe_title
+
 
 class Unit(models.Model):
     unit_name = models.CharField(max_length=255)
