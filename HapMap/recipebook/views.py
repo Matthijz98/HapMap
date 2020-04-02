@@ -162,3 +162,7 @@ def recipe_allergies(request):
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
 
+
+def aboutview(request):
+    return render(request = request, template_name="recipebook/about.html")
+
