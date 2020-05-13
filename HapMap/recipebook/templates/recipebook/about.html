@@ -1,0 +1,71 @@
+{% extends 'recipebook/base.html' %}
+
+{% block title %}
+    HapMap Recipes
+{% endblock %}
+
+{% block content %}
+{#    <div>#}
+{#        <h1 class="centered">Over de HapMap</h1>#}
+{#    </div>#}
+    <div class="card">
+        <div class="card-body">
+            <h1>Over</h1>
+            <h2>Wat is HapMap</h2>
+            <P>
+                HapMap.nl is een recepten website gemaakt door de Cookie van de BlauweSchuit.
+                Alle recepten op de site zijn geschikt voor het gebruikt bij grote groepen.
+                De meeste recepten zijn meerdere malen getest.
+            </P>
+            <h2>Help mee de HapMap nog beter te maken</h2>
+            <p>
+                Samen maken we we de hapmap natruurlijk nog veel beter.
+                Op dit moment is het nog niet mogenlijk om zelf een account aan te maken.
+                Maar wil je toch graag recepten toevoegen aan de hapmap kun je altijd een mailtje sturen aan mzondervan@hotmail.nl.
+            </p>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <h1>Versie historie</h1>
+            <h2>v0.0.2 stable</h2>
+            <p>
+                Nieuwe functies zijn leuk maar dan moeten ze wel een beetje stabiel zijn dus
+                <ul>
+                    <li>Search funtie layout werkt nu niet meer met een dropdown</li>
+                    <li>Recepten kunnen nu ook worden gefilterd op categorie</li>
+                    <li>Aantal personen input werkt geeft nu een nete error melding als input leeg of geen getal is</li>
+                </ul>
+            </p>
+            <h2>v0.0.2 beta</h2>
+            <p>
+                Nu de site een soort van sabiel draait wordt het tijd voor leuke functies
+                <ul>
+                    <li>Zoek functie op home page</li>
+                    <li>Recepten kunnen nu een categrie hebben</li>
+                    <li>De ingredient hoeveelheden kunnen nu berekent worden</li>
+                    <li>Toevoegen van recepten is nu een stuk makelijker dankzij django admin</li>
+                </ul>
+            </p>
+            <h2>v0.0.1 stable</h2>
+            <p>
+                Bug fix release
+                <ul>
+                    <li>Bug fix voor recipe id bestaat niet in db</li>
+                    <li>Card weergaven op mobiel</li>
+                    <li>Static file hosting via whitenoise ipv debug server</li>
+                </ul>
+            </p>
+            <h2>v0.0.1 beta</h2>
+            <P>
+                De allereeste versie van de hapmap
+                Met functies als:
+                <ul>
+                    <li>Overzicht van alle recepten</li>
+                    <li>Ingredieten per recept per persoon</li>
+                    <li>Basic back end voor makelijk toevoegen van recepten</li>
+                </ul>
+            </P>
+        </div>
+    </div>
+{% endblock %}

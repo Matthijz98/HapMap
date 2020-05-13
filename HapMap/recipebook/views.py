@@ -3,6 +3,7 @@ from django.http import HttpResponse, request, Http404
 from .models import Recipe, RecipeDetail, Ingredient, Alt_Ingeredient, Alergie
 import json
 
+
 def homepage(request):
     return render(request=request,
                   template_name="recipebook/home.html",
@@ -145,7 +146,7 @@ def recipe_allergies(request):
     ingredients = RecipeDetail.objects.all().filter(recipe_id=request.GET.get("recipe", ''))
     results = []
     for ingredient in ingredients:
-        for allergie in Ingredient.objects.get(id=ingredient.ingredient_id).allergies.values():
+        for allergie in Ingredient.objects.get(id=ingredient.ingredient_id).allergies.values('allergie_name', 'id'):
             if allergie in results:
                 pass
             else:
@@ -160,4 +161,8 @@ def recipe_allergies(request):
     data = json.dumps(res_list)
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
+
+
+def aboutview(request):
+    return render(request = request, template_name="recipebook/about.html")
 

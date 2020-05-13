@@ -20,6 +20,7 @@ from . import views
 
 urlpatterns = [
     path('', views.homepage, name="homepage"),
+    path('about', views.aboutview, name="about"),
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
     path('ajax_calls/search/', views.receptSearch, name="ajax/receptSearch"),
