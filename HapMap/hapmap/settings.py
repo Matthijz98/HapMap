@@ -1,6 +1,6 @@
-"""
-Django settings for HapMap project.
-"""
+######################################
+# Django settings for HapMap project #
+######################################
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 import os
@@ -59,7 +59,9 @@ TINYMCE_DEFAULT_CONFIG = {
     'statusbar': True,
     }
 
-# Application definition
+##########################
+# Application definition #
+##########################
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -106,9 +108,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'hapmap.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+#####################
+# Database Settings #
+#####################
 
 if dev[0] == "False":
     DATABASES = {
@@ -154,9 +156,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/2.2/topics/i18n/
+########################
+# Internationalization #
+########################
 
 LANGUAGE_CODE = 'nl'
 
