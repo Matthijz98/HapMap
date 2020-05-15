@@ -1,0 +1,6 @@
+hapmap:
+  registry: registry.hapmap.nl
+settings:
+  matching:
+    branches:
+      - master
