@@ -1,2 +1,2 @@
 hapmap:
-  registry: localhost:5000
+  registry: registry.hapmap.nl:5000
