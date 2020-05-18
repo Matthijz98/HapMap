@@ -16,7 +16,7 @@ class Categorie(models.Model):
 class Recipe(models.Model):
     recipe_title = models.CharField(max_length=255)
     recipe_description = models.TextField(blank=True, null=True)
-    recipe_img = FilerImageField(null=True, blank=True, related_name="recipe_img", on_delete=models.PROTECT)
+    recipe_img = FilerImageField(null=True, blank=True, related_name="recipe_img", on_delete=models.SET_NULL)
     recipe_tip = models.TextField(blank=True)
     recipe_categorie = models.ForeignKey(Categorie, on_delete=models.CASCADE, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
