@@ -7,3 +7,6 @@ whitenoise
 django-meta
 apprise
 django-nested-admin
+django-filer
+django-storages
+boto3

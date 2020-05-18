@@ -1,4 +1,5 @@
 {% extends 'recipebook/base.html' %}
+{% load thumbnail %}
 
 {% block title %}
     HapMap Recipes
@@ -10,7 +11,7 @@
         {% for recipe in recipes %}
             <div class="card">
                 <a href="../recipe/{{ recipe.id }}">
-                    <img src="{% static 'HapMap/img/recipe/small/' %}{{ recipe.recipe_img }}" class="card-img-top"
+                    <img src="{% thumbnail recipe.recipe_img 400x400 crop=smart%}" class="card-img-top"
                          alt="...">
                 </a>
                 <div class="card-body">

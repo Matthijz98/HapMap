@@ -11,14 +11,32 @@ debug = (os.getenv('DEBUG'), False)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.2/howto/static-files/
-STATIC_URL = '/static/'
-
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+AWS_STORAGE_BUCKET_NAME = "squareberry"
+
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+# settings for cdn/filer
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_S3_REGION_NAME = (os.getenv('AWS_S3_REGION_NAME'), '')
+AWS_S3_ENDPOINT_URL = debug = (os.getenv('AWS_S3_ENDPOINT_URL'), '')
+AWS_ACCESS_KEY_ID = debug = (os.getenv('AWS_ACCESS_KEY_ID'), '')
+AWS_SECRET_ACCESS_KEY = debug = (os.getenv('AWS_SECRET_ACCESS_KEY'), '')
+
+if dev[0] =="True":
+    AWS_LOCATION = "hapmapdev"
+else:
+    AWS_LOCATION = "hapmap"
+
+# filer
+THUMBNAIL_HIGH_RESOLUTION = True
 
 if debug[0] == "True":
     DEBUG = True
@@ -75,6 +93,10 @@ INSTALLED_APPS = [
     'tinymce',
     'meta',
     'nested_admin',
+    'easy_thumbnails',
+    'filer',
+    'mptt',
+    'storages',
 ]
 
 MIDDLEWARE = [
