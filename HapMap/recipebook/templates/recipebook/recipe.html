@@ -61,6 +61,13 @@
                 </div>
             </div>
         </div>
+
+        {% if recipe.recipe_tip %}
+        <div class="alert alert-primary" role="alert">
+            <b>Handige tip:</b>{{ recipe.recipe_tip | safe }}
+        </div>
+        {% endif %}
+
         <div class="card recipe_card">
             <div class="card-header">
                 {{ recipe.recipe_title }}
