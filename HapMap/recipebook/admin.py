@@ -15,13 +15,13 @@ class AltIngredientAdmin(admin.ModelAdmin):
     search_fields = ["ingredient_name"]
 
 
-class AltAdmin(nested_admin.NestedStackedInline):
+class AltAdmin(nested_admin.NestedTabularInline):
     model = Alt_Ingeredient
     autocomplete_fields = ['alt_ingredient']
     extra = 0
 
 
-class ReceptDetailsAdmin(nested_admin.NestedStackedInline):
+class ReceptDetailsAdmin(nested_admin.NestedTabularInline):
     model = RecipeDetail
     autocomplete_fields = ['ingredient']
     inlines = [AltAdmin]
