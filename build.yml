@@ -1,5 +1,5 @@
 hapmap:
-  registry: registry.hapmap.nl
+  registry: registry.sliceofbits.com
 settings:
   matching:
     branches:
