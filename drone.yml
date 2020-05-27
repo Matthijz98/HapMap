@@ -2,6 +2,12 @@ kind: pipeline
 name: default
 
 steps:
+- name: django-tests
+  image: python
+  commands:
+    - cd HapMap
+    - pip install -r requirements.txt
+    - python manage.py test
 - name: docker
   image: plugins/docker
   settings:
