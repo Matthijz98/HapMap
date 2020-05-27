@@ -1,0 +1,17 @@
+pipeline:
+  build:
+    image: python:latest
+    environment:
+        # I use dj_database_url to specify my DB settings
+      - DATABASE_URL=postgres://postgres@localhost
+    commands:
+      - sleep 5 # (probably not necessary)
+      - pip3 install -r requirements.txt
+      - cd HapMap
+      - python ./manage.py test
+      - cd ..
+services:
+  database:
+    image: postgres
+    environment:
+      - DATABASE_URL=postgres://postgres@localhost
