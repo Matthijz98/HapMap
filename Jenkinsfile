@@ -1,9 +1,14 @@
 pipeline {
-  agent any
+  agent {
+    dockerfile {
+      filename 'Dockerfile'
+    }
+
+  }
   stages {
-    stage('') {
+    stage('build') {
       steps {
-        sh 'docker build .'
+        sh 'python manage.py check'
       }
     }
 
