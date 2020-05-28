@@ -20,4 +20,5 @@ steps:
     tags: latest
     when:
       branch:
+        include:
         - master
