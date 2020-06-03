@@ -18,6 +18,8 @@ steps:
     repo: registry.sliceofbits.com/hapmap
     registry: registry.sliceofbits.com/
     tags: latest
-    when:
-      branch:
-        - master
+  when:
+    branch:
+    - master
+    event:
+    - push
