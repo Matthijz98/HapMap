@@ -1,3 +1,20 @@
 ---
+import BaseLayout from "./BaseLayout.astro";
+import Ingredients from "../components/Ingredients";
 
+let { title, description, date, tags, ingredients} = Astro.props;
 ---
+
+<BaseLayout>
+    <div class="min-h-screen flex justify-center items-center">
+        <div class=" w-full xl:w-2/3">
+            <h1 class="text-4xl font-bold text-center text-white pb-2">{title}</h1>
+
+            <Ingredients ingredients={ingredients} />
+
+            <div class="bg-slate-200 p-2 rounded">
+                <slot/>
+            </div>
+        </div>
+    </div>
+</BaseLayout>

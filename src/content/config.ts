@@ -8,7 +8,7 @@ const recipesCollection = defineCollection({
         category: z.string(),
         tags: z.array(z.string()).optional(),
         time_minutes: z.number().optional(),
-        created_at: z.string().date().optional(),
+        created_at: z.date().optional(),
         ingredients: z.array(z.object({
             ingredient: reference('ingredients'),
             amount: z.number(),
