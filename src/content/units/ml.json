@@ -1,5 +1,4 @@
 {
-  "milli_unit": "mg",
-  "base_unit": "l",
-  "kilo_unit": "kg"
+  "base_name": "ml",
+  "kilo_unit": "l"
 }

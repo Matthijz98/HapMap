@@ -1,6 +1,7 @@
 ---
 import RecipeLayout from "../../layouts/RecipeLayout.astro";
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
+import { makeRecipeObject } from '../../components/utils/make_recipe_object';
 
 // make the static paths for the recipes collection
 export async function getStaticPaths() {
@@ -11,8 +12,12 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
+// const data = await makeRecipeObject(entry.slug)
 const { Content, headings } = await entry.render();
+
+let x = await makeRecipeObject(entry.slug)
 ---
-<RecipeLayout {...entry.data}>
+
+<RecipeLayout {...x.data}>
     <Content />
 </RecipeLayout>
