@@ -7,5 +7,10 @@ ingredients:
   - ingredient: pasta
     amount: 200
     unit: gr
+    alt_ingredients:
+      - for_allergy: gluten
+        ingredient: gluten-vrije-pasta
+        amount: 200
+        unit: gr
 ---
 Het recept
