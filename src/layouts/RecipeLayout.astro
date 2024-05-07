@@ -13,7 +13,7 @@ let { title, description, date, tags, ingredients} = Astro.props;
 
             <Ingredients ingredients={ingredients} />
 
-            <Eaters></Eaters>
+            <Eaters client:load></Eaters>
 
             <div class="bg-slate-200 p-2 rounded">
                 <slot/>
