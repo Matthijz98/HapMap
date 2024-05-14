@@ -4,16 +4,18 @@ import Ingredients from "../components/Ingredients";
 import Eaters from "../components/eaters/Eaters";
 
 let { title, description, date, tags, ingredients} = Astro.props;
+
+let allergies = ingredients.map(ingredient => ingredient.ingredient.allergies).flat();
 ---
 
 <BaseLayout>
-    <div class="min-h-screen flex justify-center items-center">
+    <div class="min-h-screen flex justify-center items-center p-2">
         <div class=" w-full xl:w-2/3">
             <h1 class="text-4xl font-bold text-center text-white pb-2">{title}</h1>
 
             <Ingredients ingredients={ingredients} />
 
-            <Eaters client:load></Eaters>
+            <Eaters client:load allergies={allergies}></Eaters>
 
             <div class="bg-slate-200 p-2 rounded">
                 <slot/>

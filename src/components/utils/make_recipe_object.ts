@@ -15,6 +15,17 @@ export async function makeRecipeObject(slug: string) {
 
         if (ingredientData) {
             ingredient.ingredient = ingredientData.data;
+            // add the allergies to the ingredient from the allergy collection with getEntry
+            // and replace the allergie data to the ingredient object
+
+            let ingredientAllergyData = [];
+            for (let allergy of ingredient.ingredient.allergies) {
+                let allergyData = await getEntry(allergy);
+                if (allergyData) {
+                    ingredientAllergyData.push(allergyData.data);
+                }
+            }
+            ingredient.ingredient.allergies = ingredientAllergyData;
         }
 
         if (ingredient.alt_ingredients) {
