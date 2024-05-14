@@ -10,12 +10,12 @@ let allergies = ingredients.map(ingredient => ingredient.ingredient.allergies).f
 
 <BaseLayout>
     <div class="min-h-screen flex justify-center items-center p-2">
-        <div class=" w-full xl:w-2/3">
+        <div class="w-full xl:w-2/3">
             <h1 class="text-4xl font-bold text-center text-white pb-2">{title}</h1>
 
-            <Ingredients ingredients={ingredients} />
+            <Ingredients client:only="react" ingredients={ingredients} />
 
-            <Eaters client:load allergies={allergies}></Eaters>
+            <Eaters client:only="react" allergies={allergies}></Eaters>
 
             <div class="bg-slate-200 p-2 rounded">
                 <slot/>
