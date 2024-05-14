@@ -7,7 +7,6 @@ export default function Eaters(allergies: any){
         <div className={'bg-slate-200 rounded p-2 mb-2'}>
             <div className={'flex flex-col gap-4'}>
                 <div>Eaters</div>
-
                 {allergies.allergies.map(allergy => (
                     <EaterInput allergy={allergy} key={allergy}/>
                 ))}

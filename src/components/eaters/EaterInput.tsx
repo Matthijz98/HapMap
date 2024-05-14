@@ -1,10 +1,13 @@
 import { updatePersons, persons } from '../stores/eatersStore';
+import {useStore} from "@nanostores/react";
 
 export default function EaterInput({allergy}: any) {
-    const value = persons[allergy];
+    const value = useStore(persons);
 
     const handleButtonClick = (increment: number) => {
-        updatePersons(allergy, Math.max(0, value + increment));
+        console.log(`handleButtonClick called with increment: ${increment} and value: ${value}`);
+
+        updatePersons(allergy, (value[allergy.name] + increment));
     };
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,7 +21,8 @@ export default function EaterInput({allergy}: any) {
         <div className={'flex'}>
             <label className={'pr-2'}>{allergy.name}</label>
             <button onClick={() => handleButtonClick(-1)} className={'bg-blue-300 hover:bg-blue-400 hover:text-white px-2 rounded-l font-medium'}>-</button>
-            <input type={'number'} value={value} onChange={handleInputChange} className={'w-full px-1 py-0.5'}/>
+            {value[allergy.name]}
+            {/*<input type={'number'} value={value[allergy.name]} className={'w-full px-1 py-0.5'}/>*/}
             <button onClick={() => handleButtonClick(1)} className={'bg-blue-300 hover:bg-blue-400 hover:text-white px-2 rounded-r font-medium'}>+</button>
         </div>
     );
