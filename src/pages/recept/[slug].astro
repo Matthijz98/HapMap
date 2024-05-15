@@ -12,7 +12,6 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-// const data = await makeRecipeObject(entry.slug)
 const { Content, headings } = await entry.render();
 
 let x = await makeRecipeObject(entry.slug)

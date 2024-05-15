@@ -1,13 +1,7 @@
 import {z, defineCollection, reference} from 'astro:content';
 
-export const recipeSchema = z.object({
-    title: z.string(),
-    image: z.string().optional(),
-    category: z.string(),
-    tags: z.array(z.string()).optional(),
-    time_minutes: z.number().optional(),
-    created_at: z.date().optional(),
-    ingredients: z.array(z.object({
+export const recipeIngredientSchema =
+    z.object({
         ingredient: reference('ingredients'),
         amount: z.number(),
         unit: reference('units'),
@@ -16,8 +10,17 @@ export const recipeSchema = z.object({
             ingredient: reference('ingredients'),
             amount: z.number(),
             unit: reference('units'),
-        })).optional(),
-    })).optional()
+        }))
+    });
+
+export const recipeSchema = z.object({
+    title: z.string(),
+    image: z.string().optional(),
+    category: z.string(),
+    tags: z.array(z.string()).optional(),
+    time_minutes: z.number().optional(),
+    created_at: z.date().optional(),
+    ingredients: z.array(recipeIngredientSchema.optional()),
 })
 
 const recipesCollection = defineCollection({
@@ -63,4 +66,35 @@ export const collections = {
     'ingredients': ingredientsCollection,
     'units': unitsCollection,
     'allergies': allergyCollection,
+};
+
+export type AllergyType = z.infer<typeof AllergySchema>;
+export type UnitType = z.infer<typeof UnitSchema>;
+
+export type IngredientType = {
+    name: string;
+    allergies: AllergyType[];
+    alt_for: AllergyType | null;
+};
+
+export type RecipeIngredientType = {
+    ingredient: IngredientType;
+    amount: number;
+    unit: UnitType;
+    alt_ingredients: {
+        for_allergy: AllergyType;
+        ingredient: IngredientType;
+        amount: number;
+        unit: UnitType;
+    }[];
+};
+
+export type RecipeType = {
+    title: string;
+    image: string | null;
+    category: string;
+    tags: string[] | null;
+    time_minutes: number | null;
+    created_at: Date | null;
+    ingredients: RecipeIngredientType[];
 };
