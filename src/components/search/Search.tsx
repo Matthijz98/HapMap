@@ -1,7 +1,6 @@
 import {useState, useEffect, useRef} from 'react';
 import SearchResults from "./SearchResults";
 
-import {useStore} from '@nanostores/react';
 const Search = () => {
     const [pagefind, setPagefind] = useState(null);
     const [query, setQuery] = useState('');
@@ -10,7 +9,6 @@ const Search = () => {
     const searchInput = useRef(null);
 
     const search = async (text: string) => {
-        console.log('search', text)
         if (pagefind) {
             let results = await pagefind.debouncedSearch(text);
             setResultsOBJ(results.results);
@@ -44,22 +42,17 @@ const Search = () => {
         fetchPagefind();
     }, []);
 
-    const onKeyDown = (e: KeyboardEvent) => {
-        if (e.key === 'Escape') {
-            close();
-        }
-    }
-
     return (
         <div>
-            <input className="w-full bg-slate-300 rounded px-8 py-2" value={query} ref={searchInput}
+            <input className="w-full bg-slate-300 rounded px-2 py-2 placeholder:font-medium placeholder:text-slate-500" value={query} ref={searchInput}
+                   placeholder="Zoeken...."
                    onChange={(e) => {
                        setQuery(e.target.value);
                        search(e.target.value);
                    }}
                    autoCapitalize="off" autoComplete="off" autoCorrect="off" spellCheck="false">
             </input>
-            {/*<SearchResults results={resultsOBJ}/>*/}
+            <SearchResults results={resultsOBJ}/>
         </div>
     );
 }

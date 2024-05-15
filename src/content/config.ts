@@ -1,5 +1,7 @@
 import {z, defineCollection, reference} from 'astro:content';
 
+const Categories = ["Hoofdgerechten", "Bijgerechten", "Toetjes"]
+
 export const recipeIngredientSchema =
     z.object({
         ingredient: reference('ingredients'),
@@ -10,13 +12,13 @@ export const recipeIngredientSchema =
             ingredient: reference('ingredients'),
             amount: z.number(),
             unit: reference('units'),
-        }))
+        })).optional(),
     });
 
 export const recipeSchema = z.object({
     title: z.string(),
     image: z.string().optional(),
-    category: z.string(),
+    category: z.enum(Categories),
     tags: z.array(z.string()).optional(),
     time_minutes: z.number().optional(),
     created_at: z.date().optional(),

@@ -1,8 +1,6 @@
 import {getEntry} from 'astro:content';
 import type {RecipeType} from '../../content/config';
 
-// this function can be used to get a recipe object from the content collection
-// This function should combine all related data to one big object
 export async function makeRecipeObject(slug: string): Promise<RecipeType> {
     let recipe: any = await getEntry('recipes', slug);
 
@@ -15,17 +13,17 @@ export async function makeRecipeObject(slug: string): Promise<RecipeType> {
 
         if (ingredientData) {
             ingredient.ingredient = ingredientData.data;
-            // add the allergies to the ingredient from the allergy collection with getEntry
-            // and replace the allergie data to the ingredient object
 
             let ingredientAllergyData = [];
-            for (let allergy of ingredient.ingredient.allergies) {
-                let allergyData = await getEntry(allergy);
-                if (allergyData) {
-                    ingredientAllergyData.push(allergyData.data);
+            if (ingredient.ingredient.allergies) {
+                for (let allergy of ingredient.ingredient.allergies) {
+                    let allergyData = await getEntry(allergy);
+                    if (allergyData) {
+                        ingredientAllergyData.push(allergyData.data);
+                    }
                 }
+                ingredient.ingredient.allergies = ingredientAllergyData;
             }
-            ingredient.ingredient.allergies = ingredientAllergyData;
         }
 
         if (ingredient.alt_ingredients) {
@@ -33,6 +31,17 @@ export async function makeRecipeObject(slug: string): Promise<RecipeType> {
                 let altIngredientData = await getEntry(altIngredient.ingredient);
                 if (altIngredientData) {
                     altIngredient.ingredient = altIngredientData.data;
+
+                    // Fetch full data for for_allergy and alt_for
+                    let forAllergyData = await getEntry(altIngredient.for_allergy.id);
+                    if (forAllergyData) {
+                        altIngredient.for_allergy = forAllergyData.data;
+                    }
+
+                    let altForData = await getEntry(altIngredient.ingredient.alt_for.id);
+                    if (altForData) {
+                        altIngredient.ingredient.alt_for = altForData.data;
+                    }
                 }
             }
         }
