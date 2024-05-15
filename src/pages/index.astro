@@ -1,16 +1,18 @@
 ---
 
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Search from "../components/search/Search";
 ---
+<BaseLayout>
+	<div class="flex justify-center items-center min-h-svh">
+		<div class="w-2/3">
+			<h1 class="text-3xl text-white font-bold text-center pb-4">
+				HapMap.nl
+			</h1>
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+			<Search client:load/>
+
+		</div>
+	</div>
+
+</BaseLayout>
