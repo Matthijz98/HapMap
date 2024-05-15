@@ -19,7 +19,7 @@ export default function Ingredients({ingredient}: {ingredient: RecipeIngredientT
                 <td>{ingredient.amount * $eaters} {ingredient.unit.base_name}</td>
             </tr>
             <tr>
-                <td colSpan={4} className={'p-2'}>
+                <td colSpan={4} className={'p-1'}>
                     <AltIngredients alt_ingredients={ingredient.alt_ingredients} />
                 </td>
             </tr>
