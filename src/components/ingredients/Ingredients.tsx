@@ -1,5 +1,5 @@
-import Ingredient from "./Ingredient";
-import type {RecipeIngredientType} from '../content/config.ts';
+import Ingredient from "./Ingredient.tsx";
+import type {RecipeIngredientType} from '../../content/config.ts';
 
 export default function Ingredients({ingredients}: {ingredients: RecipeIngredientType[]}) {
     return (
