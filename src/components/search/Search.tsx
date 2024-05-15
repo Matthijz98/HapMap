@@ -9,7 +9,7 @@ const Search = () => {
     let timeoutId: any = null;
     const searchInput = useRef(null);
 
-    const search = async (text) => {
+    const search = async (text: string) => {
         console.log('search', text)
         if (pagefind) {
             let results = await pagefind.debouncedSearch(text);
@@ -36,6 +36,7 @@ const Search = () => {
 
     useEffect(() => {
         const fetchPagefind = async () => {
+            // @ts-ignore
             const pagefindModule = await import("/pagefind/pagefind.js");
             setPagefind(pagefindModule);
             pagefindModule.init();
@@ -43,7 +44,7 @@ const Search = () => {
         fetchPagefind();
     }, []);
 
-    const onKeyDown = (e) => {
+    const onKeyDown = (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
             close();
         }

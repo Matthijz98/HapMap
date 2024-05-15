@@ -1,5 +1,5 @@
-import {getEntries, getEntry} from 'astro:content';
-import {recipeSchema, IngredientSchema, type RecipeType} from '../../content/config';
+import {getEntry} from 'astro:content';
+import type {RecipeType} from '../../content/config';
 
 // this function can be used to get a recipe object from the content collection
 // This function should combine all related data to one big object
@@ -43,5 +43,5 @@ export async function makeRecipeObject(slug: string): Promise<RecipeType> {
         }
     }
 
-    return recipe;
+    return recipe.data;
 }

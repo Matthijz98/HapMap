@@ -2,9 +2,9 @@
 import BaseLayout from "./BaseLayout.astro";
 import Ingredients from "../components/Ingredients";
 import Eaters from "../components/eaters/Eaters";
-import {RecipeIngredientType} from "../content/config";
+import type {AllergyType, RecipeIngredientType} from "../content/config";
 
-let { title, description, date, tags, ingredients} = Astro.props;
+let {title, description, date, tags, ingredients} = Astro.props;
 
 let allergies = ingredients.map((ingredient: RecipeIngredientType) => ingredient.ingredient.allergies).flat();
 ---
@@ -14,12 +14,11 @@ let allergies = ingredients.map((ingredient: RecipeIngredientType) => ingredient
         <div class="w-full xl:w-2/3">
             <h1 class="text-4xl font-bold text-center text-white pb-2">{title}</h1>
 
-            <!--List of allergies for pagefind filters-->
-                {allergies.map(allergy => (
+            {allergies.map((allergy: AllergyType) => (
                     <span class="hidden" data-pagefind-filter={allergy.name}></span>
-                ))}
+            ))}
 
-            <Ingredients client:only="react" ingredients={ingredients} />
+            <Ingredients client:only="react" ingredients={ingredients}/>
 
             <Eaters client:only="react" allergies={allergies}></Eaters>
 

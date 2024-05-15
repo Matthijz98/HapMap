@@ -1,5 +1,4 @@
 import { persistentAtom } from '@nanostores/persistent'
-import {getCollection} from "astro:content";
 
 export const eaters = persistentAtom('eaters', '10', {
     encode: JSON.stringify,

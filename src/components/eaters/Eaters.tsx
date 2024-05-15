@@ -1,6 +1,7 @@
 import EaterInput from "./EaterInput.tsx";
 import {useStore} from "@nanostores/react";
 import {eaters, updateAllergies} from '../stores/eatersStore';
+import type {AllergyType} from "../../content/config.ts";
 
 export default function Eaters(allergies: any){
     const $eaters = useStore(eaters);
@@ -17,7 +18,7 @@ export default function Eaters(allergies: any){
             <div className={'flex flex-col gap-4'}>
                 <div>Eaters</div>
                 <input value={$eaters} onChange={handleInputChange}/>
-                {allergies.allergies.map(allergy => (
+                {allergies.allergies.map((allergy: AllergyType) => (
                     <EaterInput allergy={allergy} key={allergy}/>
                 ))}
             </div>
