@@ -10,6 +10,36 @@ ingredients:
   - ingredient: knoflook
     amount: 0.2
     unit: teentjes
+  - ingredient: pesto
+    amount: 19
+    unit: gr
+  - ingredient: tomatenblokjes
+    amount: 80
+    unit: gr
+  - ingredient: tomaat
+    amount: 0.2
+    unit: stuks
+  - ingredient: aubergine
+    amount: 0.1
+    unit: stuks
+  - ingredient: courgette
+    amount: 0.2
+    unit: stuks
+  - ingredient: paprika
+    amount: 0.2
+    unit: stuks
+  - ingredient: italiaanse-kruiden
+    amount: 1
+    unit: gr
+  - ingredient: geraspte-kaas
+    amount: 40
+    unit: gr
+  - ingredient: rucola
+    amount: 40
+    unit: gr
+  - ingredient: pasta
+    amount: 100
+    unit: gr
 ---
 1. Zet het water op voor de pasta in een pan die groot genoeg is.
 2. Snipper de uien en snijd de knoflook in hele kleine stukjes of gebruik een knoflookpers.
