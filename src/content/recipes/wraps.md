@@ -7,7 +7,36 @@ ingredients:
   - ingredient: wraps
     amount: 2
     unit: stuks
-
+  - ingredient: ui
+    amount: 0.3
+    unit: stuks
+  - ingredient: mais
+    amount: 90
+    unit: gr
+  - ingredient: kidneybonen
+    amount: 120
+    unit: gr
+  - ingredient: tomaat
+    amount: 0.25
+    unit: stuks
+  - ingredient: paprika
+    amount: 0.3
+    unit: stuks
+  - ingredient: vega-gehakt
+    amount: 80
+    unit: gr
+  - ingredient: crème-fraiche
+    amount: 40
+    unit: gr
+  - ingredient: komkommer
+    amount: 0.25
+    unit: stuks
+  - ingredient: ijsberg-sla
+    amount: 0.1
+    unit: krop
+  - ingredient: geraspte-kaas
+    amount: 40
+    unit: gr
 ---
 
 1. Snipper de uien en bak deze rustig in een grote pan met wat olijfolie.

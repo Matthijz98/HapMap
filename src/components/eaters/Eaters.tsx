@@ -16,8 +16,11 @@ export default function Eaters(allergies: any){
     return (
         <div className={'bg-slate-200 rounded p-2 mb-4'}>
             <div className={'flex flex-col gap-4'}>
-                <div>Eaters</div>
-                <input value={$eaters} onChange={handleInputChange}/>
+                <div className={'flex gap-4'}>
+                    <label className={'text-nowrap'}>Aantal eeters:</label>
+                    <input className={"w-full rounded px-1 py-0.5"} value={$eaters} onChange={handleInputChange}/>
+                </div>
+
                 {allergies.allergies.map((allergy: AllergyType) => (
                     <EaterInput allergy={allergy} key={allergy}/>
                 ))}
