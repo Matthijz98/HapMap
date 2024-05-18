@@ -9,6 +9,10 @@ import compressor from "astro-compressor";
 
 // https://astro.build/config
 export default defineConfig({
+    build: {
+        assets: 'assets'
+        // assetsPrefix: 'https://cdn.example.com' @todo this could be cool to do later
+    },
     integrations: [react(), tailwind(), sitemap(), compress({
         CSS: true,
         HTML: true,

@@ -1,0 +1,65 @@
+kind: pipeline
+name: static-site
+
+steps:
+  - name: npm install
+    image: node:20
+    environment:
+      NPM_USER:
+        from_secret: sliceofbits_npm_username
+      NPM_PASS:
+        from_secret: sliceofbits_npm_pass
+      NPM_EMAIL:
+        from_secret: sliceofbits_npm_email
+      NPM_REGISTRY: "https://npm.sliceofbits.com"
+    commands:
+      - npm install -g npm-cli-login
+      - npm-cli-login
+      - npm install
+
+  - name: build
+    image: node:20
+    commands:
+      - npm run build
+    depends_on:
+      - npm install
+
+  - name: build docker image
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: registry-username
+      password:
+        from_secret: registry-password
+      repo: registry.sliceofbits.com/hapmap
+      registry: registry.sliceofbits.com/
+      tags: latest
+    depends_on:
+      - build
+    when:
+      branch:
+        - main
+      event:
+        - push
+
+  - name: ssh
+    image: appleboy/drone-ssh
+    settings:
+      host:
+        - 188.166.107.220
+      username:
+        from_secret: ssh_username
+      password:
+        from_secret: ssh_password
+      port: 22
+      command_timeout: 2m
+      script:
+        - cd hapmap/
+        - docker-compose pull && docker-compose up -d
+    depends_on:
+      - build docker image
+    when:
+      branch:
+        - main
+      event:
+        - push
