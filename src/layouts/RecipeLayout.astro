@@ -1,0 +1,33 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Ingredients from "../components/ingredients/Ingredients";
+import Eaters from "../components/eaters/Eaters";
+import type {AllergyType, RecipeIngredientType} from "../content/config";
+
+let {title, description, date, tags, ingredients} = Astro.props;
+
+let allergies = ingredients
+    .map((ingredient: RecipeIngredientType) => ingredient.ingredient.allergies)
+    .flat()
+    .filter(Boolean);
+---
+
+<BaseLayout>
+    <div class="min-h-screen flex justify-center items-center p-2">
+        <div class="w-full xl:w-2/3">
+            <h1 class="text-4xl font-bold text-center text-white pb-4">{title}</h1>
+
+            {allergies.length > 0 && allergies.map((allergy: AllergyType) => (
+                    <span class="hidden" data-pagefind-filter={allergy.name}></span>
+            ))}
+
+            <Ingredients client:only="react" ingredients={ingredients}/>
+
+            <Eaters client:only="react" allergies={allergies}></Eaters>
+
+            <div class="bg-slate-200 p-2 prose max-w-full rounded">
+                <slot/>
+            </div>
+        </div>
+    </div>
+</BaseLayout>

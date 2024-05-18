@@ -1,0 +1,18 @@
+---
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Search from "../components/search/Search";
+---
+<BaseLayout>
+	<div class="flex justify-center items-center min-h-svh">
+		<div class="w-2/3">
+			<h1 class="text-3xl text-white font-bold text-center pb-4">
+				HapMap.nl
+			</h1>
+
+			<Search client:load/>
+
+		</div>
+	</div>
+
+</BaseLayout>
