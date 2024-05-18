@@ -4,17 +4,7 @@ name: static-site
 steps:
   - name: npm install
     image: node:20
-    environment:
-      NPM_USER:
-        from_secret: sliceofbits_npm_username
-      NPM_PASS:
-        from_secret: sliceofbits_npm_pass
-      NPM_EMAIL:
-        from_secret: sliceofbits_npm_email
-      NPM_REGISTRY: "https://npm.sliceofbits.com"
     commands:
-      - npm install -g npm-cli-login
-      - npm-cli-login
       - npm install
 
   - name: build
