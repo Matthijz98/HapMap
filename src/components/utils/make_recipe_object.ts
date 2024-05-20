@@ -33,12 +33,12 @@ export async function makeRecipeObject(slug: string): Promise<RecipeType> {
                     altIngredient.ingredient = altIngredientData.data;
 
                     // Fetch full data for for_allergy and alt_for
-                    let forAllergyData = await getEntry(altIngredient.for_allergy.id);
+                    let forAllergyData = await getEntry(altIngredient.for_allergy);
                     if (forAllergyData) {
                         altIngredient.for_allergy = forAllergyData.data;
                     }
 
-                    let altForData = await getEntry(altIngredient.ingredient.alt_for.id);
+                    let altForData = await getEntry(altIngredient.ingredient.alt_for);
                     if (altForData) {
                         altIngredient.ingredient.alt_for = altForData.data;
                     }
@@ -51,6 +51,9 @@ export async function makeRecipeObject(slug: string): Promise<RecipeType> {
             ingredient.unit = unitData.data;
         }
     }
+
+    // print the full recipe object
+    // console.log(JSON.stringify(recipe.data, null, 4));
 
     return recipe.data;
 }
