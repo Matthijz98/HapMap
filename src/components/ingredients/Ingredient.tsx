@@ -8,8 +8,8 @@ export default function Ingredients({ingredient}: { ingredient: RecipeIngredient
 
     return (
         <>
-            <tr className={"odd:bg-slate-300"}>
-                <td className={"px-2 py-1"}>{ingredient.ingredient.name}</td>
+            <tr className={"odd:bg-slate-300"} >
+                <td className={"px-2 py-1"} data-pagefind-filter="ingredient">{ingredient.ingredient.name}</td>
                 <td className={"px-2 py-1"}>
                     {ingredient.ingredient.allergies && ingredient.ingredient.allergies.map((allergy) => (
                         <span key={allergy.name}>{allergy.name}, </span>

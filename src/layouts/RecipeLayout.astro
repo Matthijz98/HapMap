@@ -21,9 +21,9 @@ let allergies = ingredients
                     <span class="hidden" data-pagefind-filter={allergy.name}></span>
             ))}
 
-            <Ingredients client:only="react" ingredients={ingredients} data-pagefind-ignore/>
+            <Ingredients client:load ingredients={ingredients} data-pagefind-ignore/>
 
-            <Eaters client:only="react" allergies={allergies} data-pagefind-ignore></Eaters>
+            <Eaters client:load allergies={allergies} data-pagefind-ignore></Eaters>
 
             <div class="bg-slate-200 p-2 prose max-w-full rounded">
                 <slot/>
