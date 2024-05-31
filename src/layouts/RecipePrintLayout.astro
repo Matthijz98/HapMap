@@ -1,0 +1,17 @@
+---
+let {title, description, date, tags, ingredients} = Astro.props;
+import Print from "../components/print/Print";
+import {eaters} from "../components/stores/eatersStore";
+---
+
+<html>
+<head>
+
+</head>
+<body class="p-6">
+    <Print client:only="react"
+           title={title} description={description} date={date} tags={tags} ingredients={ingredients}>
+        <slot/>
+    </Print>
+</body>
+</html>
