@@ -1,0 +1,8 @@
+{
+  "site": "dist",
+  "vite_plugin_pagefind": {
+    "assets_dir": "public",
+    "build_command": "npm build",
+    "dev_strategy": "lazy"
+  }
+}

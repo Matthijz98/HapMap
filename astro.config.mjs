@@ -2,7 +2,7 @@ import {defineConfig} from 'astro/config';
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
-import {pagefind} from "vite-plugin-pagefind";
+import pagefind from "vite-plugin-pagefind";
 import compress from "astro-compress";
 
 import compressor from "astro-compressor";
