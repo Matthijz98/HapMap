@@ -3,10 +3,14 @@ let {title, description, date, tags, ingredients} = Astro.props;
 import Print from "../components/print/Print";
 import {eaters} from "../components/stores/eatersStore";
 ---
-
-<html>
+<html lang="nl">
 <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <meta name="generator" content={Astro.generator}/>
+    <title>{title}</title>
 
+    <link rel="icon" href="/favicon.png"/>
 </head>
 <body class="p-6">
     <Print client:only="react"

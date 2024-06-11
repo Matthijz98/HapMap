@@ -40,6 +40,11 @@ ingredients:
   - ingredient: pasta
     amount: 100
     unit: gr
+    alt_ingredients:
+      - for_allergy: gluten
+        ingredient: glutenvrije-pasta
+        amount: 100
+        unit: gr
 ---
 1. Zet het water op voor de pasta in een pan die groot genoeg is.
 2. Snipper de uien en snijd de knoflook in hele kleine stukjes of gebruik een knoflookpers.

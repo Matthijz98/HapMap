@@ -1,14 +1,17 @@
-import {eaters} from "../stores/eatersStore.ts";
+import {eaters, allergies} from "../stores/eatersStore.ts";
 import {useStore} from '@nanostores/react';
 import type {AllergyType, RecipeIngredientType} from "../../content/config.ts";
+import Ingredients from "./Ingredients.tsx";
 
 const Print = (props) => {
     const $eaters = useStore(eaters);
+    const $allergies = useStore(allergies);
 
-    let allergies = props.ingredients
+    let recipe_allergies = props.ingredients
         .map((ingredient: RecipeIngredientType) => ingredient.ingredient.allergies)
         .flat()
         .filter(Boolean);
+
 
     return (
         <>
@@ -17,11 +20,11 @@ const Print = (props) => {
             </h1>
 
 
-            {allergies.length > 0 &&
+            {recipe_allergies.length > 0 &&
                 <>
                     <h2 className="font-black text-xl pt-4">Allergenen</h2>
                     <ul>
-                        {allergies.map((allergy: AllergyType) => (
+                        {recipe_allergies.map((allergy: AllergyType) => (
                             <span>{allergy.name}</span>
                         ))}
                     </ul>
@@ -30,12 +33,22 @@ const Print = (props) => {
 
 
             <h2 className="font-black text-xl pt-4">Eeters</h2>
-            <span>Totaal: {$eaters}</span>
+            <span className={'font-medium'}>Totaal: {$eaters}</span><br/>
+            {/* Show the eaters with allergies from the allergy store*/}
+            Waarvan met allergie:
+            <ul>
+                {Object.entries($allergies).map(([key, value]) =>
+                        recipe_allergies.some(allergy => allergy.name === key) && (
+                            <li key={key}>
+                                {key}: {value}
+                            </li>
+                        )
+                )}
+            </ul>
+
 
             <h2 className="font-black text-xl pt-4">Ingredienten</h2>
-            <ul>
-                <li>10kg aardappelen</li>
-            </ul>
+            <Ingredients ingredients={props.ingredients}></Ingredients>
 
             <h2 className="font-black text-xl pt-4">Bereiding</h2>
             <div className="prose max-w-full text-black prose-ul:text-black">

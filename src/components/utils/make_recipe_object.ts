@@ -42,6 +42,12 @@ export async function makeRecipeObject(slug: string): Promise<RecipeType> {
                     if (altForData) {
                         altIngredient.ingredient.alt_for = altForData.data;
                     }
+
+                    // Fetch full data for unit
+                    let unitData = await getEntry(altIngredient.unit);
+                    if (unitData) {
+                        altIngredient.unit = unitData.data;
+                    }
                 }
             }
         }

@@ -1,10 +1,23 @@
 import type {RecipeIngredientType} from '../../content/config.ts';
 import {useStore} from "@nanostores/react";
-import {eaters} from "../stores/eatersStore.ts";
+import {allergies, eaters} from "../stores/eatersStore.ts";
 import AltIngredients from "./AltIngredients.tsx";
 
 export default function Ingredients({ingredient}: { ingredient: RecipeIngredientType }) {
+
     const $eaters = useStore(eaters);
+    const $allergies = useStore(allergies);
+    let eatersWithAllergies = 0;
+
+    if (ingredient.ingredient.allergies) {
+        // Get the ammount of eaters with the allergy for the ingredient
+        // Allergies are stored in the store as an object with the allergy name as key and a int as value
+        ingredient.ingredient.allergies.forEach((allergy) => {
+            eatersWithAllergies += $allergies[allergy.name];
+        });
+    }
+
+    const $remainingEaters = $eaters - eatersWithAllergies;
 
     return (
         <>
@@ -16,7 +29,7 @@ export default function Ingredients({ingredient}: { ingredient: RecipeIngredient
                     ))}
                 </td>
                 <td className={"px-2 py-1"}>{ingredient.amount} {ingredient.unit.base_name}</td>
-                <td className={"px-2 py-1"}>{ingredient.amount * $eaters} {ingredient.unit.base_name}</td>
+                <td className={"px-2 py-1"}>{ingredient.amount * $remainingEaters} {ingredient.unit.base_name}</td>
             </tr>
             {ingredient.alt_ingredients &&
                 <tr>
