@@ -26,7 +26,7 @@ export async function makeRecipeObject(slug: string): Promise<RecipeType> {
             }
         }
 
-        if (ingredient.alt_ingredients) {
+        if (ingredient.alt_ingredients?.length > 0) {
             for (let altIngredient of ingredient.alt_ingredients) {
                 let altIngredientData = await getEntry(altIngredient.ingredient);
                 if (altIngredientData) {
@@ -38,11 +38,12 @@ export async function makeRecipeObject(slug: string): Promise<RecipeType> {
                         altIngredient.for_allergy = forAllergyData.data;
                     }
 
-                    let altForData = await getEntry(altIngredient.ingredient.alt_for);
-                    if (altForData) {
-                        altIngredient.ingredient.alt_for = altForData.data;
+                    if (altIngredient.alt_for) {
+                        let altForData = await getEntry(altIngredient.alt_for);
+                        if (altForData) {
+                            altIngredient.alt_for = altForData.data;
+                        }
                     }
-
                     // Fetch full data for unit
                     let unitData = await getEntry(altIngredient.unit);
                     if (unitData) {

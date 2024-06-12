@@ -15,7 +15,9 @@ export default function Ingredients({ingredient}: { ingredient: RecipeIngredient
         // Get the ammount of eaters with the allergy for the ingredient
         // Allergies are stored in the store as an object with the allergy name as key and a int as value
         ingredient.ingredient.allergies.forEach((allergy) => {
-            eatersWithAllergies += $allergies[allergy.name];
+            if($allergies[allergy.name]){
+                eatersWithAllergies += $allergies[allergy.name];
+            }
         });
     }
 
@@ -31,7 +33,7 @@ export default function Ingredients({ingredient}: { ingredient: RecipeIngredient
             {/*    ))}*/}
             {/*</td>*/}
 
-            {ingredient.alt_ingredients &&
+            {ingredient.alt_ingredients?.length > 0 && ingredient.alt_ingredients?.some(alt_ingredient => $allergies[alt_ingredient.for_allergy.name]) &&
                 <AltIngredients alt_ingredients={ingredient.alt_ingredients}/>
             }
 

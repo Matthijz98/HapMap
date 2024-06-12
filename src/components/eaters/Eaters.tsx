@@ -22,7 +22,7 @@ export default function Eaters(allergies: any){
                 </div>
 
                 {allergies.allergies.map((allergy: AllergyType) => (
-                    <EaterInput allergy={allergy} key={allergy}/>
+                    <EaterInput allergy={allergy} key={allergy.name}/>
                 ))}
             </div>
         </div>

@@ -3,8 +3,11 @@ import BaseLayout from "./BaseLayout.astro";
 import Ingredients from "../components/ingredients/Ingredients";
 import Eaters from "../components/eaters/Eaters";
 import type {AllergyType, RecipeIngredientType} from "../content/config";
+import {Astro} from "astro/env";
 
 let {title, description, date, tags, ingredients} = Astro.props;
+
+let printUrl = Astro.url + '/print/';
 
 let allergies = ingredients
     .map((ingredient: RecipeIngredientType) => ingredient.ingredient.allergies)
@@ -20,7 +23,7 @@ let allergies = ingredients
         <div class="w-full xl:w-2/3">
             <h1 class="text-4xl font-bold text-center text-white pb-4">{title}</h1>
             <div class="flex w-full justify-end pb-2">
-                <a class="bg-blue-300 rounded px-2 py-1" href='print/' target="_blank">Print</a>
+                <a class="bg-blue-300 rounded px-2 py-1" href={printUrl} target="_blank">Print</a>
             </div>
             {allergies.length > 0 && allergies.map((allergy: AllergyType) => (
                     <span class="hidden" data-pagefind-filter={allergy.name}></span>

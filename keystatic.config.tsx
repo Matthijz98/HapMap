@@ -2,21 +2,27 @@ import {config, fields, collection} from '@keystatic/core';
 
 export default config({
     storage: {
-        kind: 'cloud',
+        kind: 'local',
     },
     cloud: {
         project: 'hapmap/hapmap',
     },
+    ui: {
+        brand: {name: 'HapMap'},
+    },
     collections: {
         recipes: collection({
             path: 'src/content/recipes/*',
-            label: 'Recipes',
+            label: 'Recepten',
             slugField: 'title',
             format: {contentField: 'content'},
             schema: {
                 title: fields.slug({
                     name: {label: 'Titel', description: 'De titel van het recept', validation: {isRequired: true}},
-                    slug: {label: 'Slug', description: 'De slug van het recept (wordt gebruikt in de url) en autmatisch gegenereerd op basis van de titel'}
+                    slug: {
+                        label: 'Slug',
+                        description: 'De slug van het recept (wordt gebruikt in de url) en autmatisch gegenereerd op basis van de titel'
+                    }
                 }),
                 image: fields.image({label: 'Foto'}),
 
@@ -27,23 +33,32 @@ export default config({
                 }),
 
                 time_minutes: fields.integer({label: 'Time in minutes'}),
-                created_at: fields.datetime({label: 'Aangemaakt op', validation: {isRequired: true}, defaultValue: {kind: 'now'}}),
+                created_at: fields.datetime({
+                    label: 'Aangemaakt op',
+                    validation: {isRequired: true},
+                    defaultValue: {kind: 'now'}
+                }),
                 ingredients: fields.array(
                     fields.object({
                         ingredient: fields.relationship({label: 'Ingredient', collection: 'ingredients'}),
-                        amount: fields.integer({label: 'Amount', validation: {isRequired: true}}),
+                        amount: fields.number({label: 'Amount', validation: {isRequired: true}}),
                         unit: fields.relationship({label: 'Unit', collection: 'units'}),
                         alt_ingredients: fields.array(
                             fields.object({
                                 for_allergy: fields.relationship({label: 'For allergy', collection: 'allergies'}),
                                 ingredient: fields.relationship({label: 'Ingredient', collection: 'ingredients'}),
-                                amount: fields.integer({label: 'Amount', validation: {isRequired: true}}),
+                                amount: fields.number({label: 'Amount', validation: {isRequired: true}}),
                                 unit: fields.relationship({label: 'Unit', collection: 'units'}),
                             })
-                        ),
+                            , {
+                                label: 'Alternative ingredient',
+                                description: 'Dit kan gebruikt worden om een alternatief ingredient op te geven',
+                                itemLabel: (props) => `${props.fields.ingredient.value} - ${props.fields.amount.value} ${props.fields.unit.value}`
+                            }),
                     }, {label: 'Ingredient'})
                     , {
-                        label: 'ingredienten',
+                        label: 'Ingredienten',
+                        description: 'De ingredienten van het recept, de hoeveelheden zijn per persoon de site rekent dit om naar het aantal personen dat je opgeeft',
                         itemLabel: (props) => `${props.fields.ingredient.value} - ${props.fields.amount.value} ${props.fields.unit.value}`
                     }),
                 content: fields.markdoc({label: 'Het recept', description: 'De inhoud van het recept'}),
@@ -51,7 +66,7 @@ export default config({
         }),
         ingredients: collection({
             path: 'src/content/ingredients/*',
-            label: 'Ingredients',
+            label: 'Ingredienten',
             slugField: 'name',
             format: {data: 'json'},
             schema: {
@@ -62,7 +77,10 @@ export default config({
                         validation: {isRequired: true},
                     },
                 }),
-                allergies: fields.relationship({label: 'Allergies', collection: 'allergies'}),
+                allergies: fields.array(fields.relationship({
+                    label: 'Allergies',
+                    collection: 'allergies'
+                }), {itemLabel: (props) => props.value}),
                 alt_for: fields.relationship({label: 'Alt for', collection: 'allergies'}),
             },
         }),
@@ -81,10 +99,16 @@ export default config({
         allergies: collection({
             path: 'src/content/allergies/*',
             slugField: 'name',
-            label: 'Allergies',
+            label: 'Allergenen',
             format: {data: 'json'},
             schema: {
-                name: fields.text({label: 'Name', validation: {isRequired: true}}),
+                name: fields.slug({
+                    name: {
+                        label: 'Name',
+                        description: 'Dit is de naam van het allergie',
+                        validation: {isRequired: true},
+                    },
+                }),
                 alt_name: fields.text({label: 'Alt name', validation: {isRequired: true}}),
             },
         }),
