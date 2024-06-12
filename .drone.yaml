@@ -8,7 +8,7 @@ steps:
       - npm install
 
   - name: build
-    image: node:20
+    image: node:22
     commands:
       - npm run build
     depends_on:

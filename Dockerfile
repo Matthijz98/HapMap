@@ -1,13 +1,16 @@
-FROM nginx:stable-alpine
+FROM node:22-alpine
 
-# Enable gzip compression in nginx.conf
-RUN sed -i 's/gzip off;/gzip on;/' /etc/nginx/nginx.conf
+WORKDIR /app
 
-# Copy static files to /usr/share/nginx/html
-COPY /dist /usr/share/nginx/html
+COPY ./dist .
+COPY package.json .
+COPY package-lock.json .
+COPY src/content ./src/content
 
-# Copy nginx config file to /etc/nginx/conf.d/default.conf
-COPY default.conf /etc/nginx/conf.d/default.conf
+RUN npm install
 
-# Expose port 80
+ENV HOST=0.0.0.0
+ENV PORT=80
 EXPOSE 80
+
+CMD node ./server/entry.mjs
