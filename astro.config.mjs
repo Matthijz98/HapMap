@@ -4,7 +4,6 @@ import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
 import pagefind from "vite-plugin-pagefind";
 import compress from "astro-compress";
-import compressor from "astro-compressor";
 import markdoc from "@astrojs/markdoc";
 import keystatic from "@keystatic/astro";
 
@@ -23,10 +22,6 @@ export default defineConfig({
     Image: false,
     JavaScript: true,
     SVG: true
-  }), compressor({
-    fileExtensions: [".css", ".js", ".html", ".xml", ".cjs", ".mjs", ".svg", ".txt", ".json", ".png"],
-    gzip: true,
-    brotli: false
   }), markdoc(), keystatic()],
   site: 'https://hapmap.nl',
   vite: {

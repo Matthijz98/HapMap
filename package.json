@@ -25,7 +25,6 @@
     "@types/react-dom": "^18.3.0",
     "astro": "^4.10.1",
     "astro-compress": "^2.2.27",
-    "astro-compressor": "^0.4.1",
     "nanostores": "^0.10.3",
     "pagefind": "^1.1.0",
     "react": "^18.3.1",
