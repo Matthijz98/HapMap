@@ -2,7 +2,7 @@ import {config, fields, collection} from '@keystatic/core';
 
 export default config({
     storage: {
-        kind: 'local',
+        kind: 'cloud',
     },
     cloud: {
         project: 'hapmap/hapmap',
@@ -80,7 +80,7 @@ export default config({
                 allergies: fields.array(fields.relationship({
                     label: 'Allergies',
                     collection: 'allergies'
-                }), {itemLabel: (props) => props.value}),
+                }), {label: 'Bevat allergieën', itemLabel: (props) => props.value}),
                 alt_for: fields.relationship({label: 'Alt for', collection: 'allergies'}),
             },
         }),
