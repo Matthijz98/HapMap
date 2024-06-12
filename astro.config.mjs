@@ -5,9 +5,10 @@ import sitemap from "@astrojs/sitemap";
 import pagefind from "vite-plugin-pagefind";
 import compress from "astro-compress";
 import compressor from "astro-compressor";
-
 import markdoc from "@astrojs/markdoc";
 import keystatic from "@keystatic/astro";
+
+import node from "@astrojs/node";
 
 // https://astro.build/config
 export default defineConfig({
@@ -30,5 +31,8 @@ export default defineConfig({
   site: 'https://hapmap.nl',
   vite: {
     plugins: [pagefind()]
-  }
+  },
+  adapter: node({
+    mode: "standalone"
+  })
 });
