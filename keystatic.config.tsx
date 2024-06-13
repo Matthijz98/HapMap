@@ -16,6 +16,7 @@ export default config({
             label: 'Recepten',
             slugField: 'title',
             format: {contentField: 'content'},
+            columns: ['title', 'created_at', 'category'],
             schema: {
                 title: fields.slug({
                     name: {label: 'Titel', description: 'De titel van het recept', validation: {isRequired: true}},
