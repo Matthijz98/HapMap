@@ -1,12 +1,14 @@
 import {useState, useEffect, useRef} from 'react';
 import SearchResults from "./SearchResults";
 
-const Search = () => {
+const Search = (props) => {
     const [pagefind, setPagefind] = useState(null);
     const [query, setQuery] = useState('');
     const [resultsOBJ, setResultsOBJ] = useState(null);
     let timeoutId: any = null;
     const searchInput = useRef(null);
+
+    const recipe_count = props.recipe_count;
 
     const search = async (text: string) => {
         if (pagefind) {
@@ -45,7 +47,7 @@ const Search = () => {
     return (
         <div>
             <input className="w-full bg-slate-300 rounded px-2 py-2 placeholder:font-medium placeholder:text-slate-500" value={query} ref={searchInput}
-                   placeholder="Zoeken...."
+                   placeholder={`Zoek door alle ${recipe_count} recepten`}
                    onChange={(e) => {
                        setQuery(e.target.value);
                        search(e.target.value);
