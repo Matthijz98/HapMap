@@ -23,7 +23,6 @@ const Search = (props) => {
             // Set the timeout to execute the umami.trackEvent after 3 seconds.
             timeoutId = setTimeout(() => {
                 try {
-                    console.log('search');
                     umami.trackEvent('search', {
                         query: text,
                         results: results.results.length

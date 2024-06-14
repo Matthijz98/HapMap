@@ -1,0 +1,20 @@
+---
+import {getCollection} from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const recipies = await getCollection('recipes');
+console.log(recipies);
+---
+<BaseLayout>
+    <div class="container mx-auto text-center">
+        <h1 class="text-white text-2xl font-bold pt-24 pb-6">Alle recepten</h1>
+        <ul class="text-white">
+            {recipies.map((recipe) => (
+                    <li>
+                        <a href={`/recept/${recipe.slug}`}>{recipe.data.title}</a>
+                    </li>
+            ))}
+        </ul>
+    </div>
+
+</BaseLayout>

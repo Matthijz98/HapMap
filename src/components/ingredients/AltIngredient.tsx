@@ -7,8 +7,6 @@ export default function AltIngredient(alt_ingredient){
 
     const $eatersWithAllergie = alt_ingredient.alt_ingredient.for_allergy ? $allergies[alt_ingredient.alt_ingredient.for_allergy.name] : 0;
 
-    console.log(alt_ingredient)
-
     return (
         <tr>
             <td>{alt_ingredient.alt_ingredient.ingredient.name}</td>

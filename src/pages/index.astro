@@ -8,17 +8,21 @@ const recipies = await getCollection('recipes');
 const recipe_count = recipies.length;
 ---
 <BaseLayout>
-	<div class="flex justify-center items-center min-h-svh">
+	<div class="flex justify-center mt-52 min-h-svh">
 		<div class="w-2/3">
 			<h1 class="text-4xl text-white font-bold text-center pb-2">
 				HapMap.nl
 			</h1>
+
 			<p class="text-white text-center py-4">
 				HapMap.nl is een website met recepten voor groote groepen zoals verenigingen, studentenhuizen en gezinnen. De recepten zijn makkelijk te maken en zijn vaak goedkoop.
+				Zie onderstaande zoekbalk om een recept te vinden.
 			</p>
 
 			<Search client:load recipe_count={recipe_count} />
-
+			<div class="w-full flex justify-end">
+				<a href="/recepten/" class="text-white">Zie alle {recipe_count} recepten --></a>
+			</div>
 		</div>
 	</div>
 </BaseLayout>
