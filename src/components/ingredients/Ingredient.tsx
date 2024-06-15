@@ -30,8 +30,8 @@ export default function Ingredients({ingredient}: { ingredient: RecipeIngredient
                         <span key={allergy.name}>{allergy.name}, </span>
                     ))}
                 </td>
-                <td className={"px-2 py-1"}>{ingredient.amount} {ingredient.unit.base_name}</td>
-                <td className={"px-2 py-1"}>{ingredient.amount * $remainingEaters} {ingredient.unit.base_name}</td>
+                <td className={"px-2 py-1"}>{ingredient.amount ?? ''} {ingredient?.unit?.base_name ?? ''}</td>
+                <td className={"px-2 py-1"}>{ingredient.amount && (ingredient.amount * $remainingEaters) } {ingredient.unit?.base_name ?? ''}</td>
             </tr>
             {ingredient.alt_ingredients?.length > 0 && ingredient.alt_ingredients?.some(alt_ingredient => $allergies[alt_ingredient.for_allergy.name]) &&
                 <tr>

@@ -5,8 +5,8 @@ const Categories = ["Hoofdgerechten", "Bijgerechten", "Toetjes"]
 export const recipeIngredientSchema =
     z.object({
         ingredient: reference('ingredients'),
-        amount: z.number(),
-        unit: reference('units'),
+        amount: z.number().optional(),
+        unit: reference('units').optional() ,
         alt_ingredients: z.array(z.object({
             for_allergy: reference('allergies'),
             ingredient: reference('ingredients'),

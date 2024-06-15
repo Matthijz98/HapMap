@@ -26,7 +26,7 @@ export default function Ingredients({ingredient}: { ingredient: RecipeIngredient
     return (
         <li>
             <span
-                className={'font-medium'}>{ingredient.amount * $remainingEaters} {ingredient.unit.base_name}</span> - <span>{ingredient.ingredient.name}</span>
+                className={'font-medium'}>{ingredient.amount && (ingredient.amount * $remainingEaters)} {ingredient.unit?.base_name ?? ''}</span> {ingredient.amount && '-'} <span>{ingredient.ingredient.name}</span>
             {/*<td className={"px-2 py-1"}>*/}
             {/*    {ingredient.ingredient.allergies && ingredient.ingredient.allergies.map((allergy) => (*/}
             {/*        <span key={allergy.name}>{allergy.name}, </span>*/}

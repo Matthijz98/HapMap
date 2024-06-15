@@ -53,9 +53,11 @@ export async function makeRecipeObject(slug: string): Promise<RecipeType> {
             }
         }
 
-        let unitData = await getEntry(ingredient.unit);
-        if (unitData) {
-            ingredient.unit = unitData.data;
+        if (ingredient.unit) {
+            let unitData = await getEntry(ingredient.unit);
+            if (unitData) {
+                ingredient.unit = unitData.data;
+            }
         }
     }
 
