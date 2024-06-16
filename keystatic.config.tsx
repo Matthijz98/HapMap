@@ -33,6 +33,22 @@ export default config({
                     defaultValue: 'Hoofdgerechten',
                 }),
 
+                notes: fields.array(
+                    fields.object({
+                        type: fields.select({
+                            label: 'Type',
+                            options: [
+                                {label: 'Tip', value: 'tip'},
+                                {label: 'Warning', value: 'warning'},
+                                {label: 'Info', value: 'info'},
+                            ],
+                            defaultValue: 'info',
+                        }),
+                        content: fields.text({label: 'Content'}),
+                    }, {label: 'Note'}),
+                    {label: 'Notities', description: 'Dit zijn notities die bij het recept horen', itemLabel: (props) => (props.fields.type.value + ': ' + props.fields.content.value)}
+                ),
+
                 time_minutes: fields.integer({label: 'Time in minutes'}),
                 created_at: fields.datetime({
                     label: 'Aangemaakt op',
@@ -74,10 +90,11 @@ export default config({
                 name: fields.slug({
                     name: {
                         label: 'Name',
-                        description: 'Dit is de naam van het ingredient',
+                        description: 'Dit is de naam van het ingredient in enkelvoud',
                         validation: {isRequired: true},
                     },
                 }),
+                multiple_name: fields.text({label: 'Meervoud naam'}),
                 allergies: fields.array(fields.relationship({
                     label: 'Allergies',
                     collection: 'allergies'

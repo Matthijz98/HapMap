@@ -18,6 +18,11 @@ export const recipeIngredientSchema =
 export const recipeSchema = z.object({
     title: z.string(),
     image: z.string().optional(),
+    notes: z.array(z.object({
+        type: z.enum(['tip', 'warning', 'info']),
+        content: z.string(),
+
+    })).optional(),
     category: z.enum(Categories),
     tags: z.array(z.string()).optional(),
     time_minutes: z.number().optional(),
@@ -32,6 +37,7 @@ const recipesCollection = defineCollection({
 
 export const IngredientSchema = z.object({
     name: z.string(),
+    multiple_name: z.string().optional(),
     allergies: z.array(reference('allergies')).optional(),
     alt_for: reference('allergies').optional(),
 });
