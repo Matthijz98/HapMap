@@ -1,4 +1,4 @@
-import { filtersVisibilityStore, activeFiltersStore } from '../stores/searchStores'
+import {filtersVisibilityStore, activeFiltersStore, buildFilterObject} from '../stores/searchStores'
 import {useStore} from "@nanostores/react";
 import { useEffect } from 'react'
 
@@ -16,10 +16,16 @@ export default function SearchFilters({ filters }) {
     }
 
     const toggleFilter = (category) => {
-        const isActive = activeFilters.includes(category)
-        activeFiltersStore.set(
-            isActive ? activeFilters.filter(f => f !== category) : [...activeFilters, category]
-        )
+        const activeFilters = activeFiltersStore.get();
+        const isActive = activeFilters.filters && activeFilters.filters.category === category;
+
+        if (isActive) {
+            // If the filter is active, remove it
+            activeFiltersStore.set({});
+        } else {
+            // If the filter is not active, add it
+            activeFiltersStore.set({ filters: { category } });
+        }
     }
 
     const categories = Object.entries(filters)
@@ -34,7 +40,7 @@ export default function SearchFilters({ filters }) {
                     {filters.category && Object.entries(filters.category).map(([key, value]) => (
                         <button
                             key={key}
-                            className={`rounded-full text-black px-2 py-1 text-xs text-nowrap ${activeFilters.includes(key) ? 'bg-green-500' : 'bg-white'}`}
+                            className={`rounded-full text-black px-2 py-1 text-xs text-nowrap ${activeFilters.filters && activeFilters.filters.category === key ? 'bg-green-500' : 'bg-white'}`}
                             onClick={() => toggleFilter(key)}
                         >
                             {key} - {value}

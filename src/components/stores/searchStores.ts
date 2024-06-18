@@ -12,3 +12,15 @@ export const activeFiltersStore = persistentAtom('activeFilters', [], {
     encode: JSON.stringify,
     decode: JSON.parse,
 });
+
+export const buildFilterObject = () => {
+    const activeFilters = activeFiltersStore.get();
+    const filterObject = { filters: {} };
+
+    activeFilters.forEach(filter => {
+        const [category, value] = filter.split('-');
+        filterObject.filters[category] = value;
+    });
+
+    return filterObject;
+}

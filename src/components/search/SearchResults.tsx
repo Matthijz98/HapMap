@@ -21,12 +21,16 @@ export default function SearchResults({results}: any) {
                 <a href={result_data.url} className={'bg-slate-300 p-2 rounded shadow'} key={index}>
                     <h3 className={'text-xl font-bold'}>{result_data.meta.title}</h3>
                     <div className={'flex flex-wrap gap-1 mt-1.5'}>
-                        <div className={'px-1 py-0.5 text-sm'}>Ingredienten: </div>
-                        {result_data.filters.ingredient.map((filter, filterIndex) => (
-                            <span key={filterIndex}
-                                  className={'bg-slate-400 px-1 py-0.5 rounded text-white text-sm'}>{filter}</span>
+                        {result_data.filters.ingredient && (
+                            <>
+                                <div className={'px-1 py-0.5 text-sm'}>Ingredienten:</div>
+                                {result_data.filters.ingredient.map((filter, filterIndex) => (
+                                    <span key={filterIndex}
+                                          className={'bg-slate-400 px-1 py-0.5 rounded text-white text-sm'}>{filter}</span>
 
-                            ))}
+                                ))}
+                            </>
+                        )}
                     </div>
                 </a>
             )) : ''}

@@ -49,7 +49,6 @@ const Search = (props) => {
             // Fetch the filters and set them in the state
             const filters = await pagefindModule.filters();
             setFilters(filters);
-            console.log(filters);
         }
         fetchPagefind();
     }, []);
