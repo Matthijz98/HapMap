@@ -98,7 +98,7 @@ export default config({
                 allergies: fields.array(fields.relationship({
                     label: 'Allergies',
                     collection: 'allergies'
-                }), {label: 'Bevat allergieën', itemLabel: (props) => props.value}),
+                }), {label: 'Bevat allergieën', itemLabel: (props) => props.value ? props.value : ''}),
                 alt_for: fields.relationship({label: 'Alt for', collection: 'allergies'}),
             },
         }),

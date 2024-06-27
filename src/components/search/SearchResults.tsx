@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 
-export default function SearchResults({results}: any) {
+export default function SearchResults({results, searchInput}: {results: any, searchInput: string}) {
     const [data, setData] = useState([]);
 
     useEffect(() => {
@@ -16,7 +16,6 @@ export default function SearchResults({results}: any) {
 
     return (
         <div className="flex gap-2 flex-col pt-2">
-
             {data.length > 0 ? data.map((result_data, index) => (
                 <a href={result_data.url} className={'bg-slate-300 p-2 rounded shadow'} key={index}>
                     <h3 className={'text-xl font-bold'}>{result_data.meta.title}</h3>
@@ -25,12 +24,10 @@ export default function SearchResults({results}: any) {
                         {result_data.filters.ingredient.map((filter, filterIndex) => (
                             <span key={filterIndex}
                                   className={'bg-slate-400 px-1 py-0.5 rounded text-white text-sm'}>{filter}</span>
-
-                            ))}
+                        ))}
                     </div>
                 </a>
-            )) : ''}
-
+            )) : (searchInput.length > 0) ? <div className={'bg-slate-300 p-2 rounded shadow'}>Geen recepten gevonden</div> : null}
         </div>
     );
 }
