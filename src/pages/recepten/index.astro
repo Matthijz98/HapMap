@@ -4,7 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const recipies = await getCollection('recipes');
 ---
-<BaseLayout>
+<BaseLayout title="Recepten">
     <div class="container mx-auto text-center">
         <h1 class="text-white text-2xl font-bold pt-6 md:pt-24 pb-6">Alle recepten</h1>
         <ul class="text-white">
@@ -15,5 +15,4 @@ const recipies = await getCollection('recipes');
             ))}
         </ul>
     </div>
-
 </BaseLayout>

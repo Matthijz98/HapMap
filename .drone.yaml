@@ -3,12 +3,12 @@ name: static-site
 
 steps:
   - name: npm install
-    image: node:20
+    image: node:22-alpine
     commands:
       - npm install
 
   - name: build
-    image: node:22
+    image: node:22-alpine
     commands:
       - npm run build
     depends_on:
