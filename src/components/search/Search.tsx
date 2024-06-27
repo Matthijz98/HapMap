@@ -13,7 +13,9 @@ const Search = (props) => {
     const search = async (text: string) => {
         if (pagefind) {
             let results = await pagefind.debouncedSearch(text);
-            setResultsOBJ(results.results);
+            if(results){
+                setResultsOBJ(results.results);
+            }
 
             // Clear the timeout if it's already set.
             if (timeoutId) {
@@ -53,7 +55,7 @@ const Search = (props) => {
                    }}
                    autoCapitalize="off" autoComplete="off" autoCorrect="off" spellCheck="false">
             </input>
-            <SearchResults results={resultsOBJ}/>
+            <SearchResults results={resultsOBJ} searchInput={query}/>
         </div>
     );
 }
