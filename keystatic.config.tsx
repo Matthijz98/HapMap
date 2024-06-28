@@ -29,7 +29,7 @@ export default config({
 
                 category: fields.select({
                     label: 'Categorie',
-                    options: [{label: 'Hoofdgerechten', value: 'Hoofdgerechten'}],
+                    options: [{label: 'Hoofdgerechten', value: 'Hoofdgerechten'}, {label: "Toetjes", value: "Toetjes"}],
                     defaultValue: 'Hoofdgerechten',
                 }),
 
@@ -46,7 +46,11 @@ export default config({
                         }),
                         content: fields.text({label: 'Content'}),
                     }, {label: 'Note'}),
-                    {label: 'Notities', description: 'Dit zijn notities die bij het recept horen', itemLabel: (props) => (props.fields.type.value + ': ' + props.fields.content.value)}
+                    {
+                        label: 'Notities',
+                        description: 'Dit zijn notities die bij het recept horen',
+                        itemLabel: (props) => (props.fields.type.value + ': ' + props.fields.content.value)
+                    }
                 ),
 
                 time_minutes: fields.integer({label: 'Time in minutes'}),
@@ -59,7 +63,11 @@ export default config({
                     fields.object({
                         ingredient: fields.relationship({label: 'Ingredient', collection: 'ingredients'}),
                         amount: fields.number({label: 'Amount', validation: {isRequired: false}}),
-                        unit: fields.relationship({label: 'Unit', collection: 'units', validation: {isRequired: false}}),
+                        unit: fields.relationship({
+                            label: 'Unit',
+                            collection: 'units',
+                            validation: {isRequired: false}
+                        }),
                         alt_ingredients: fields.array(
                             fields.object({
                                 for_allergy: fields.relationship({label: 'For allergy', collection: 'allergies'}),
