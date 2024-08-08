@@ -1,4 +1,5 @@
 import { persistentAtom } from '@nanostores/persistent'
+import type {AllergyType} from "../../content/config.ts";
 
 export const eaters = persistentAtom('eaters', '10', {
     encode: JSON.stringify,
@@ -10,7 +11,7 @@ export const allergies = persistentAtom('allergies', {}, {
     decode: JSON.parse,
 });
 
-export function updateAllergies(allergy: string, newValue: number) {
+export function updateAllergies(allergy: AllergyType, newValue: number) {
     const oldData = allergies.get();
     // Create a new object with the updated values
     const newData = {

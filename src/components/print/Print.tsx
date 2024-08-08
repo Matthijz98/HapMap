@@ -1,10 +1,21 @@
+// src/components/print/Print.tsx
+import React from 'react';
 import {eaters, allergies} from "../stores/eatersStore.ts";
 import {useStore} from '@nanostores/react';
 import type {AllergyType, RecipeIngredientType} from "../../content/config.ts";
 import Ingredients from "./Ingredients.tsx";
 import {useEffect} from "react";
 
-const Print = (props) => {
+interface PrintProps {
+    title: string;
+    description: string;
+    date: string;
+    tags: string[];
+    ingredients: RecipeIngredientType[];
+    children: React.ReactNode;
+}
+
+const Print = (props: PrintProps) => {
     const $eaters = useStore(eaters);
     const $allergies = useStore(allergies);
 
@@ -13,7 +24,6 @@ const Print = (props) => {
         .flat()
         .filter(Boolean);
 
-    // Use the useEffect hook to call window.print after the component has been rendered
     useEffect(() => {
         window.print();
     }, [])
@@ -42,17 +52,15 @@ const Print = (props) => {
                         </>
                     }
 
-
                     <h2 className="font-bold text-xl pt-4">Eeters</h2>
                     <span className={'font-medium'}>Totaal: {$eaters}</span><br/>
-                    {/* Show the eaters with allergies from the allergy store*/}
                     {$allergies.length > 0 && <>
                         Waarvan met allergie:
                         <ul>
                             {Object.entries($allergies).map(([key, value]) =>
-                                    recipe_allergies.some(allergy => allergy.name === key) && (
+                                    recipe_allergies.some((allergy: any) => allergy.name === key) && (
                                         <li key={key}>
-                                            {key}: {value}
+                                            {key}: {value as React.ReactNode}
                                         </li>
                                     )
                             )}

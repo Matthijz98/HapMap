@@ -1,6 +1,6 @@
 import EaterInput from "./EaterInput.tsx";
 import {useStore} from "@nanostores/react";
-import {eaters, updateAllergies} from '../stores/eatersStore';
+import {eaters} from '../stores/eatersStore';
 import type {AllergyType} from "../../content/config.ts";
 
 export default function Eaters(allergies: any){

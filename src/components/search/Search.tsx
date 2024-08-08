@@ -1,10 +1,29 @@
 import {useState, useEffect, useRef} from 'react';
 import SearchResults from "./SearchResults";
 
-const Search = (props) => {
-    const [pagefind, setPagefind] = useState(null);
+interface SearchProps {
+    recipe_count: number;
+}
+
+interface Result {
+    data: () => Promise<ResultData>;
+}
+
+interface ResultData {
+    url: string;
+    meta: {
+        title: string;
+    };
+    filters: {
+        ingredient: string[];
+    };
+}
+
+const Search = (props: SearchProps) => {
+    // @ts-ignore
+    const [pagefind, setPagefind] = useState<Pagefind | null>(null);
     const [query, setQuery] = useState('');
-    const [resultsOBJ, setResultsOBJ] = useState(null);
+    const [resultsOBJ, setResultsOBJ] = useState<Result[]>([]);
     let timeoutId: any = null;
     const searchInput = useRef(null);
 
@@ -13,7 +32,7 @@ const Search = (props) => {
     const search = async (text: string) => {
         if (pagefind) {
             let results = await pagefind.debouncedSearch(text);
-            if(results){
+            if (results) {
                 setResultsOBJ(results.results);
             }
 
@@ -25,6 +44,7 @@ const Search = (props) => {
             // Set the timeout to execute the umami.trackEvent after 3 seconds.
             timeoutId = setTimeout(() => {
                 try {
+                    // @ts-ignore
                     umami.trackEvent('search', {
                         query: text,
                         results: results.results.length
@@ -47,7 +67,8 @@ const Search = (props) => {
 
     return (
         <div>
-            <input className="w-full bg-slate-300 rounded px-2 py-2 placeholder:font-medium placeholder:text-slate-500" value={query} ref={searchInput}
+            <input className="w-full bg-slate-300 rounded px-2 py-2 placeholder:font-medium placeholder:text-slate-500"
+                   value={query} ref={searchInput}
                    placeholder={`Zoek door alle ${recipe_count} recepten`}
                    onChange={(e) => {
                        setQuery(e.target.value);
