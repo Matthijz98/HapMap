@@ -1,5 +1,8 @@
 import {useState, useEffect, useRef} from 'react';
 import SearchResults from "./SearchResults";
+import SearchFilters from "./SearchFilters.tsx";
+import {useStore} from "@nanostores/react";
+import {activeFiltersStore} from "../stores/searchStores.ts";
 
 interface SearchProps {
     recipe_count: number;
@@ -22,16 +25,21 @@ interface ResultData {
 const Search = (props: SearchProps) => {
     // @ts-ignore
     const [pagefind, setPagefind] = useState<Pagefind | null>(null);
+    const [filters, setFilters] = useState([]);
     const [query, setQuery] = useState('');
     const [resultsOBJ, setResultsOBJ] = useState<Result[]>([]);
     let timeoutId: any = null;
     const searchInput = useRef(null);
 
+    const activeFilters = useStore(activeFiltersStore)
+
     const recipe_count = props.recipe_count;
 
     const search = async (text: string) => {
         if (pagefind) {
-            let results = await pagefind.debouncedSearch(text);
+            let results = await pagefind.debouncedSearch(text, {
+                filters: activeFilters.filters
+            });
             if (results) {
                 setResultsOBJ(results.results);
             }
@@ -61,6 +69,10 @@ const Search = (props: SearchProps) => {
             const pagefindModule = await import("/pagefind/pagefind.js");
             setPagefind(pagefindModule);
             pagefindModule.init();
+
+            // Fetch the filters and set them in the state
+            const filters = await pagefindModule.filters();
+            setFilters(filters);
         }
         fetchPagefind();
     }, []);
@@ -77,6 +89,7 @@ const Search = (props: SearchProps) => {
                    autoCapitalize="off" autoComplete="off" autoCorrect="off" spellCheck="false">
             </input>
             <SearchResults results={resultsOBJ} searchInput={query}/>
+            <SearchFilters filters={filters}/>
         </div>
     );
 }

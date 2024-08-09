@@ -4,7 +4,7 @@ import Ingredients from "../components/ingredients/Ingredients";
 import Eaters from "../components/eaters/Eaters";
 import type {AllergyType, NoteType, RecipeIngredientType} from "../content/config";
 
-let {title, description, date, tags, ingredients, notes} = Astro.props;
+let {title, description, date, tags, ingredients, notes, category} = Astro.props;
 
 let printUrl = Astro.url + '/print/';
 
@@ -21,11 +21,16 @@ let allergies = ingredients
     <div class="min-h-screen flex justify-center items-center p-2" data-pagefind-body>
         <div class="w-full xl:w-2/3">
             <h1 class="text-4xl font-bold text-center text-white pb-4">{title}</h1>
+            <div class="text-slate-400 w-full text-center">
+                <p>
+                    <span class="font-bold">Categorie: </span> <span data-pagefind-filter="category">{category}</span>
+                </p>
+            </div>
             <div class="flex w-full justify-end pb-2">
                 <a class="bg-blue-300 rounded px-2 py-1" href={printUrl} target="_blank">Print</a>
             </div>
             {allergies.length > 0 && allergies.map((allergy: AllergyType) => (
-                    <span class="hidden" data-pagefind-filter={allergy.name}></span>
+                    <span class="hidden" data-pagefind-filter="allergy">{allergy.name}</span>
             ))}
 
             <Ingredients client:load ingredients={ingredients} data-pagefind-ignore/>

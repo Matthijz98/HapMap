@@ -30,7 +30,6 @@ export const recipeSchema = z.object({
     image: z.string().optional(),
     notes: z.array(NoteSchema).optional(),
     category: z.enum(Categories),
-    tags: z.array(z.string()).optional(),
     time_minutes: z.number().optional(),
     created_at: z.date().optional(),
     ingredients: z.array(recipeIngredientSchema.optional()),
