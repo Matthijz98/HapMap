@@ -62,18 +62,18 @@ export default config({
                 ingredients: fields.array(
                     fields.object({
                         ingredient: fields.relationship({label: 'Ingredient', collection: 'ingredients'}),
-                        amount: fields.number({label: 'Amount', validation: {isRequired: false}}),
+                        amount: fields.number({label: 'Hoeveelheid', validation: {isRequired: false}}),
                         unit: fields.relationship({
-                            label: 'Unit',
+                            label: 'Eenheid',
                             collection: 'units',
                             validation: {isRequired: false}
                         }),
                         alt_ingredients: fields.array(
                             fields.object({
-                                for_allergy: fields.relationship({label: 'For allergy', collection: 'allergies'}),
+                                for_allergy: fields.relationship({label: 'Voor allergie', collection: 'allergies'}),
                                 ingredient: fields.relationship({label: 'Ingredient', collection: 'ingredients'}),
-                                amount: fields.number({label: 'Amount', validation: {isRequired: true}}),
-                                unit: fields.relationship({label: 'Unit', collection: 'units'}),
+                                amount: fields.number({label: 'Hoeveelheid', validation: {isRequired: true}}),
+                                unit: fields.relationship({label: 'Eenheid', collection: 'units'}),
                             })
                             , {
                                 label: 'Alternative ingredient',
@@ -97,7 +97,7 @@ export default config({
             schema: {
                 name: fields.slug({
                     name: {
-                        label: 'Name',
+                        label: 'Naam',
                         description: 'Dit is de naam van het ingredient in enkelvoud',
                         validation: {isRequired: true},
                     },
