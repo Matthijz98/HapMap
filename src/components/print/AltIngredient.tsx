@@ -1,7 +1,8 @@
 import {useStore} from "@nanostores/react";
 import {allergies, eaters} from "../stores/eatersStore.ts";
+import type {AltIngredientType} from "../../content/config.ts";
 
-export default function AltIngredient(alt_ingredient){
+export default function AltIngredient(alt_ingredient: any){
     const $eaters = useStore(eaters);
     const $allergies = useStore(allergies);
 

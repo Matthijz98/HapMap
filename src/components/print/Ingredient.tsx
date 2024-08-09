@@ -2,7 +2,6 @@ import type {RecipeIngredientType} from '../../content/config.ts';
 import {useStore} from "@nanostores/react";
 import {allergies, eaters} from "../stores/eatersStore.ts";
 import AltIngredients from "./AltIngredients.tsx";
-// import AltIngredients from "./AltIngredients.tsx";
 
 
 export default function Ingredients({ingredient}: { ingredient: RecipeIngredientType }) {

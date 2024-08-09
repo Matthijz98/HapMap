@@ -1,6 +1,6 @@
 import AltIngredient from './AltIngredient';
 
-export default function AltIngredients(alt_ingredients) {
+export default function AltIngredients(alt_ingredients: any) {
     return (
         <div className={'bg-slate-400 rounded shadow p-1'}>
             <table className={'w-full'}>
@@ -13,7 +13,7 @@ export default function AltIngredients(alt_ingredients) {
                 </tr>
                 </thead>
                 <tbody>
-                {alt_ingredients.alt_ingredients.map((alt_ingredient, index) => (
+                {alt_ingredients.alt_ingredients.map((alt_ingredient: object, index: number) => (
                     <AltIngredient alt_ingredient={alt_ingredient} key={index}/>
                 ))}
                 </tbody>

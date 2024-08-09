@@ -4,16 +4,17 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const recipies = await getCollection('recipes');
 ---
-<BaseLayout>
+<BaseLayout title="Recepten">
     <div class="container mx-auto text-center">
         <h1 class="text-white text-2xl font-bold pt-6 md:pt-24 pb-6">Alle recepten</h1>
-        <ul class="text-white">
+        <ul class="text-white flex flex-col gap-2">
             {recipies.map((recipe) => (
-                    <li>
-                        <a href={`/recept/${recipe.slug}`}>{recipe.data.title}</a>
-                    </li>
+                    <a href={`/recept/${recipe.slug}`}>
+                        <li class="bg-slate-600 rounded p-1 border border-slate-500">
+                            {recipe.data.title}
+                        </li>
+                    </a>
             ))}
         </ul>
     </div>
-
 </BaseLayout>
