@@ -22,13 +22,15 @@ let allergies = ingredients
         <div class="w-full xl:w-2/3">
             <h1 class="text-4xl font-bold text-center text-white pb-4">{title}</h1>
             <div class="text-slate-400 w-full text-center">
-                <span class="font-bold">Categorie: </span> <span data-pagefind-filter="category">{category}</span>
+                <p>
+                    <span class="font-bold">Categorie: </span> <span data-pagefind-filter="category">{category}</span>
+                </p>
             </div>
             <div class="flex w-full justify-end pb-2">
                 <a class="bg-blue-300 rounded px-2 py-1" href={printUrl} target="_blank">Print</a>
             </div>
             {allergies.length > 0 && allergies.map((allergy: AllergyType) => (
-                    <span class="hidden" data-pagefind-filter={allergy.name}></span>
+                    <span class="hidden" data-pagefind-filter="allergy">{allergy.name}</span>
             ))}
 
             <Ingredients client:load ingredients={ingredients} data-pagefind-ignore/>

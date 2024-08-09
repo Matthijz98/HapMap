@@ -5,11 +5,9 @@ import { useEffect } from 'react'
 export default function SearchFilters({ filters }) {
     const isVisible = useStore(filtersVisibilityStore)
     const activeFilters = useStore(activeFiltersStore)
-    // const categories = [] // TODO: Get this from pagefind filters
 
-    useEffect(() => {
-        // TODO: Get categories from pagefind filters and set them in the state
-    }, [])
+    console.log('activeFilters', activeFilters)
+    console.log('filters', filters)
 
     const toggleVisibility = () => {
         filtersVisibilityStore.set(!isVisible)

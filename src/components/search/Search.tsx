@@ -25,6 +25,7 @@ interface ResultData {
 const Search = (props: SearchProps) => {
     // @ts-ignore
     const [pagefind, setPagefind] = useState<Pagefind | null>(null);
+    const [filters, setFilters] = useState([]);
     const [query, setQuery] = useState('');
     const [resultsOBJ, setResultsOBJ] = useState<Result[]>([]);
     let timeoutId: any = null;
@@ -36,7 +37,9 @@ const Search = (props: SearchProps) => {
 
     const search = async (text: string) => {
         if (pagefind) {
-            let results = await pagefind.debouncedSearch(text);
+            let results = await pagefind.debouncedSearch(text, {
+                filters: activeFilters.filters
+            });
             if (results) {
                 setResultsOBJ(results.results);
             }
