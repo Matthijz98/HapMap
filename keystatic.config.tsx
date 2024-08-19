@@ -25,7 +25,11 @@ export default config({
                         description: 'De slug van het recept (wordt gebruikt in de url) en autmatisch gegenereerd op basis van de titel'
                     }
                 }),
-                image: fields.image({label: 'Foto'}),
+                image: fields.image({
+                    label: 'Foto',
+                    directory: 'src/assets/images/recipes',
+                    publicPath: '@assets/images/recipes/'
+                }),
 
                 category: fields.select({
                     label: 'Categorie',
@@ -86,7 +90,12 @@ export default config({
                         description: 'De ingredienten van het recept, de hoeveelheden zijn per persoon de site rekent dit om naar het aantal personen dat je opgeeft',
                         itemLabel: (props) => `${props.fields.ingredient.value} - ${props.fields.amount.value} ${props.fields.unit.value}`
                     }),
-                content: fields.markdoc({label: 'Het recept', description: 'De inhoud van het recept'}),
+                content: fields.markdoc({label: 'Het recept', description: 'De inhoud van het recept', options: {
+                        image: {
+                            directory: 'src/assets/images/recipes',
+                            publicPath: '@assets/images/recipes/'
+                        }
+                    }}),
             },
         }),
         ingredients: collection({
