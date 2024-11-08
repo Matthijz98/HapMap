@@ -1,44 +1,29 @@
-import React from 'react';
-import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
+import React, { useEffect, useState } from 'react';
+import {Page, Text, View, Document} from '@react-pdf/renderer';
+import {styles} from './styles';
+import {FrontPage} from "./FrontPage.tsx";
+import {RecipePage} from "./RecipePage/RecipePage.tsx";
+import { getCollection } from 'astro:content';
+import { makeRecipeObject } from '../utils/make_recipe_object.ts';
+import type {RecipeType} from "../../content/config.ts";
 
-// Create styles
-const styles = StyleSheet.create({
-    page: {
-        flexDirection: 'row',
-    },
-    section: {
-        margin: 10,
-        padding: 10,
-        flexGrow: 1
-    },
-    h1: {
-        fontSize: '90px',
-        textAlign: 'center'
-    },
-    h2: {
-        fontSize: '40px',
-        textAlign: 'center'
-    },
-    colums: {
-        flexDirection: 'row'
-    }
+const recipeCollection = await getCollection('recipes');
+const recipePromises = recipeCollection.map(async (recipe) => {
+    const additionalData = await makeRecipeObject(recipe.slug);
+    const { Content } = await recipe.render();
+    console.log(Content)
+    return { ...additionalData, Content };
 });
+const recipes: RecipeType[] = await Promise.all(recipePromises);
 
-export const HapMapPdf = () => (
-    <Document>
-        <Page size="A4" style={styles.page}>
-            <View style={styles.section}>
-                <Text style={styles.h1}>HapMap.nl</Text>
-                <Text style={styles.h2}>Recepten voor groepen</Text>
-            </View>
-        </Page>
-        <Page>
-            <View style={styles.section}>
-                {/* Add 2 columns for the recipe info and ingredients */}
-                <View>
-                </View>
-                <Text style={styles.h2}>Recept1</Text>
-            </View>
-        </Page>
-    </Document>
-);
+
+export const HapMapPdf =  () => {
+    return (
+        <Document style={styles.document}>
+            <FrontPage/>
+            {recipes.map((recipe, index) => (
+                <RecipePage key={index} recipe={recipe} />
+            ))}
+        </Document>
+    );
+};
