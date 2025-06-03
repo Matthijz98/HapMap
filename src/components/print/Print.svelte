@@ -29,7 +29,7 @@
 
 <div class="grid grid-cols-2">
   <div>
-    <h2 class="font-bold text-xl pt-4">Ingredienten</h2>
+    <h2 class="font-bold text-xl pt-4">Ingrediënten</h2>
     <Ingredients {ingredients} />
   </div>
 
@@ -43,7 +43,7 @@
       </ul>
     {/if}
 
-    <h2 class="font-bold text-xl pt-4">Eeters</h2>
+    <h2 class="font-bold text-xl pt-4">Eters</h2>
     <span class="font-medium">Totaal: {$eaters}</span><br/>
     {#if Object.keys($allergies).length > 0}
       Waarvan met allergie:
