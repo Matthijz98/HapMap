@@ -60,9 +60,5 @@ export async function makeRecipeObject(slug: string): Promise<RecipeType> {
             }
         }
     }
-
-    // print the full recipe object
-    // console.log(JSON.stringify(recipe.data, null, 4));
-
     return recipe.data;
 }

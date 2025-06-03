@@ -8,14 +8,16 @@ import keystatic from "@keystatic/astro";
 
 import node from "@astrojs/node";
 
+import svelte from "@astrojs/svelte";
+
 // https://astro.build/config
 export default defineConfig({
-    output: 'hybrid',
+    output: 'server',
     build: {
         assets: 'assets'
         // assetsPrefix: 'https://cdn.example.com' @todo this could be cool to do later
     },
-    integrations: [react(), tailwind(), sitemap(), markdoc(), keystatic()],
+    integrations: [react(), tailwind(), sitemap(), markdoc(), keystatic(), svelte()],
     site: 'https://hapmap.nl',
     vite: {
         plugins: [pagefind()]

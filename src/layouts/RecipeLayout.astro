@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
-import Ingredients from "../components/ingredients/Ingredients";
-import Eaters from "../components/eaters/Eaters";
+import Ingredients from "../components/ingredients/Ingredients.svelte";
+import Eaters from "../components/eaters/Eaters.svelte";
 import type {AllergyType, NoteType, RecipeIngredientType} from "../content/config";
 
 let {title, description, date, tags, ingredients, notes, category} = Astro.props;

@@ -2,7 +2,7 @@
 ---
 import {getCollection} from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Search from "../components/search/Search";
+import Search from "../components/search/Search.svelte";
 
 const recipies = await getCollection('recipes');
 const recipe_count = recipies.length;
