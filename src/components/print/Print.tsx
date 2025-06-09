@@ -43,7 +43,7 @@ const Print = (props) => {
                     }
 
 
-                    <h2 className="font-bold text-xl pt-4">Eeters</h2>
+                    <h2 className="font-bold text-xl pt-4">Eters</h2>
                     <span className={'font-medium'}>Totaal: {$eaters}</span><br/>
                     {/* Show the eaters with allergies from the allergy store*/}
                     {$allergies.length > 0 && <>
