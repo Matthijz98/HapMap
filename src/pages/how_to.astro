@@ -11,10 +11,10 @@ import ingredientenOverzichtImg from '../images/ingredienten_overzicht.png';
 
             <h1 class="text-6xl text-white font-bold mb-6 text-center">How to</h1>
 
-            <div class="px-4 bg-slate-300 rounded p-2 mb-6">
-                <h2 class="text-3xl font-bold">Website gebruiken</h2>
-                <h3 class="text-2xl mt-3 mb-1 font-semibold">Recepten zoeken</h3>
-            </div>
+            <!--<div class="px-4 bg-slate-300 rounded p-2 mb-6">-->
+            <!--    <h2 class="text-3xl font-bold">Website gebruiken</h2>-->
+            <!--    <h3 class="text-2xl mt-3 mb-1 font-semibold">Recepten zoeken</h3>-->
+            <!--</div>-->
 
             <div class="px-4 bg-slate-300 rounded p-2">
                 <h2 class="text-3xl font-bold">Recepten toevoegen</h2>
@@ -27,7 +27,7 @@ import ingredientenOverzichtImg from '../images/ingredienten_overzicht.png';
                     Inloggen op de admin interface kan via <a class="font-black" href="/keystatic" target="_parent">hapmap.nl/keystatic</a>
                     de inlog gegeven zijn bekent bij de Cookie.
 
-                    Als het inloggen zou je een pagina moeten zijn die er ongeveer zo uit ziet:
+                    Als je bent inloged zou je een pagina moeten zijn die er ongeveer zo uit ziet:
                     <Image src={keystaticImg} alt="Admin login" width="800" class="rounded shadow-lg shadow-gray-600 mx-auto my-4"/>
                 </p>
 
@@ -36,16 +36,16 @@ import ingredientenOverzichtImg from '../images/ingredienten_overzicht.png';
                     Om het toevoegen van het recept zo makkelijk mogelijk te maken is het handig om eerst te zorgen dat alle
                     ingredienten die je nodig hebt zijn toegevoegd.
                     Dit is handig omdat je de pagina voor het toevoegen van het recept dan niet elke keer hoeft te
-                    vernieuwen.
+                    vernieuwen, nadat je het juiste ingredient hebt toegevoegd.
                 </p>
 
                 <h3 class="text-2xl mt-3 mb-1 font-semibold">Ingredient toevoegen</h3>
                 <p>
-                    Met behulp van de menubalk aan re rechterzijde van de pagina kun je navigeren naar ingredienten.
-                    Om te kijken of een ingredient al bestaat kun je het zoek veld rechts boven aan de pagina gebruiken om
-                    door de ingredienten te zoeken, dit werkt alleen of het naam veld welke altijd in enkelvoud is.
+                    Met behulp van de menubalk aan de rechterzijde van de pagina kun je navigeren naar ingredienten.
+                    Om te kijken of een ingredient al bestaat kun je het zoek veld rechts boven aan de pagina gebruiken.
+                    Zoeken gaat uit van de enkelfout naam van een ingredient.
                     <Image src={ingredientenOverzichtImg} alt="Admin login" width="800" class="rounded shadow-lg shadow-gray-600 mx-auto my-4"/>
-                    Om een nieuw ingredient toe te voegen kun je op de blauwe Add knop gebruiken.
+                    Om een nieuw ingredient toe te voegen kun je op de blauwe "Add" knop gebruiken.
                     Een ingredient bevat de volgende gegevens:
                 </p>
 
@@ -59,7 +59,8 @@ import ingredientenOverzichtImg from '../images/ingredienten_overzicht.png';
                         Het is handig om deze na het aanmaken van het product niet meer aan te passen, omdat dit voor problemen kan zorgen
                     </li>
                     <li class="mb-2">
-                        <span class="font-bold">Meervoud:</span> Dit is de naam van het ingredient in meervoud. Deze wordt gebruikt voor de ingredienten pagina.
+                        <span class="font-bold">Meervoud:</span> Dit is de naam van het ingredient in meervoud.
+                        Deze wordt gebruikt voor de ingredienten pagina als er meerdere van een ingredient nodig zijn.
                     </li>
                     <li class="mb-2">
                         <span class="font-bold">Bevat allergieën:</span> Dit is een checkbox die aangeeft of het ingredient allergieën bevat.
@@ -72,9 +73,7 @@ import ingredientenOverzichtImg from '../images/ingredienten_overzicht.png';
                 <div class="bg-orange-400 border border-orange-500 bg-opacity-75 rounded px-2 py-1 shadow-orange-400 shadow-md my-2">
                     Check even goed of het recept al bestaat, dit kan je doen door de zoek balk te gebruiken.
                 </div>
-                <p>
 
-                </p>
                 <ul>
                     <li class="mb-2">
                         <span class="font-bold">Naam:</span> Dit is de naam van het recept.
@@ -93,10 +92,8 @@ import ingredientenOverzichtImg from '../images/ingredienten_overzicht.png';
                     </li>
 
                     <li class="mb-2">
-                        <span class="font-bold">Notities:</span> Dit is een veld waar je extra informatie kan toevoegen over het recept.
-
-                    <li class="mb-2">
-                        <span class="font-bold">Korte omschrijving:</span> Dit is een korte omschrijving van het recept. Deze notes kunnen 3 types zijn welke bepalen welke kleur ze krijgen op de recepten pagina.
+                        <span class="font-bold">Notities:</span> Dit kunnen handige notities zijn die van belang kunnen zijn bij het recept.
+                        Deze notities kunnen 3 types zijn welke bepalen welke kleur ze krijgen op de recepten pagina.
                     </li>
 
                     <li class="mb-2">
