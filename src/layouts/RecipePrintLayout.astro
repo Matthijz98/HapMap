@@ -1,6 +1,6 @@
 ---
 let {title, description, date, tags, ingredients} = Astro.props;
-import Print from "../components/print/Print";
+import Print from "../components/print/Print.svelte";
 import {eaters} from "../components/stores/eatersStore";
 ---
 <html lang="nl">
@@ -13,7 +13,7 @@ import {eaters} from "../components/stores/eatersStore";
     <link rel="icon" href="/favicon.png"/>
 </head>
 <body class="p-4">
-    <Print client:only="react"
+    <Print client:only="svelte"
            title={title} description={description} date={date} tags={tags} ingredients={ingredients}>
         <slot/>
     </Print>

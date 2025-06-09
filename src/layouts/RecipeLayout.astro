@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
-import Ingredients from "../components/ingredients/Ingredients";
-import Eaters from "../components/eaters/Eaters";
+import Ingredients from "../components/ingredients/Ingredients.svelte";
+import Eaters from "../components/eaters/Eaters.svelte";
 import type {AllergyType, NoteType, RecipeIngredientType} from "../content/config";
 
 let {title, description, date, tags, ingredients, notes, category} = Astro.props;
@@ -37,7 +37,7 @@ let allergies = ingredients
 
             <Eaters client:load allergies={allergies} data-pagefind-ignore></Eaters>
 
-            <div class="bg-slate-200 p-2 prose max-w-full rounded">
+            <div class="bg-slate-200 px-2 py-1 prose max-w-full rounded">
                 {notes?.length > 0 && (
                         <div class="flex flex-col gap-2">
                             {notes.map((note: NoteType) => (
