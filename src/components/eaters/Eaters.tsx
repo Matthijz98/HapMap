@@ -17,7 +17,7 @@ export default function Eaters(allergies: any){
         <div className={'bg-slate-200 rounded p-2 mb-4'}>
             <div className={'flex flex-col gap-4'}>
                 <div className={'flex gap-4'}>
-                    <label className={'text-nowrap'}>Aantal eeters:</label>
+                    <label className={'text-nowrap'}>Aantal eters:</label>
                     <input className={"w-full rounded px-1 py-0.5"} value={$eaters} onChange={handleInputChange}/>
                 </div>
 
