@@ -18,7 +18,7 @@
 <div class="bg-slate-200 rounded p-2 mb-4">
   <div class="flex flex-col gap-4">
     <div class="flex gap-4">
-      <label class="text-nowrap">Aantal eeters totaal:</label>
+      <label class="text-nowrap">Aantal eters totaal:</label>
       <input class="w-full rounded px-1 py-0.5" value={$eaters} on:input={handleInputChange}/>
     </div>
     <div class="bg-slate-300 rounded p-2">
