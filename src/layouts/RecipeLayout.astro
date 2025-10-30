@@ -4,7 +4,7 @@ import Ingredients from "../components/ingredients/Ingredients.svelte";
 import Eaters from "../components/eaters/Eaters.svelte";
 import type {AllergyType, NoteType, RecipeIngredientType} from "../content/config";
 
-let {title, description, date, tags, ingredients, notes, category} = Astro.props;
+let {title, description, keywords, image, date, ingredients, notes, category} = Astro.props;
 
 let printUrl = Astro.url + '/print/';
 
@@ -12,9 +12,22 @@ let allergies = ingredients
     .map((ingredient: RecipeIngredientType) => ingredient.ingredient.allergies)
     .flat()
     .filter(Boolean);
+
+// Generate description if not provided
+const generatedDescription = description || `${title} - Een heerlijk ${category.toLowerCase()} recept met ingrediënten zoals ${ingredients.slice(0, 3).map((i: RecipeIngredientType) => i.ingredient.name).join(', ')}.`;
+
+// Generate keywords if not provided
+const allergyNames = allergies.map((a: AllergyType) => a.name).join(', ');
+const generatedKeywords = keywords || `${category}, recept, ${allergyNames ? 'allergie vriendelijk, ' + allergyNames : ''}`.trim();
 ---
 
-<BaseLayout>
+<BaseLayout
+    title={title}
+    description={generatedDescription}
+    keywords={generatedKeywords}
+    image={image}
+    type="article"
+>
     <div class="mx-2 mt-2 text-white font-bold text-xl">
         <a href="/">Home</a>
     </div>

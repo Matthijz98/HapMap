@@ -31,6 +31,17 @@ export default config({
                     publicPath: '@assets/images/recipes/'
                 }),
 
+                description: fields.text({
+                    label: 'Beschrijving',
+                    description: 'Een korte beschrijving van het recept voor SEO en sociale media (ideaal 150-160 karakters)',
+                    multiline: true,
+                }),
+
+                keywords: fields.text({
+                    label: 'Zoekwoorden',
+                    description: 'Komma-gescheiden zoekwoorden voor SEO (bijv: pasta, vegetarisch, snel gerecht)',
+                }),
+
                 category: fields.select({
                     label: 'Categorie',
                     options: [{label: 'Hoofdgerechten', value: 'Hoofdgerechten'}, {label: "Toetjes", value: "Toetjes"}],

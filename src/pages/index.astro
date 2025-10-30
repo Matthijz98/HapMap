@@ -6,8 +6,16 @@ import Search from "../components/search/Search.svelte";
 
 const recipies = await getCollection('recipes');
 const recipe_count = recipies.length;
+
+const siteTitle = "HapMap.nl - Recepten voor grote groepen";
+const siteDescription = "HapMap.nl is een website met recepten voor grote groepen zoals verenigingen, studentenhuizen en gezinnen. De recepten zijn makkelijk te maken en rekening houdend met allergieën.";
+const siteKeywords = "recepten, grote groepen, verenigingen, studentenhuizen, allergieën, groepsrecepten";
 ---
-<BaseLayout>
+<BaseLayout
+	title={siteTitle}
+	description={siteDescription}
+	keywords={siteKeywords}
+>
 	<div class="flex justify-center items-center min-h-svh">
 		<div class="md:w-2/3 px-4">
 			<h1 class="text-4xl text-white font-bold text-center pb-2">

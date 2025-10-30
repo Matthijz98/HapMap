@@ -28,6 +28,8 @@ const NoteSchema = z.object({
 export const recipeSchema = z.object({
     title: z.string(),
     image: z.string().optional(),
+    description: z.string().optional(),
+    keywords: z.string().optional(),
     notes: z.array(NoteSchema).optional(),
     category: z.enum(Categories),
     time_minutes: z.number().optional(),
