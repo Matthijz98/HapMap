@@ -45,6 +45,6 @@
   </div>
   
   <button class="w-full text-center" on:click={toggleVisibility}>
-    {$filtersVisibilityStore ? 'Hide filters' : 'Show filters'}
+    {$filtersVisibilityStore ? 'Verberg filters' : 'Toon filters'}
   </button>
 </div>
