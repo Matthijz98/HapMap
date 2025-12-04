@@ -1,10 +1,10 @@
 import {defineConfig} from 'astro/config';
 import react from "@astrojs/react";
-import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
 import pagefind from "vite-plugin-pagefind";
 import markdoc from "@astrojs/markdoc";
 import keystatic from "@keystatic/astro";
+import tailwindcss from "@tailwindcss/vite";
 
 import node from "@astrojs/node";
 
@@ -17,10 +17,10 @@ export default defineConfig({
         assets: 'assets'
         // assetsPrefix: 'https://cdn.example.com' @todo this could be cool to do later
     },
-    integrations: [react(), tailwind(), sitemap(), markdoc(), keystatic(), svelte()],
+    integrations: [react(), sitemap(), markdoc(), keystatic(), svelte()],
     site: 'https://hapmap.nl',
     vite: {
-        plugins: [pagefind()]
+        plugins: [pagefind(), tailwindcss()]
     },
     adapter: node({
         mode: "standalone"

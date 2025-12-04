@@ -8,7 +8,7 @@
   <table class="w-full">
     <thead>
       <tr class="font-medium">
-        <td>Ingredient</td>
+        <td>Ingrediënt</td>
         <td>Voor allergie</td>
         <td>Hoeveelheid p.p.</td>
         <td>Hoeveelheid totaal</td>
