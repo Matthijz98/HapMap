@@ -12,6 +12,7 @@ const {
 const siteUrl = Astro.site || 'https://hapmap.nl';
 const canonicalUrl = url || new URL(Astro.url.pathname, siteUrl).toString();
 const ogImage = image ? new URL(image, siteUrl).toString() : undefined;
+import '../styles/global.css';
 ---
 <html lang="nl">
 <head>
