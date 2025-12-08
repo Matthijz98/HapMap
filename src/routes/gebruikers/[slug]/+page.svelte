@@ -8,7 +8,7 @@
 
 
     // get the sqid from the slug by splitting on the last -
-    const username: string = page.params.slug;
+    const username: string = page.params.slug ?? '';
 
     let recipesQuery = createQuery(() => ({
         ...recipesApiGetRecipesOptions({query: {created_by: username }})

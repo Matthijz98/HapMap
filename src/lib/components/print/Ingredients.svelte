@@ -1,8 +1,8 @@
 <script lang="ts">
   import Ingredient from "./Ingredient.svelte";
-  import type { RecipeIngredientType } from '../../content/config.ts';
-  
-  export let ingredients: RecipeIngredientType[];
+  import type { RecipeIngredientOutSchema } from "$lib/client/types.gen";
+
+  export let ingredients: RecipeIngredientOutSchema[];
 </script>
 
 <ul>

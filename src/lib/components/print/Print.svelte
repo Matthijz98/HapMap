@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { eaters, allergies } from "../stores/eatersStore.svelte.ts";
-  import type { AllergyType, RecipeIngredientType } from "../../content/config.ts";
+  import { eatersStore } from "../stores/eatersStore.svelte";
+  import type { RecipeIngredientOutSchema } from "$lib/client/types.gen";
   import Ingredients from "./Ingredients.svelte";
   import { onMount } from "svelte";
   
@@ -8,13 +8,10 @@
   export let description: string;
   export let date: string;
   export let tags: string[];
-  export let ingredients: RecipeIngredientType[];
-  
-  $: $eaters;
-  $: $allergies;
+  export let ingredients: RecipeIngredientOutSchema[];
 
   $: recipe_allergies = ingredients
-    .map((ingredient: RecipeIngredientType) => ingredient.ingredient.allergies)
+    .map((ingredient) => ingredient.ingredient.allergies)
     .flat()
     .filter(Boolean);
   
@@ -38,20 +35,22 @@
       <h2 class="font-bold text-xl pt-4">Allergenen</h2>
       <ul>
         {#each recipe_allergies as allergy}
-          <span>{allergy.name}, </span>
+          {#if allergy}
+            <span>{allergy.name}, </span>
+          {/if}
         {/each}
       </ul>
     {/if}
 
     <h2 class="font-bold text-xl pt-4">Eters</h2>
-    <span class="font-medium">Totaal: {$eaters}</span><br/>
-    {#if Object.keys($allergies).length > 0}
+    <span class="font-medium">Totaal: {eatersStore.totalEaters}</span><br/>
+    {#if eatersStore.getActiveAllergies().length > 0}
       Waarvan met allergie:
       <ul>
-        {#each Object.entries($allergies) as [key, value]}
-          {#if recipe_allergies.some((allergy) => allergy.name === key)}
+        {#each eatersStore.getActiveAllergies() as allergyName}
+          {#if recipe_allergies.some((allergy) => allergy?.name === allergyName)}
             <li>
-              {key}: {value}
+              {allergyName}: {eatersStore.getEatersWithAllergy(allergyName)}
             </li>
           {/if}
         {/each}

@@ -1,12 +1,11 @@
 <script lang="ts">
   import AltIngredient from './AltIngredient.svelte';
-  import type { AltIngredientType } from "../../content/config.ts";
-  
-  export let alt_ingredients: AltIngredientType[];
+  import type { AlternativeOutSchema, AllergyOutSchema } from "$lib/client/types.gen";
+
+  export let alt_ingredient: AlternativeOutSchema;
+  export let allergies: AllergyOutSchema[] | undefined;
 </script>
 
 <ul>
-  {#each alt_ingredients as alt_ingredient}
-    <AltIngredient {alt_ingredient} />
-  {/each}
+  <AltIngredient {alt_ingredient} {allergies} />
 </ul>

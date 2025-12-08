@@ -52,7 +52,7 @@
     <input class="w-full bg-slate-300 rounded px-2 py-2 placeholder:font-medium placeholder:text-slate-500"
            bind:value={query}
            bind:this={searchInput}
-           placeholder={`Zoek door alle ${recipe_count} recepten`}
+           placeholder={`Zoek door alle recepten`}
            on:input={handleInputChange}
            autocapitalize="off"
            autocomplete="off"

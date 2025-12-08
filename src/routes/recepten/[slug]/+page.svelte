@@ -6,7 +6,7 @@
     import Eaters from "$lib/components/eaters/Eaters.svelte";
 
     // get the sqid from the slug by splitting on the last -
-    const slug: string = page.params.slug;
+    const slug = page.params.slug ?? '';
     const recipe_sqid: string = slug.substring(slug.lastIndexOf('-') + 1);
 
     const recipeDetailQuery = createQuery(() => ({
@@ -36,6 +36,6 @@
         </ol>
     </div>
     {#if recipeDetailQuery.data}
-        <Eaters allergies={recipeDetailQuery.data.ingredients}/>
+        <Eaters allergies={recipeDetailQuery.data.includes_allergies}/>
     {/if}
 </div>
