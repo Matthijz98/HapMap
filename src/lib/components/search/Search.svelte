@@ -12,6 +12,11 @@
 
 
     async function search(text: string) {
+        if (text.length < 2) {
+            results = [];
+            return;
+        }
+
         try {
             const {data} = await recipesApiGetRecipes({ query: { name: text } });
             results = data;

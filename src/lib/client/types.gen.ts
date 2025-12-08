@@ -12,6 +12,24 @@ export type RecipeFilterSchema = {
      * Name
      */
     name?: string | null;
+    /**
+     * Created By
+     */
+    created_by?: string | null;
+};
+
+/**
+ * AllergyOutSchema
+ */
+export type AllergyOutSchema = {
+    /**
+     * Sqid
+     */
+    sqid: string;
+    /**
+     * Name
+     */
+    name: string;
 };
 
 /**
@@ -45,20 +63,25 @@ export type RecipeListOutSchema = {
      */
     short_description: string;
     category: RecipeCategoryOutSchema;
+    /**
+     * Includes Allergies
+     */
+    includes_allergies: Array<AllergyOutSchema>;
+    /**
+     * Created At
+     */
+    created_at: string;
+    created_by: UserOutSchema;
 };
 
 /**
- * AllergyOutSchema
+ * UserOutSchema
  */
-export type AllergyOutSchema = {
+export type UserOutSchema = {
     /**
-     * Sqid
+     * Username
      */
-    sqid: string;
-    /**
-     * Name
-     */
-    name: string;
+    username: string;
 };
 
 /**
@@ -205,6 +228,10 @@ export type RecipesApiGetRecipesData = {
          * Name
          */
         name?: string | null;
+        /**
+         * Created By
+         */
+        created_by?: string | null;
     };
     url: '/recipes/';
 };

@@ -6,9 +6,9 @@ class EatersStore{
     eaters: number = $persist(10,'eaters');
     eaters_with_allergies: number = $persist(2,'eaters_with_allergies');
 
-    function get_eaters_for_allergies(allergies: []): number {
+    get_eaters_for_allergies(allergies: []): number {
         return 0
-    }
+    };
 }
 
 
