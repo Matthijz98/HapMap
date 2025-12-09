@@ -1,3 +1,14 @@
 node_modules
 .astro
 /cms
+dist
+.git
+.github
+.vscode
+*.log
+*.md
+.env*
+!.env.example
+.dockerignore
+Dockerfile
+pnpm-debug.log*
