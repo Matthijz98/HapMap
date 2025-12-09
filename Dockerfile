@@ -28,8 +28,8 @@ FROM node:22-alpine
 
 WORKDIR /app
 
-# Install nginx and enable corepack for pnpm
-RUN apk add --no-cache nginx && \
+# Install nginx, wget for health checks, and enable corepack for pnpm
+RUN apk add --no-cache nginx wget && \
     corepack enable
 
 # Copy built application from builder

@@ -8,8 +8,21 @@ NODE_PID=$!
 nginx -g 'daemon off;' &
 NGINX_PID=$!
 
-# Wait for any process to exit
-wait -n
+# Function to handle signals
+cleanup() {
+    echo "Shutting down..."
+    kill $NODE_PID $NGINX_PID 2>/dev/null
+    exit 0
+}
 
-# Exit with status of process that exited first
-exit $?
+# Trap signals
+trap cleanup SIGTERM SIGINT
+
+# Wait for processes - loop to handle both processes
+while kill -0 $NODE_PID 2>/dev/null && kill -0 $NGINX_PID 2>/dev/null; do
+    sleep 1
+done
+
+# If we get here, one of the processes died
+echo "A process died, shutting down..."
+cleanup
