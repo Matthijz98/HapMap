@@ -3,8 +3,8 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# Install pnpm
-RUN npm install -g pnpm
+# Enable corepack for pnpm
+RUN corepack enable
 
 # Copy package files
 COPY package.json pnpm-lock.yaml ./
@@ -28,9 +28,9 @@ FROM node:22-alpine
 
 WORKDIR /app
 
-# Install nginx and pnpm
+# Install nginx and enable corepack for pnpm
 RUN apk add --no-cache nginx && \
-    npm install -g pnpm
+    corepack enable
 
 # Copy built application from builder
 COPY --from=builder /app/dist ./dist
@@ -41,8 +41,10 @@ COPY --from=builder /app/src/content ./src/content
 # Install production dependencies only
 RUN pnpm install --prod --frozen-lockfile
 
-# Copy nginx configuration
+# Copy nginx configuration and entrypoint script
 COPY nginx-proxy.conf /etc/nginx/http.d/default.conf
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Create nginx directories and set permissions
 RUN mkdir -p /var/cache/nginx /var/log/nginx /run/nginx && \
@@ -59,5 +61,5 @@ ENV PORT=4321
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
     CMD wget --quiet --tries=1 --spider http://localhost/ || exit 1
 
-# Start both nginx and the Node.js server
-CMD sh -c "node ./dist/server/entry.mjs & nginx -g 'daemon off;'"
+# Use the entrypoint script
+CMD ["/usr/local/bin/docker-entrypoint.sh"]
