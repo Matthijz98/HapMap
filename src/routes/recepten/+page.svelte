@@ -1,10 +1,10 @@
 <script lang="ts">
     import {createQuery} from "@tanstack/svelte-query";
-    import {recipesApiGetRecipesOptions} from "$lib/client/@tanstack/svelte-query.gen";
-    import RecipesList from "$lib/components/recipes/RecipesList.svelte";
+    import {recipesApiPublicGetRecipesOptions} from "$lib/api/public-client/@tanstack/svelte-query.gen";
+    import RecipesList from "$lib/components/public/recipes/RecipesList.svelte";
 
     let recipesQuery = createQuery(() => ({
-        ...recipesApiGetRecipesOptions({})
+        ...recipesApiPublicGetRecipesOptions({})
     }));
 </script>
 

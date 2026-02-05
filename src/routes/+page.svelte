@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Search from "$lib/components/search/Search.svelte";
+    import Search from "$lib/components/public/search/Search.svelte";
 </script>
 
 <div class="container mx-auto p-4">

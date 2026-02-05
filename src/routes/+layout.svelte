@@ -1,17 +1,22 @@
 <script lang="ts">
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
-    import {QueryClient, QueryClientProvider} from '@tanstack/svelte-query';
-	
+	import { QueryClient, QueryClientProvider } from '@tanstack/svelte-query';
+
 	let { children } = $props();
 
-    import { client } from '$lib/client/client.gen';
+	import { client as public_client } from '$lib/api/public-client/client.gen';
+	import { client as private_client } from '$lib/api/private-client/client.gen';
 
-    client.setConfig({
-        baseUrl: 'http://127.0.0.1:8000/',
-    });
+	public_client.setConfig({
+		baseUrl: 'http://127.0.0.1:8000/'
+	});
 
-    const queryClient = new QueryClient({})
+	private_client.setConfig({
+		baseUrl: 'http://127.0.0.1:8000/'
+	})
+
+	const queryClient = new QueryClient({});
 </script>
 
 <svelte:head>
@@ -19,5 +24,5 @@
 </svelte:head>
 
 <QueryClientProvider client={queryClient}>
-    {@render children()}
+	{@render children()}
 </QueryClientProvider>
