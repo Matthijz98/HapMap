@@ -51,7 +51,6 @@
 						<th class="p-3 font-semibold text-sm text-gray-700">Naam</th>
 						<th class="p-3 font-semibold text-sm text-gray-700">Categorie</th>
 						<th class="p-3 font-semibold text-sm text-gray-700">Korte beschrijving</th>
-						<th class="p-3 font-semibold text-sm text-gray-700">Gemaakt door</th>
 						<th class="p-3 font-semibold text-sm text-gray-700">Acties</th>
 					</tr>
 				</thead>
@@ -60,11 +59,6 @@
 						<tr class="border-b hover:bg-gray-50">
 							<td class="p-3">
 								<div class="font-medium text-gray-900">{recipe.name}</div>
-								{#if recipe.includes_allergies.length > 0}
-									<div class="text-xs text-red-600 mt-1">
-										⚠️ {recipe.includes_allergies.map((a) => a.name).join(', ')}
-									</div>
-								{/if}
 							</td>
 							<td class="p-3">
 								<span class="px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm">
@@ -73,9 +67,6 @@
 							</td>
 							<td class="p-3 text-sm text-gray-600">
 								{recipe.short_description || '-'}
-							</td>
-							<td class="p-3 text-sm text-gray-600">
-								{recipe.created_by.username}
 							</td>
 							<td class="p-3">
 								<div class="flex gap-2">

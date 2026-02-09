@@ -14,6 +14,7 @@
           <!--  <span class="bg-slate-400 px-1 py-0.5 rounded text-white text-sm">{filter}</span>-->
           <!--{/each}-->
         </div>
+        <div>Door: {result.created_by.title}</div>
       </a>
     {/each}
   {:else if results.length > 0}

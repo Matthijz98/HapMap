@@ -427,7 +427,6 @@
 				{#each steps as step, index (step.tempId || step.sqid)}
 					<div
 						role="listitem"
-						ondragover={(e) => handleStepDragOver(e, index)}
 						class="flex items-start gap-2 p-3 bg-gray-50 rounded border border-gray-200 hover:border-gray-300 transition-colors"
 						class:opacity-50={draggedStepIndex === index}
 					>

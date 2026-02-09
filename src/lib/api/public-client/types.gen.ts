@@ -63,6 +63,10 @@ export type CreatorProfileOutSchema = {
      */
     sqid: string;
     /**
+     * Title
+     */
+    title?: string | null;
+    /**
      * Profile Icon
      */
     profile_icon: string;
@@ -215,6 +219,7 @@ export type RecipeOutSchema = {
      * Ingredients
      */
     ingredients?: Array<RecipeIngredientOutSchema>;
+    created_by: CreatorProfileOutSchema;
     /**
      * Sqid
      */

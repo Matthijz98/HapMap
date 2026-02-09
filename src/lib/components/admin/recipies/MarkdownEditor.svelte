@@ -27,7 +27,7 @@
 </script>
 
 <div class="carta-wrapper" class:description-mode={mode === 'description'}>
-	<MarkdownEditor {carta} bind:value {placeholder} mode="auto" />
+	<MarkdownEditor {carta} bind:value {placeholder} mode="tabs" />
 </div>
 
 <style>

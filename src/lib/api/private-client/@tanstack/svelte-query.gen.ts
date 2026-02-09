@@ -3,8 +3,8 @@
 import { type DefaultError, type MutationOptions, queryOptions } from '@tanstack/svelte-query';
 
 import { client } from '../client.gen';
-import { type Options, recipesApiPrivateCreateIngredient, recipesApiPrivateCreatePrivateRecipe, recipesApiPrivateDeletePrivateRecipe, recipesApiPrivateGetPrivateRecipeDetail, recipesApiPrivateListPrivateRecipes, recipesApiPrivateUpdatePrivateRecipe } from '../sdk.gen';
-import type { RecipesApiPrivateCreateIngredientData, RecipesApiPrivateCreatePrivateRecipeData, RecipesApiPrivateDeletePrivateRecipeData, RecipesApiPrivateGetPrivateRecipeDetailData, RecipesApiPrivateGetPrivateRecipeDetailResponse, RecipesApiPrivateListPrivateRecipesData, RecipesApiPrivateUpdatePrivateRecipeData } from '../types.gen';
+import { type Options, recipesApiPrivateCreateIngredient, recipesApiPrivateCreatePrivateRecipe, recipesApiPrivateDeletePrivateRecipe, recipesApiPrivateGetCurrentUser, recipesApiPrivateGetPrivateRecipeDetail, recipesApiPrivateListPrivateRecipes, recipesApiPrivateUpdatePrivateRecipe } from '../sdk.gen';
+import type { RecipesApiPrivateCreateIngredientData, RecipesApiPrivateCreatePrivateRecipeData, RecipesApiPrivateDeletePrivateRecipeData, RecipesApiPrivateGetCurrentUserData, RecipesApiPrivateGetCurrentUserResponse, RecipesApiPrivateGetPrivateRecipeDetailData, RecipesApiPrivateGetPrivateRecipeDetailResponse, RecipesApiPrivateListPrivateRecipesData, RecipesApiPrivateUpdatePrivateRecipeData } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -38,6 +38,26 @@ const createQueryKey = <TOptions extends Options>(id: string, options?: TOptions
     }
     return [params];
 };
+
+export const recipesApiPrivateGetCurrentUserQueryKey = (options?: Options<RecipesApiPrivateGetCurrentUserData>) => createQueryKey('recipesApiPrivateGetCurrentUser', options);
+
+/**
+ * Get Current User
+ *
+ * Get current authenticated user information
+ */
+export const recipesApiPrivateGetCurrentUserOptions = (options?: Options<RecipesApiPrivateGetCurrentUserData>) => queryOptions<RecipesApiPrivateGetCurrentUserResponse, DefaultError, RecipesApiPrivateGetCurrentUserResponse, ReturnType<typeof recipesApiPrivateGetCurrentUserQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await recipesApiPrivateGetCurrentUser({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: recipesApiPrivateGetCurrentUserQueryKey(options)
+});
 
 export const recipesApiPrivateListPrivateRecipesQueryKey = (options?: Options<RecipesApiPrivateListPrivateRecipesData>) => createQueryKey('recipesApiPrivateListPrivateRecipes', options);
 

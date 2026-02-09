@@ -5,6 +5,24 @@ export type ClientOptions = {
 };
 
 /**
+ * UserInfoSchema
+ */
+export type UserInfoSchema = {
+    /**
+     * Username
+     */
+    username: string;
+    /**
+     * Email
+     */
+    email: string;
+    /**
+     * Is Authenticated
+     */
+    is_authenticated: boolean;
+};
+
+/**
  * PrivateAllergyOutSchema
  */
 export type PrivateAllergyOutSchema = {
@@ -180,6 +198,22 @@ export type IngredientOutSchema = {
      */
     name_plural: string;
 };
+
+export type RecipesApiPrivateGetCurrentUserData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/private/recipes/me';
+};
+
+export type RecipesApiPrivateGetCurrentUserResponses = {
+    /**
+     * OK
+     */
+    200: UserInfoSchema;
+};
+
+export type RecipesApiPrivateGetCurrentUserResponse = RecipesApiPrivateGetCurrentUserResponses[keyof RecipesApiPrivateGetCurrentUserResponses];
 
 export type RecipesApiPrivateListPrivateRecipesData = {
     body?: never;
