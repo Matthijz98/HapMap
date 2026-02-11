@@ -9,9 +9,9 @@
 		<div class="flex justify-between">
 			<h1 class="text-white font-black text-2xl">HapMap Admin</h1>
 			<div class="flex gap-4">
-				<a>Recepten</a>
-				<a>Handleiding</a>
-				<a>Stats</a>
+				<a class="bg-white rounded py-1 px-2 cursor-pointer" href="/admin/recepten">Recepten</a>
+				<a class="bg-white rounded py-1 px-2 cursor-pointer" href="/admin/handleiding">Handleiding</a>
+				<a class="bg-white rounded py-1 px-2">Stats (soon)</a>
 			</div>
 			<div class="text-white font-black">Logout</div>
 		</div>

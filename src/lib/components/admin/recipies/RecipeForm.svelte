@@ -12,7 +12,10 @@
 	import { createMutation } from '@tanstack/svelte-query';
 	import AlternativeIngredientsEditor from './AlternativeIngredientsEditor.svelte';
 	import FuzzyIngredientSearch from './FuzzyIngredientSearch.svelte';
+	import UnitSelect from './UnitSelect.svelte';
+	import CategorySelect from './CategorySelect.svelte';
 	import MarkdownEditor from './MarkdownEditor.svelte';
+	import DraggableList from '$lib/components/utils/DraggableList.svelte';
 
 	interface Props {
 		recipe?: RecipeOutSchema;
@@ -60,7 +63,7 @@
 
 	const createIngredientMutation = createMutation(() => ({
 		...recipesApiPrivateCreateIngredientMutation(),
-		onSuccess: (data: any) => {
+		onSuccess: (data: IngredientOutSchema) => {
 			// Add the new ingredient to the available list
 			if (data && data.sqid) {
 				availableIngredients = [...availableIngredients, data];
@@ -74,12 +77,13 @@
 	}));
 
 	function handleCreateIngredient() {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		createIngredientMutation.mutate({
 			body: {
 				name_singular: newIngredientNameSingular,
 				name_plural: newIngredientNamePlural,
 				allergy_sqids: newIngredientAllergySqids
-			}
+			} as any
 		});
 	}
 
@@ -103,6 +107,11 @@
 		...ing,
 		ingredient_alternatives: ing.ingredient_alternatives || []
 	})) || []);
+
+	// Notes state
+	let notes = $state<Array<RecipeNoteOutSchema & { tempId?: string }>>(
+		recipe?.notes?.map((n, i) => ({ ...n, order: i })) || []
+	);
 
 	// Drag state
 	let draggedStepIndex = $state<number | null>(null);
@@ -140,19 +149,6 @@
 	function moveStepDown(index: number) {
 		if (index < steps.length - 1) {
 			steps = arrayMove(steps, index, index + 1).map((s, i) => ({ ...s, order: i }));
-		}
-	}
-
-	// Step drag handlers
-	function handleStepDragStart(index: number) {
-		draggedStepIndex = index;
-	}
-
-	function handleStepDragOver(event: DragEvent, index: number) {
-		event.preventDefault();
-		if (draggedStepIndex !== null && draggedStepIndex !== index) {
-			steps = arrayMove(steps, draggedStepIndex, index).map((s, i) => ({ ...s, order: i }));
-			draggedStepIndex = index;
 		}
 	}
 
@@ -210,6 +206,18 @@
 		draggedIngredientIndex = null;
 	}
 
+	// Note management
+	function addNote() {
+		const newNote: RecipeNoteOutSchema & { tempId?: string } = {
+			sqid: `temp-${Date.now()}`,
+			tempId: `temp-${Date.now()}`,
+			order: notes.length,
+			note: '',
+			type: 'info'
+		};
+		notes = [...notes, newNote];
+	}
+
 	// Form submission
 	function handleSubmit() {
 		const selectedCategory = availableCategories.find(
@@ -234,6 +242,14 @@
 					unit: ing.unit,
 					ingredient: ing.ingredient,
 					ingredient_alternatives: ing.ingredient_alternatives
+				})),
+			notes: notes
+				.filter((n) => n.note.trim())
+				.map((n, i) => ({
+					sqid: n.tempId ? '' : n.sqid,
+					order: i,
+					note: n.note,
+					type: n.type
 				}))
 		};
 
@@ -260,22 +276,16 @@
 				/>
 			</div>
 
-			<div>
-				<label for="category" class="block text-sm font-medium text-gray-700 mb-1"
-					>Categorie *</label
-				>
-				<select
-					id="category"
-					bind:value={selectedCategorySqid}
-					required
-					class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-				>
-					<option value="">Selecteer een categorie</option>
-					{#each availableCategories as category (category.sqid)}
-						<option value={category.sqid}>{category.name}</option>
-					{/each}
-				</select>
-			</div>
+		<div>
+			<label for="category" class="block text-sm font-medium text-gray-700 mb-1"
+				>Categorie *</label
+			>
+			<CategorySelect
+				categories={availableCategories}
+				selected={selectedCategorySqid}
+				onSelect={(sqid) => (selectedCategorySqid = sqid)}
+			/>
+		</div>
 
 			<div>
 				<label for="short_description" class="block text-sm font-medium text-gray-700 mb-1"
@@ -285,7 +295,6 @@
 					bind:value={short_description}
 					onUpdate={(val) => (short_description = val)}
 					placeholder="Beschrijf het recept..."
-					mode="description"
 				/>
 			</div>
 		</div>
@@ -345,16 +354,14 @@
 								class="w-24 px-2 py-1 border border-gray-300 rounded text-sm"
 							/>
 
-							<select
-								bind:value={ingredient.unit}
-								class="w-24 px-2 py-1 border border-gray-300 rounded text-sm"
-							>
-								<option value="gr">Gram</option>
-								<option value="ml">Milliliter</option>
-								<option value="peaces">Piece</option>
-								<option value="cloves">Clove</option>
-								<option value="head">Head</option>
-							</select>
+							<div class="w-32">
+								<UnitSelect
+									selected={ingredient.unit}
+									onSelect={(unit) => {
+										ingredient.unit = unit;
+									}}
+								/>
+							</div>
 
 							<div class="flex gap-1">
 								<button
@@ -493,6 +500,52 @@
 				class="mt-3 px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 text-sm w-full"
 			>
 				+ Stap toevoegen
+			</button>
+		</div>
+
+		<!-- Notes Section -->
+		<div class="mb-6">
+			<h3 class="text-lg font-semibold mb-3">Notities</h3>
+
+			<DraggableList items={notes} onReorder={(reordered) => (notes = reordered)}>
+				{#snippet children(note: RecipeNoteOutSchema & { tempId?: string })}
+					<div class="space-y-2">
+						<div class="flex gap-2 items-center">
+							<select
+								bind:value={note.type}
+								class="px-2 py-1 border border-gray-300 rounded text-sm"
+							>
+								<option value="info">Info</option>
+								<option value="tip">Tip</option>
+								<option value="warning">Waarschuwing</option>
+							</select>
+							<div
+								class="px-2 py-1 rounded text-xs font-semibold"
+								class:bg-blue-100={note.type === 'info'}
+								class:text-blue-800={note.type === 'info'}
+								class:bg-green-100={note.type === 'tip'}
+								class:text-green-800={note.type === 'tip'}
+								class:bg-orange-100={note.type === 'warning'}
+								class:text-orange-800={note.type === 'warning'}
+							>
+								Preview kleur
+							</div>
+						</div>
+						<MarkdownEditor
+							bind:value={note.note}
+							onUpdate={(val) => (note.note = val)}
+							placeholder="Schrijf een notitie..."
+						/>
+					</div>
+				{/snippet}
+			</DraggableList>
+
+			<button
+				type="button"
+				onclick={addNote}
+				class="mt-3 px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 text-sm w-full"
+			>
+				+ Notitie toevoegen
 			</button>
 		</div>
 

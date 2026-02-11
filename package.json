@@ -50,9 +50,11 @@
 	"dependencies": {
 		"@dopry/svelte-oidc": "^1.2.0",
 		"@macfja/svelte-persistent-runes": "^1.1.0",
+		"@sveltejs/adapter-static": "^3.0.10",
 		"@tanstack/svelte-query": "^6.0.10",
 		"carta-md": "^4.11.1",
 		"fuse.js": "^7.1.0",
-		"svelte-markdown": "^0.4.1"
+		"svelte-markdown": "^0.4.1",
+		"svelte-select": "^5.8.3"
 	}
 }

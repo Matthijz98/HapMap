@@ -1,21 +1,21 @@
 <script lang="ts">
 	import Select from 'svelte-select';
-	import type { IngredientOutSchema } from '$lib/api/public-client/types.gen';
+	import type { RecipeCategoryOutSchema } from '$lib/api/public-client/types.gen';
 
 	interface Props {
-		ingredients: IngredientOutSchema[];
+		categories: RecipeCategoryOutSchema[];
 		selected: string;
 		onSelect: (sqid: string) => void;
 		placeholder?: string;
 	}
 
-	let { ingredients, selected, onSelect, placeholder = 'Zoek ingredient...' }: Props = $props();
+	let { categories, selected, onSelect, placeholder = 'Selecteer een categorie...' }: Props = $props();
 
 	// Create items array for svelte-select
 	let items = $derived(
-		ingredients.map((ingredient) => ({
-			label: ingredient.name_singular,
-			value: ingredient.sqid
+		categories.map((category) => ({
+			label: category.name,
+			value: category.sqid
 		}))
 	);
 
@@ -35,7 +35,7 @@
 	value={selectedItem}
 	on:change={handleChange}
 	{placeholder}
-	searchable={true}
+	searchable={false}
 	clearable={false}
 	--border-radius="0.375rem"
 	--border="1px solid rgb(209, 213, 219)"
@@ -45,5 +45,5 @@
 	--item-is-active-bg="rgb(219, 234, 254)"
 	--padding="0.5rem 0.75rem"
 	--font-size="0.875rem"
-	--height="38px"
+	--height="42px"
 />

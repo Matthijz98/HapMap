@@ -119,6 +119,28 @@ export type PrivateRecipeIngredientOutSchema = {
 };
 
 /**
+ * PrivateRecipeNoteOutSchema
+ */
+export type PrivateRecipeNoteOutSchema = {
+    /**
+     * Sqid
+     */
+    sqid: string;
+    /**
+     * Note
+     */
+    note: string;
+    /**
+     * Type
+     */
+    type?: string;
+    /**
+     * Order
+     */
+    order?: number;
+};
+
+/**
  * PrivateRecipeOutSchema
  */
 export type PrivateRecipeOutSchema = {
@@ -131,6 +153,10 @@ export type PrivateRecipeOutSchema = {
      * Ingredients
      */
     ingredients?: Array<PrivateRecipeIngredientOutSchema>;
+    /**
+     * Notes
+     */
+    notes?: Array<PrivateRecipeNoteOutSchema>;
     /**
      * Sqid
      */
@@ -161,6 +187,165 @@ export type PrivateRecipeStepOutSchema = {
      * Instruction
      */
     instruction: string;
+};
+
+/**
+ * AllergyInSchema
+ */
+export type AllergyInSchema = {
+    /**
+     * Sqid
+     */
+    sqid: string;
+};
+
+/**
+ * IngredientInSchema
+ */
+export type IngredientInSchema = {
+    /**
+     * Sqid
+     */
+    sqid: string;
+    /**
+     * Name Singular
+     */
+    name_singular?: string | null;
+    /**
+     * Name Plural
+     */
+    name_plural?: string | null;
+};
+
+/**
+ * RecipeCategoryInSchema
+ */
+export type RecipeCategoryInSchema = {
+    /**
+     * Sqid
+     */
+    sqid: string;
+    /**
+     * Name
+     */
+    name?: string | null;
+};
+
+/**
+ * RecipeIngredientAltForAllergyInSchema
+ */
+export type RecipeIngredientAltForAllergyInSchema = {
+    /**
+     * Sqid
+     */
+    sqid?: string | null;
+    /**
+     * For Allergies
+     */
+    for_allergies?: Array<AllergyInSchema>;
+    alternative_ingredient: IngredientInSchema;
+    /**
+     * Quantity
+     */
+    quantity: number;
+    /**
+     * Unit
+     */
+    unit: string;
+};
+
+/**
+ * RecipeIngredientInSchema
+ */
+export type RecipeIngredientInSchema = {
+    /**
+     * Sqid
+     */
+    sqid?: string | null;
+    /**
+     * Quantity
+     */
+    quantity: number;
+    /**
+     * Unit
+     */
+    unit: string;
+    ingredient: IngredientInSchema;
+    /**
+     * Ingredient Alternatives
+     */
+    ingredient_alternatives?: Array<RecipeIngredientAltForAllergyInSchema>;
+    /**
+     * Note
+     */
+    note?: string | null;
+};
+
+/**
+ * RecipeNoteInSchema
+ */
+export type RecipeNoteInSchema = {
+    /**
+     * Sqid
+     */
+    sqid?: string;
+    /**
+     * Order
+     */
+    order: number;
+    /**
+     * Note
+     */
+    note: string;
+    /**
+     * Type
+     */
+    type: string;
+};
+
+/**
+ * RecipeStepInSchema
+ */
+export type RecipeStepInSchema = {
+    /**
+     * Sqid
+     */
+    sqid?: string | null;
+    /**
+     * Order
+     */
+    order: number;
+    /**
+     * Instruction
+     */
+    instruction: string;
+};
+
+/**
+ * RecipeUpdateInSchema
+ */
+export type RecipeUpdateInSchema = {
+    /**
+     * Name
+     */
+    name: string;
+    /**
+     * Short Description
+     */
+    short_description?: string | null;
+    category: RecipeCategoryInSchema;
+    /**
+     * Steps
+     */
+    steps?: Array<RecipeStepInSchema>;
+    /**
+     * Ingredients
+     */
+    ingredients?: Array<RecipeIngredientInSchema>;
+    /**
+     * Notes
+     */
+    notes?: Array<RecipeNoteInSchema>;
 };
 
 /**
@@ -291,7 +476,7 @@ export type RecipesApiPrivateGetPrivateRecipeDetailResponses = {
 export type RecipesApiPrivateGetPrivateRecipeDetailResponse = RecipesApiPrivateGetPrivateRecipeDetailResponses[keyof RecipesApiPrivateGetPrivateRecipeDetailResponses];
 
 export type RecipesApiPrivateUpdatePrivateRecipeData = {
-    body: PrivateRecipeOutSchema;
+    body: RecipeUpdateInSchema;
     path: {
         /**
          * Sqid
@@ -306,8 +491,10 @@ export type RecipesApiPrivateUpdatePrivateRecipeResponses = {
     /**
      * OK
      */
-    200: unknown;
+    200: PrivateRecipeOutSchema;
 };
+
+export type RecipesApiPrivateUpdatePrivateRecipeResponse = RecipesApiPrivateUpdatePrivateRecipeResponses[keyof RecipesApiPrivateUpdatePrivateRecipeResponses];
 
 export type RecipesApiPrivateCreateIngredientData = {
     body: IngredientOutSchema;

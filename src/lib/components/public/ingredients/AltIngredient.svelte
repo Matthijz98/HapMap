@@ -1,6 +1,7 @@
 <script lang="ts">
   import { eatersStore } from "../stores/eatersStore.svelte";
   import type { AlternativeOutSchema } from "$lib/api/public-client/types.gen";
+  import UnitDisplay from "$lib/components/utils/UnitDisplay.svelte";
 
   interface Props {
     alt_ingredient: AlternativeOutSchema;
@@ -26,6 +27,10 @@
       {alt_ingredient.for_allergies.map(a => a.name).join(', ')}
     {/if}
   </td>
-  <td>{alt_ingredient.quantity} {alt_ingredient.unit}</td>
-  <td>{totalQuantity} {alt_ingredient.unit}</td>
+  <td>
+    <UnitDisplay quantity={alt_ingredient.quantity} unit={alt_ingredient.unit ?? null} />
+  </td>
+  <td>
+    <UnitDisplay quantity={totalQuantity} unit={alt_ingredient.unit ?? null} />
+  </td>
 </tr>

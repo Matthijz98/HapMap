@@ -4,7 +4,7 @@ import { type DefaultError, type MutationOptions, queryOptions } from '@tanstack
 
 import { client } from '../client.gen';
 import { type Options, recipesApiPrivateCreateIngredient, recipesApiPrivateCreatePrivateRecipe, recipesApiPrivateDeletePrivateRecipe, recipesApiPrivateGetCurrentUser, recipesApiPrivateGetPrivateRecipeDetail, recipesApiPrivateListPrivateRecipes, recipesApiPrivateUpdatePrivateRecipe } from '../sdk.gen';
-import type { RecipesApiPrivateCreateIngredientData, RecipesApiPrivateCreatePrivateRecipeData, RecipesApiPrivateDeletePrivateRecipeData, RecipesApiPrivateGetCurrentUserData, RecipesApiPrivateGetCurrentUserResponse, RecipesApiPrivateGetPrivateRecipeDetailData, RecipesApiPrivateGetPrivateRecipeDetailResponse, RecipesApiPrivateListPrivateRecipesData, RecipesApiPrivateUpdatePrivateRecipeData } from '../types.gen';
+import type { RecipesApiPrivateCreateIngredientData, RecipesApiPrivateCreatePrivateRecipeData, RecipesApiPrivateDeletePrivateRecipeData, RecipesApiPrivateGetCurrentUserData, RecipesApiPrivateGetCurrentUserResponse, RecipesApiPrivateGetPrivateRecipeDetailData, RecipesApiPrivateGetPrivateRecipeDetailResponse, RecipesApiPrivateListPrivateRecipesData, RecipesApiPrivateUpdatePrivateRecipeData, RecipesApiPrivateUpdatePrivateRecipeResponse } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -132,8 +132,8 @@ export const recipesApiPrivateGetPrivateRecipeDetailOptions = (options: Options<
 /**
  * Update Private Recipe
  */
-export const recipesApiPrivateUpdatePrivateRecipeMutation = (options?: Partial<Options<RecipesApiPrivateUpdatePrivateRecipeData>>): MutationOptions<unknown, DefaultError, Options<RecipesApiPrivateUpdatePrivateRecipeData>> => {
-    const mutationOptions: MutationOptions<unknown, DefaultError, Options<RecipesApiPrivateUpdatePrivateRecipeData>> = {
+export const recipesApiPrivateUpdatePrivateRecipeMutation = (options?: Partial<Options<RecipesApiPrivateUpdatePrivateRecipeData>>): MutationOptions<RecipesApiPrivateUpdatePrivateRecipeResponse, DefaultError, Options<RecipesApiPrivateUpdatePrivateRecipeData>> => {
+    const mutationOptions: MutationOptions<RecipesApiPrivateUpdatePrivateRecipeResponse, DefaultError, Options<RecipesApiPrivateUpdatePrivateRecipeData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await recipesApiPrivateUpdatePrivateRecipe({
                 ...options,

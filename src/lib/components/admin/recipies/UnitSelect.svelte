@@ -1,29 +1,23 @@
 <script lang="ts">
 	import Select from 'svelte-select';
-	import type { IngredientOutSchema } from '$lib/api/public-client/types.gen';
+	import { getUnitOptions, type BackendUnit } from '$lib/utils/units';
 
 	interface Props {
-		ingredients: IngredientOutSchema[];
-		selected: string;
-		onSelect: (sqid: string) => void;
+		selected: string | null;
+		onSelect: (unit: BackendUnit) => void;
 		placeholder?: string;
 	}
 
-	let { ingredients, selected, onSelect, placeholder = 'Zoek ingredient...' }: Props = $props();
+	let { selected, onSelect, placeholder = 'Selecteer eenheid...' }: Props = $props();
 
-	// Create items array for svelte-select
-	let items = $derived(
-		ingredients.map((ingredient) => ({
-			label: ingredient.name_singular,
-			value: ingredient.sqid
-		}))
-	);
+	// Get unit options from utils
+	let items = getUnitOptions();
 
 	// Find the currently selected item
 	let selectedItem = $derived(items.find((item) => item.value === selected) || null);
 
 	// Handle selection changes
-	function handleChange(event: CustomEvent<{ value: string; label: string } | null>) {
+	function handleChange(event: CustomEvent<{ value: BackendUnit; label: string } | null>) {
 		if (event.detail?.value) {
 			onSelect(event.detail.value);
 		}
@@ -35,7 +29,7 @@
 	value={selectedItem}
 	on:change={handleChange}
 	{placeholder}
-	searchable={true}
+	searchable={false}
 	clearable={false}
 	--border-radius="0.375rem"
 	--border="1px solid rgb(209, 213, 219)"

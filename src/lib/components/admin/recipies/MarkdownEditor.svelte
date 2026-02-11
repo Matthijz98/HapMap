@@ -6,18 +6,17 @@
 		value: string;
 		onUpdate: (value: string) => void;
 		placeholder?: string;
-		mode?: 'step' | 'description';
 	}
 
 	let {
 		value = $bindable(''),
 		onUpdate,
-		placeholder = 'Typ hier...',
-		mode = 'step'
+		placeholder = 'Typ hier...'
 	}: Props = $props();
 
 	const carta = new Carta({
-		sanitizer: false
+		sanitizer: false,
+		disableIcons: ['bulletedList', 'numberedList', 'taskList']
 	});
 
 	// Watch for value changes and call onUpdate
@@ -26,31 +25,26 @@
 	});
 </script>
 
-<div class="carta-wrapper" class:description-mode={mode === 'description'}>
+<div class="markdown-editor-wrapper">
 	<MarkdownEditor {carta} bind:value {placeholder} mode="tabs" />
 </div>
 
 <style>
-	.carta-wrapper :global(.carta-editor) {
-		border: 1px solid #d1d5db;
-		border-radius: 0.375rem;
-		overflow: hidden;
-	}
+    /* Make textarea start at 2 lines (~3rem) and auto-grow */
+    .markdown-editor-wrapper :global(.carta-input),
+    .markdown-editor-wrapper :global(textarea.carta-input) {
+        min-height: 3rem !important;
+        height: auto !important;
+        max-height: 500px;
+        overflow-y: auto !important;
+        resize: vertical;
+    }
 
-	.carta-wrapper :global(.carta-toolbar) {
-		background: #f9fafb;
-		border-bottom: 1px solid #d1d5db;
-		padding: 0.5rem;
-	}
-
-	.carta-wrapper :global(.carta-input) {
-		min-height: 80px;
-		padding: 0.5rem;
-		font-family: ui-monospace, 'Cascadia Code', 'Courier New', monospace;
-		font-size: 0.875rem;
-	}
-
-	.description-mode :global(.carta-input) {
-		min-height: 120px;
-	}
+    /* Hide list-related toolbar buttons */
+    .markdown-editor-wrapper :global([aria-label='Bulleted list']),
+    .markdown-editor-wrapper :global([aria-label='Numbered list']),
+    .markdown-editor-wrapper :global([aria-label='Task list']) {
+        display: none !important;
+    }
 </style>
+

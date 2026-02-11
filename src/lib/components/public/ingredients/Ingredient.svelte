@@ -2,6 +2,7 @@
   import { eatersStore } from "../stores/eatersStore.svelte";
   import AltIngredients from "./AltIngredients.svelte";
   import type { RecipeIngredientOutSchema } from "$lib/api/public-client/types.gen";
+  import UnitDisplay from "$lib/components/utils/UnitDisplay.svelte";
 
   interface Props {
     ingredient: RecipeIngredientOutSchema;
@@ -39,12 +40,16 @@
       {ingredient.ingredient.allergies.map(a => a.name).join(', ')}
     {/if}
   </td>
-  <td class="px-2 py-1">{ingredient.quantity ?? ''} {ingredient?.unit ?? ''}</td>
+  <td class="px-2 py-1">
+    {#if ingredient.quantity}
+      <UnitDisplay quantity={ingredient.quantity} unit={ingredient.unit} />
+    {/if}
+  </td>
   <td class="px-2 py-1">
     {#if hasEatersWithAllergies}
-      {quantityForNonAllergic.toFixed(2)} {ingredient.unit ?? ''}
+      <UnitDisplay quantity={quantityForNonAllergic} unit={ingredient.unit} />
     {:else}
-      {totalQuantity.toFixed(2)} {ingredient.unit ?? ''}
+      <UnitDisplay quantity={totalQuantity} unit={ingredient.unit} />
     {/if}
   </td>
 </tr>

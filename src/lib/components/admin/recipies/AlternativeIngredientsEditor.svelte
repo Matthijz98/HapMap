@@ -5,6 +5,7 @@
 		AllergyOutSchema
 	} from '$lib/api/public-client/types.gen';
 	import FuzzyIngredientSearch from './FuzzyIngredientSearch.svelte';
+	import UnitSelect from './UnitSelect.svelte';
 
 	interface Props {
 		alternatives: Array<AlternativeOutSchema & { tempId?: string }>;
@@ -110,23 +111,10 @@
 						<label for="alt-unit-{index}" class="block text-xs font-medium text-gray-700 mb-1"
 							>Eenheid</label
 						>
-						<select
-							id="alt-unit-{index}"
-							bind:value={alt.unit}
-							onchange={(e) => {
-								const target = e.target;
-								if (target instanceof HTMLSelectElement) {
-									updateAlternative(index, 'unit', target.value);
-								}
-							}}
-							class="w-full px-2 py-1 border border-gray-300 rounded text-sm"
-						>
-							<option value="gr">Gram</option>
-							<option value="ml">Milliliter</option>
-							<option value="peaces">Piece</option>
-							<option value="cloves">Clove</option>
-							<option value="head">Head</option>
-						</select>
+						<UnitSelect
+							selected={alt.unit ?? null}
+							onSelect={(unit) => updateAlternative(index, 'unit', unit)}
+						/>
 					</div>
 
 					<!-- For Allergies -->

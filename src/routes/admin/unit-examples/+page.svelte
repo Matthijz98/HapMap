@@ -1,51 +1,81 @@
 <script lang="ts">
 	import {
-		convertUnit,
-		formatToOptimalUnit,
 		formatQuantityWithUnit,
-		addCustomConversion
-	} from '$lib/utils/unitConversions';
+		unitToDutch,
+		getUnitOptions,
+		unitConfigs,
+		type BackendUnit
+	} from '$lib/utils/units';
 	import UnitDisplay from '$lib/components/utils/UnitDisplay.svelte';
 
-	// Example ingredients with various units
+	// Example ingredients with various units (using backend unit names)
 	const examples = [
-		{ name: 'Flour', quantity: 1200, unit: 'g' },
-		{ name: 'Water', quantity: 500, unit: 'ml' },
-		{ name: 'Salt', quantity: 15, unit: 'g' },
-		{ name: 'Olive Oil', quantity: 2500, unit: 'ml' },
-		{ name: 'Sugar', quantity: 250, unit: 'g' },
-		{ name: 'Milk', quantity: 750, unit: 'ml' }
+		{ name: 'Bloem', quantity: 1200, unit: 'gr' as BackendUnit },
+		{ name: 'Water', quantity: 500, unit: 'ml' as BackendUnit },
+		{ name: 'Zout', quantity: 15, unit: 'gr' as BackendUnit },
+		{ name: 'Olijfolie', quantity: 2500, unit: 'ml' as BackendUnit },
+		{ name: 'Suiker', quantity: 250, unit: 'gr' as BackendUnit },
+		{ name: 'Melk', quantity: 750, unit: 'ml' as BackendUnit },
+		{ name: 'Knoflook', quantity: 3, unit: 'cloves' as BackendUnit },
+		{ name: 'Sla', quantity: 1, unit: 'head' as BackendUnit },
+		{ name: 'Eieren', quantity: 4, unit: 'pieces' as BackendUnit }
 	];
 
-	// Add custom conversions
-	addCustomConversion('blik', 'tray', 1 / 12);
-	addCustomConversion('pak', 'stuk', 4);
-
-	// Example conversions
-	const conversionExamples = [
-		{ from: 1000, fromUnit: 'g', toUnit: 'kg', result: convertUnit(1000, 'g', 'kg') },
-		{ from: 1.5, fromUnit: 'l', toUnit: 'ml', result: convertUnit(1.5, 'l', 'ml') },
-		{ from: 24, fromUnit: 'blik', toUnit: 'tray', result: convertUnit(24, 'blik', 'tray') },
-		{ from: 3, fromUnit: 'pak', toUnit: 'stuk', result: convertUnit(3, 'pak', 'stuk') }
-	];
+	// Get available units
+	const unitOptions = getUnitOptions();
 </script>
 
 <div class="container mx-auto p-6 max-w-4xl">
-	<h1 class="text-3xl font-bold mb-6">Unit Conversion Examples</h1>
+	<h1 class="text-3xl font-bold mb-6">Unit Conversie Voorbeelden</h1>
+
+	<!-- Unit Configuration Overview -->
+	<section class="mb-8 bg-white rounded-lg shadow p-6">
+		<h2 class="text-2xl font-semibold mb-4">Beschikbare Eenheden</h2>
+		<p class="text-gray-600 mb-4">
+			Dit zijn alle eenheden die de backend accepteert met hun Nederlandse vertalingen:
+		</p>
+		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+			{#each unitOptions as option (option.value)}
+				<div class="p-4 bg-gray-50 rounded border border-gray-200">
+					<div class="flex justify-between items-start">
+						<div>
+							<span class="font-mono text-sm text-blue-600">{option.value}</span>
+							<span class="mx-2">→</span>
+							<span class="font-semibold">{option.label}</span>
+						</div>
+						{#if unitConfigs[option.value].convertibleTo}
+							<span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">
+								Auto-conversie
+							</span>
+						{/if}
+					</div>
+					{#if unitConfigs[option.value].convertibleTo}
+						<div class="mt-2 text-sm text-gray-600">
+							Converteert naar: {unitConfigs[option.value].convertibleTo?.dutchPlural}
+							vanaf {unitConfigs[option.value].convertibleTo?.threshold}
+						</div>
+					{/if}
+				</div>
+			{/each}
+		</div>
+	</section>
 
 	<!-- Auto-optimized display -->
 	<section class="mb-8 bg-white rounded-lg shadow p-6">
-		<h2 class="text-2xl font-semibold mb-4">Automatic Optimal Unit Display</h2>
+		<h2 class="text-2xl font-semibold mb-4">Automatische Conversie</h2>
 		<p class="text-gray-600 mb-4">
-			These quantities are automatically converted to the most appropriate unit:
+			Hoeveelheden worden automatisch geconverteerd naar de meest geschikte eenheid.
+			Let op: alleen hele getallen (of bijna hele getallen) worden geconverteerd.
 		</p>
 		<div class="space-y-2">
 			{#each examples as item (item.name)}
 				<div class="flex items-center justify-between p-3 bg-gray-50 rounded">
 					<span class="font-medium">{item.name}</span>
-					<div class="flex gap-4">
-						<span class="text-gray-500">Original: {item.quantity} {item.unit}</span>
-						<span class="font-semibold">
+					<div class="flex gap-4 items-center">
+						<span class="text-gray-500 text-sm">
+							Origineel: {item.quantity} {unitToDutch(item.unit, item.quantity)}
+						</span>
+						<span class="font-semibold text-blue-600">
 							→ <UnitDisplay quantity={item.quantity} unit={item.unit} />
 						</span>
 					</div>
@@ -54,60 +84,29 @@
 		</div>
 	</section>
 
-	<!-- Manual conversions -->
-	<section class="mb-8 bg-white rounded-lg shadow p-6">
-		<h2 class="text-2xl font-semibold mb-4">Manual Unit Conversions</h2>
-		<div class="space-y-2">
-			{#each conversionExamples as conv, i (i)}
-				<div class="flex items-center justify-between p-3 bg-gray-50 rounded">
-					<span>
-						{conv.from}
-						{conv.fromUnit} → {conv.toUnit}
-					</span>
-					<span class="font-semibold text-blue-600">
-						{conv.result !== null ? `${conv.result} ${conv.toUnit}` : 'Not convertible'}
-					</span>
-				</div>
-			{/each}
-		</div>
-	</section>
-
-	<!-- With conversion details -->
-	<section class="mb-8 bg-white rounded-lg shadow p-6">
-		<h2 class="text-2xl font-semibold mb-4">Display with Conversion Details</h2>
-		<p class="text-gray-600 mb-4">Shows the optimal unit plus available conversions:</p>
-		<div class="space-y-2">
-			{#each examples as item (item.name)}
-				<div class="flex items-center justify-between p-3 bg-gray-50 rounded">
-					<span class="font-medium">{item.name}</span>
-					<UnitDisplay quantity={item.quantity} unit={item.unit} showConversions={true} />
-				</div>
-			{/each}
-		</div>
-	</section>
-
 	<!-- Recipe scaling example -->
 	<section class="mb-8 bg-white rounded-lg shadow p-6">
-		<h2 class="text-2xl font-semibold mb-4">Recipe Scaling Example</h2>
-		<p class="text-gray-600 mb-4">Scale a recipe from 4 to 8 people:</p>
+		<h2 class="text-2xl font-semibold mb-4">Recept Schalen Voorbeeld</h2>
+		<p class="text-gray-600 mb-4">Schaal een recept van 4 naar 8 personen:</p>
 		<div class="grid grid-cols-2 gap-4">
 			<div>
-				<h3 class="font-semibold mb-2">Original (4 people)</h3>
+				<h3 class="font-semibold mb-2 text-lg">Origineel (4 personen)</h3>
 				<div class="space-y-1">
-					{#each examples.slice(0, 3) as item (item.name)}
-						<div class="p-2 bg-gray-50 rounded text-sm">
-							{item.name}: {formatQuantityWithUnit(item.quantity, item.unit)}
+					{#each examples.slice(0, 6) as item (item.name)}
+						<div class="p-2 bg-gray-50 rounded text-sm flex justify-between">
+							<span>{item.name}:</span>
+							<UnitDisplay quantity={item.quantity} unit={item.unit} />
 						</div>
 					{/each}
 				</div>
 			</div>
 			<div>
-				<h3 class="font-semibold mb-2">Scaled (8 people)</h3>
+				<h3 class="font-semibold mb-2 text-lg">Geschaald (8 personen)</h3>
 				<div class="space-y-1">
-					{#each examples.slice(0, 3) as item (item.name)}
-						{@const scaled = formatToOptimalUnit(item.quantity * 2, item.unit)}
-						<div class="p-2 bg-green-50 rounded text-sm">
-							{item.name}: {formatQuantityWithUnit(scaled.quantity, scaled.unit, false)}
+					{#each examples.slice(0, 6) as item (item.name)}
+						<div class="p-2 bg-blue-50 rounded text-sm flex justify-between">
+							<span>{item.name}:</span>
+							<UnitDisplay quantity={item.quantity * 2} unit={item.unit} />
 						</div>
 					{/each}
 				</div>
@@ -115,28 +114,60 @@
 		</div>
 	</section>
 
-	<!-- API usage -->
-	<section class="bg-white rounded-lg shadow p-6">
-		<h2 class="text-2xl font-semibold mb-4">Usage in Code</h2>
-		<div class="bg-gray-900 text-gray-100 p-4 rounded overflow-x-auto">
-			<pre class="text-sm"><code>{`import {
-  convertUnit,
-  formatToOptimalUnit,
-  formatQuantityWithUnit
-} from '$lib/utils/unitConversions';
+	<!-- Edge cases -->
+	<section class="mb-8 bg-white rounded-lg shadow p-6">
+		<h2 class="text-2xl font-semibold mb-4">Speciale Gevallen</h2>
+		<p class="text-gray-600 mb-4">
+			Deze hoeveelheden worden NIET geconverteerd omdat ze geen hele getallen opleveren:
+		</p>
+		<div class="space-y-2">
+			<div class="flex items-center justify-between p-3 bg-gray-50 rounded">
+				<span class="font-medium">5005 gram</span>
+				<span class="font-semibold">
+					<UnitDisplay quantity={5005} unit="gr" />
+					<span class="text-sm text-gray-500 ml-2">(geen conversie naar 5.005 kilo)</span>
+				</span>
+			</div>
+			<div class="flex items-center justify-between p-3 bg-gray-50 rounded">
+				<span class="font-medium">1250 milliliter</span>
+				<span class="font-semibold">
+					<UnitDisplay quantity={1250} unit="ml" />
+					<span class="text-sm text-gray-500 ml-2">(geen conversie naar 1.25 liter)</span>
+				</span>
+			</div>
+			<div class="flex items-center justify-between p-3 bg-gray-50 rounded">
+				<span class="font-medium">5000 gram</span>
+				<span class="font-semibold">
+					<UnitDisplay quantity={5000} unit="gr" />
+					<span class="text-sm text-gray-500 ml-2">(wordt wel geconverteerd naar 5 kilo)</span>
+				</span>
+			</div>
+		</div>
+	</section>
 
-// Convert units
-convertUnit(1000, 'g', 'kg')  // → 1
+	<!-- Usage guide -->
+	<section class="mb-8 bg-white rounded-lg shadow p-6">
+		<h2 class="text-2xl font-semibold mb-4">Gebruik in Code</h2>
+		<div class="space-y-4">
+			<div>
+				<h3 class="font-semibold mb-2">Component Gebruik:</h3>
+				<pre class="bg-gray-900 text-gray-100 p-4 rounded overflow-x-auto text-sm"><code>{`<UnitDisplay quantity={500} unit="gr" />`}</code></pre>
+			</div>
+			<div>
+				<h3 class="font-semibold mb-2">Functie Gebruik:</h3>
+				<pre class="bg-gray-900 text-gray-100 p-4 rounded overflow-x-auto text-sm"><code>{`import { formatQuantityWithUnit, unitToDutch } from '$lib/utils/units';
 
-// Get optimal unit
-formatToOptimalUnit(1200, 'g')  // → { quantity: 1.2, unit: 'kg' }
+// Format met auto-conversie
+formatQuantityWithUnit(1000, 'gr', true); // "1 kilo"
 
-// Format for display
-formatQuantityWithUnit(1500, 'ml', true)  // → "1.5 l"
+// Format zonder conversie
+formatQuantityWithUnit(1000, 'gr', false); // "1000 gram"
 
-// Add custom conversions
-addCustomConversion('blik', 'tray', 1/12);  // 12 cans = 1 tray
-convertUnit(24, 'blik', 'tray')  // → 2`}</code></pre>
+// Alleen eenheid naam
+unitToDutch('gr', 5); // "gram"
+unitToDutch('pieces', 1); // "stuk"
+unitToDutch('pieces', 2); // "stuks"`}</code></pre>
+			</div>
 		</div>
 	</section>
 </div>
