@@ -1,9 +1,0 @@
-User-agent: *
-Allow: /
-
-Disallow: /recept/*/print/
-
-Disallow: /how_to
-
-Sitemap: https://hapmap.nl/sitemap-index.xml
-

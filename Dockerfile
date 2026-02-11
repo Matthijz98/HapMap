@@ -1,19 +1,13 @@
-FROM node:22-alpine
+FROM nginx:alpine
 
-WORKDIR /app
+# Enable gzip compression in nginx.conf
+RUN sed -i 's/gzip off;/gzip on;/' /etc/nginx/nginx.conf
 
-# Install pnpm
-RUN npm install -g pnpm
+# Copy static files to /usr/share/nginx/html
+COPY /dist /usr/share/nginx/html
 
-COPY ./dist .
-COPY package.json .
-COPY pnpm-lock.yaml .
-COPY src/content ./src/content
+# Copy nginx config file to /etc/nginx/conf.d/default.conf
+COPY default.conf /etc/nginx/conf.d/default.conf
 
-RUN pnpm install --prod
-
-ENV HOST=0.0.0.0
-ENV PORT=80
+# Expose port 80
 EXPOSE 80
-
-CMD node ./server/entry.mjs
