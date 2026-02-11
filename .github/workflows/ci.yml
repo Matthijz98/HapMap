@@ -56,4 +56,4 @@ jobs:
           command_timeout: 2m
           script: |
             cd hapmap/
-            docker-compose pull && docker-compose up -d
+            docker compose pull && docker compose up -d
