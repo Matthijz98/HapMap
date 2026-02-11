@@ -7,13 +7,14 @@
 
 	import { client as public_client } from '$lib/api/public-client/client.gen';
 	import { client as private_client } from '$lib/api/private-client/client.gen';
+	import { PUBLIC_API_HOST } from '$env/static/public';
 
 	public_client.setConfig({
-		baseUrl: 'http://127.0.0.1:8000/'
+		baseUrl: PUBLIC_API_HOST
 	});
 
 	private_client.setConfig({
-		baseUrl: 'http://127.0.0.1:8000/'
+		baseUrl: PUBLIC_API_HOST
 	})
 
 	const queryClient = new QueryClient({});
