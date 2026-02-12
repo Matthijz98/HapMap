@@ -3,6 +3,7 @@
   import AltIngredients from "./AltIngredients.svelte";
   import type { RecipeIngredientOutSchema } from "$lib/api/public-client/types.gen";
   import UnitDisplay from "$lib/components/utils/UnitDisplay.svelte";
+  import {capitalizeFirstLetter} from "$lib/utils/units";
 
   interface Props {
     ingredient: RecipeIngredientOutSchema;
@@ -34,7 +35,7 @@
 </script>
 
 <tr class="odd:bg-slate-300">
-  <td class="px-2 py-1">{ingredient.ingredient.name_plural}</td>
+  <td class="px-2 py-1">{capitalizeFirstLetter(ingredient.ingredient.name_plural)}</td>
   <td class="px-2 py-1">
     {#if ingredient.ingredient.allergies && ingredient.ingredient.allergies.length > 0}
       {ingredient.ingredient.allergies.map(a => a.name).join(', ')}
