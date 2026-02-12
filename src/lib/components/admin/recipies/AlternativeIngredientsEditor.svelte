@@ -101,7 +101,7 @@
 									updateAlternative(index, 'quantity', parseFloat(target.value) || 0);
 								}
 							}}
-							step="0.01"
+							step="0.001"
 							class="w-full px-2 py-1 border border-gray-300 rounded text-sm"
 						/>
 					</div>

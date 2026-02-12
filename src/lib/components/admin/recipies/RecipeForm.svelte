@@ -349,7 +349,7 @@
 							<input
 								type="number"
 								bind:value={ingredient.quantity}
-								step="0.01"
+								step="0.001"
 								placeholder="Aantal"
 								class="w-24 px-2 py-1 border border-gray-300 rounded text-sm"
 							/>
