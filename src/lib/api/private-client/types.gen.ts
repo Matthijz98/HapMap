@@ -5,24 +5,6 @@ export type ClientOptions = {
 };
 
 /**
- * UserInfoSchema
- */
-export type UserInfoSchema = {
-    /**
-     * Username
-     */
-    username: string;
-    /**
-     * Email
-     */
-    email: string;
-    /**
-     * Is Authenticated
-     */
-    is_authenticated: boolean;
-};
-
-/**
  * PrivateAllergyOutSchema
  */
 export type PrivateAllergyOutSchema = {
@@ -111,7 +93,7 @@ export type PrivateRecipeIngredientOutSchema = {
     /**
      * Unit
      */
-    unit: string;
+    unit?: string | null;
     /**
      * Note
      */
@@ -251,7 +233,7 @@ export type RecipeIngredientAltForAllergyInSchema = {
     /**
      * Unit
      */
-    unit: string;
+    unit?: string | null;
 };
 
 /**
@@ -269,7 +251,7 @@ export type RecipeIngredientInSchema = {
     /**
      * Unit
      */
-    unit: string;
+    unit?: string | null;
     ingredient: IngredientInSchema;
     /**
      * Ingredient Alternatives
@@ -384,22 +366,6 @@ export type IngredientOutSchema = {
     name_plural: string;
 };
 
-export type RecipesApiPrivateGetCurrentUserData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/private/recipes/me';
-};
-
-export type RecipesApiPrivateGetCurrentUserResponses = {
-    /**
-     * OK
-     */
-    200: UserInfoSchema;
-};
-
-export type RecipesApiPrivateGetCurrentUserResponse = RecipesApiPrivateGetCurrentUserResponses[keyof RecipesApiPrivateGetCurrentUserResponses];
-
 export type RecipesApiPrivateListPrivateRecipesData = {
     body?: never;
     path?: never;
@@ -496,16 +462,94 @@ export type RecipesApiPrivateUpdatePrivateRecipeResponses = {
 
 export type RecipesApiPrivateUpdatePrivateRecipeResponse = RecipesApiPrivateUpdatePrivateRecipeResponses[keyof RecipesApiPrivateUpdatePrivateRecipeResponses];
 
-export type RecipesApiPrivateCreateIngredientData = {
+export type IngredientsApiPrivateGetIngredientsData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/private/ingredients/ingredients/';
+};
+
+export type IngredientsApiPrivateGetIngredientsResponses = {
+    /**
+     * Response
+     *
+     * OK
+     */
+    200: Array<IngredientOutSchema>;
+};
+
+export type IngredientsApiPrivateGetIngredientsResponse = IngredientsApiPrivateGetIngredientsResponses[keyof IngredientsApiPrivateGetIngredientsResponses];
+
+export type IngredientsApiPrivateCreateIngredientData = {
     body: IngredientOutSchema;
     path?: never;
     query?: never;
-    url: '/private/recipes/ingredients/';
+    url: '/private/ingredients/ingredients/';
 };
 
-export type RecipesApiPrivateCreateIngredientResponses = {
+export type IngredientsApiPrivateCreateIngredientResponses = {
     /**
      * OK
      */
     200: unknown;
 };
+
+export type IngredientsApiPrivateGetIngredientDetailData = {
+    body?: never;
+    path: {
+        /**
+         * Sqid
+         */
+        sqid: string;
+    };
+    query?: never;
+    url: '/private/ingredients/ingredients/{sqid}/';
+};
+
+export type IngredientsApiPrivateGetIngredientDetailResponses = {
+    /**
+     * OK
+     */
+    200: IngredientOutSchema;
+};
+
+export type IngredientsApiPrivateGetIngredientDetailResponse = IngredientsApiPrivateGetIngredientDetailResponses[keyof IngredientsApiPrivateGetIngredientDetailResponses];
+
+export type IngredientsApiPrivateUpdateIngredientData = {
+    body: IngredientOutSchema;
+    path: {
+        /**
+         * Sqid
+         */
+        sqid: string;
+    };
+    query?: never;
+    url: '/private/ingredients/ingredients/{sqid}/';
+};
+
+export type IngredientsApiPrivateUpdateIngredientResponses = {
+    /**
+     * OK
+     */
+    200: IngredientOutSchema;
+};
+
+export type IngredientsApiPrivateUpdateIngredientResponse = IngredientsApiPrivateUpdateIngredientResponses[keyof IngredientsApiPrivateUpdateIngredientResponses];
+
+export type IngredientsApiPrivateGetAllergiesData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/private/ingredients/allergies/';
+};
+
+export type IngredientsApiPrivateGetAllergiesResponses = {
+    /**
+     * Response
+     *
+     * OK
+     */
+    200: Array<AllergyOutSchema>;
+};
+
+export type IngredientsApiPrivateGetAllergiesResponse = IngredientsApiPrivateGetAllergiesResponses[keyof IngredientsApiPrivateGetAllergiesResponses];

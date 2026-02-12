@@ -7,7 +7,7 @@
 		recipesApiPrivateGetPrivateRecipeDetailOptions,
 		recipesApiPrivateUpdatePrivateRecipeMutation
 	} from '$lib/api/private-client/@tanstack/svelte-query.gen';
-	import { ingredientsApiGetIngredients, recipesApiPublicGetCategories } from '$lib/api/public-client/sdk.gen';
+	import { ingredientsApiPublicGetIngredients, recipesApiPublicGetCategories } from '$lib/api/public-client/sdk.gen';
 	import type {
 		RecipeOutSchema,
 		IngredientOutSchema,
@@ -35,7 +35,7 @@
 
 	async function loadIngredients() {
 		try {
-			const response = await ingredientsApiGetIngredients();
+			const response = await ingredientsApiPublicGetIngredients();
 			if (response.data && Array.isArray(response.data)) {
 				availableIngredients = response.data as IngredientOutSchema[];
 			}

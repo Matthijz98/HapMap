@@ -29,8 +29,8 @@
 	value={selectedItem}
 	on:change={handleChange}
 	{placeholder}
-	searchable={false}
-	clearable={false}
+	searchable={true}
+	clearable={true}
 	--border-radius="0.375rem"
 	--border="1px solid rgb(209, 213, 219)"
 	--border-focused="1px solid rgb(59, 130, 246)"

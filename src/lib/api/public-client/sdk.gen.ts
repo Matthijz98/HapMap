@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { CamplistsApiGetKamplijstData, CamplistsApiGetKamplijstResponses, CamplistsApiListKamplijstsData, CamplistsApiListKamplijstsResponses, IngredientsApiGetAllergiesData, IngredientsApiGetAllergiesResponses, IngredientsApiGetIngredientDetailData, IngredientsApiGetIngredientDetailResponses, IngredientsApiGetIngredientsData, IngredientsApiGetIngredientsResponses, RecipesApiPublicGetCategoriesData, RecipesApiPublicGetCategoriesResponses, RecipesApiPublicGetRecipeDetailData, RecipesApiPublicGetRecipeDetailResponses, RecipesApiPublicGetRecipesData, RecipesApiPublicGetRecipesResponses, RecipesApiPublicSearchRecipesData, RecipesApiPublicSearchRecipesResponses } from './types.gen';
+import type { CamplistsApiGetKamplijstData, CamplistsApiGetKamplijstResponses, CamplistsApiListKamplijstsData, CamplistsApiListKamplijstsResponses, IngredientsApiPublicGetAllergiesData, IngredientsApiPublicGetAllergiesResponses, IngredientsApiPublicGetIngredientDetailData, IngredientsApiPublicGetIngredientDetailResponses, IngredientsApiPublicGetIngredientsData, IngredientsApiPublicGetIngredientsResponses, RecipesApiPublicGetCategoriesData, RecipesApiPublicGetCategoriesResponses, RecipesApiPublicGetRecipeDetailData, RecipesApiPublicGetRecipeDetailResponses, RecipesApiPublicGetRecipesData, RecipesApiPublicGetRecipesResponses, RecipesApiPublicSearchRecipesData, RecipesApiPublicSearchRecipesResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -21,17 +21,17 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
 /**
  * Get Ingredients
  */
-export const ingredientsApiGetIngredients = <ThrowOnError extends boolean = false>(options?: Options<IngredientsApiGetIngredientsData, ThrowOnError>) => (options?.client ?? client).get<IngredientsApiGetIngredientsResponses, unknown, ThrowOnError>({ url: '/ingredients/', ...options });
+export const ingredientsApiPublicGetIngredients = <ThrowOnError extends boolean = false>(options?: Options<IngredientsApiPublicGetIngredientsData, ThrowOnError>) => (options?.client ?? client).get<IngredientsApiPublicGetIngredientsResponses, unknown, ThrowOnError>({ url: '/ingredients/', ...options });
 
 /**
  * Get Ingredient Detail
  */
-export const ingredientsApiGetIngredientDetail = <ThrowOnError extends boolean = false>(options: Options<IngredientsApiGetIngredientDetailData, ThrowOnError>) => (options.client ?? client).get<IngredientsApiGetIngredientDetailResponses, unknown, ThrowOnError>({ url: '/ingredients/{sqid}/', ...options });
+export const ingredientsApiPublicGetIngredientDetail = <ThrowOnError extends boolean = false>(options: Options<IngredientsApiPublicGetIngredientDetailData, ThrowOnError>) => (options.client ?? client).get<IngredientsApiPublicGetIngredientDetailResponses, unknown, ThrowOnError>({ url: '/ingredients/{sqid}/', ...options });
 
 /**
  * Get Allergies
  */
-export const ingredientsApiGetAllergies = <ThrowOnError extends boolean = false>(options?: Options<IngredientsApiGetAllergiesData, ThrowOnError>) => (options?.client ?? client).get<IngredientsApiGetAllergiesResponses, unknown, ThrowOnError>({ url: '/allergies/', ...options });
+export const ingredientsApiPublicGetAllergies = <ThrowOnError extends boolean = false>(options?: Options<IngredientsApiPublicGetAllergiesData, ThrowOnError>) => (options?.client ?? client).get<IngredientsApiPublicGetAllergiesResponses, unknown, ThrowOnError>({ url: '/allergies/', ...options });
 
 /**
  * Get Recipes

@@ -173,7 +173,7 @@ export type RecipeIngredientOutSchema = {
     /**
      * Unit
      */
-    unit: string;
+    unit?: string | null;
 };
 
 /**
@@ -252,14 +252,14 @@ export type RecipeStepOutSchema = {
     instruction: string;
 };
 
-export type IngredientsApiGetIngredientsData = {
+export type IngredientsApiPublicGetIngredientsData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/ingredients/';
 };
 
-export type IngredientsApiGetIngredientsResponses = {
+export type IngredientsApiPublicGetIngredientsResponses = {
     /**
      * Response
      *
@@ -268,9 +268,9 @@ export type IngredientsApiGetIngredientsResponses = {
     200: Array<IngredientOutSchema>;
 };
 
-export type IngredientsApiGetIngredientsResponse = IngredientsApiGetIngredientsResponses[keyof IngredientsApiGetIngredientsResponses];
+export type IngredientsApiPublicGetIngredientsResponse = IngredientsApiPublicGetIngredientsResponses[keyof IngredientsApiPublicGetIngredientsResponses];
 
-export type IngredientsApiGetIngredientDetailData = {
+export type IngredientsApiPublicGetIngredientDetailData = {
     body?: never;
     path: {
         /**
@@ -282,23 +282,23 @@ export type IngredientsApiGetIngredientDetailData = {
     url: '/ingredients/{sqid}/';
 };
 
-export type IngredientsApiGetIngredientDetailResponses = {
+export type IngredientsApiPublicGetIngredientDetailResponses = {
     /**
      * OK
      */
     200: IngredientOutSchema;
 };
 
-export type IngredientsApiGetIngredientDetailResponse = IngredientsApiGetIngredientDetailResponses[keyof IngredientsApiGetIngredientDetailResponses];
+export type IngredientsApiPublicGetIngredientDetailResponse = IngredientsApiPublicGetIngredientDetailResponses[keyof IngredientsApiPublicGetIngredientDetailResponses];
 
-export type IngredientsApiGetAllergiesData = {
+export type IngredientsApiPublicGetAllergiesData = {
     body?: never;
     path?: never;
     query?: never;
     url: '/allergies/';
 };
 
-export type IngredientsApiGetAllergiesResponses = {
+export type IngredientsApiPublicGetAllergiesResponses = {
     /**
      * Response
      *
@@ -307,7 +307,7 @@ export type IngredientsApiGetAllergiesResponses = {
     200: Array<AllergyOutSchema>;
 };
 
-export type IngredientsApiGetAllergiesResponse = IngredientsApiGetAllergiesResponses[keyof IngredientsApiGetAllergiesResponses];
+export type IngredientsApiPublicGetAllergiesResponse = IngredientsApiPublicGetAllergiesResponses[keyof IngredientsApiPublicGetAllergiesResponses];
 
 export type RecipesApiPublicGetRecipesData = {
     body?: never;

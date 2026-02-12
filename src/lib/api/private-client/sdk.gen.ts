@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { RecipesApiPrivateCreateIngredientData, RecipesApiPrivateCreateIngredientResponses, RecipesApiPrivateCreatePrivateRecipeData, RecipesApiPrivateCreatePrivateRecipeResponses, RecipesApiPrivateDeletePrivateRecipeData, RecipesApiPrivateDeletePrivateRecipeResponses, RecipesApiPrivateGetCurrentUserData, RecipesApiPrivateGetCurrentUserResponses, RecipesApiPrivateGetPrivateRecipeDetailData, RecipesApiPrivateGetPrivateRecipeDetailResponses, RecipesApiPrivateListPrivateRecipesData, RecipesApiPrivateListPrivateRecipesResponses, RecipesApiPrivateUpdatePrivateRecipeData, RecipesApiPrivateUpdatePrivateRecipeResponses } from './types.gen';
+import type { IngredientsApiPrivateCreateIngredientData, IngredientsApiPrivateCreateIngredientResponses, IngredientsApiPrivateGetAllergiesData, IngredientsApiPrivateGetAllergiesResponses, IngredientsApiPrivateGetIngredientDetailData, IngredientsApiPrivateGetIngredientDetailResponses, IngredientsApiPrivateGetIngredientsData, IngredientsApiPrivateGetIngredientsResponses, IngredientsApiPrivateUpdateIngredientData, IngredientsApiPrivateUpdateIngredientResponses, RecipesApiPrivateCreatePrivateRecipeData, RecipesApiPrivateCreatePrivateRecipeResponses, RecipesApiPrivateDeletePrivateRecipeData, RecipesApiPrivateDeletePrivateRecipeResponses, RecipesApiPrivateGetPrivateRecipeDetailData, RecipesApiPrivateGetPrivateRecipeDetailResponses, RecipesApiPrivateListPrivateRecipesData, RecipesApiPrivateListPrivateRecipesResponses, RecipesApiPrivateUpdatePrivateRecipeData, RecipesApiPrivateUpdatePrivateRecipeResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -17,17 +17,6 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
      */
     meta?: Record<string, unknown>;
 };
-
-/**
- * Get Current User
- *
- * Get current authenticated user information
- */
-export const recipesApiPrivateGetCurrentUser = <ThrowOnError extends boolean = false>(options?: Options<RecipesApiPrivateGetCurrentUserData, ThrowOnError>) => (options?.client ?? client).get<RecipesApiPrivateGetCurrentUserResponses, unknown, ThrowOnError>({
-    security: [{ scheme: 'bearer', type: 'http' }],
-    url: '/private/recipes/me',
-    ...options
-});
 
 /**
  * List Private Recipes
@@ -80,14 +69,54 @@ export const recipesApiPrivateUpdatePrivateRecipe = <ThrowOnError extends boolea
 });
 
 /**
+ * Get Ingredients
+ */
+export const ingredientsApiPrivateGetIngredients = <ThrowOnError extends boolean = false>(options?: Options<IngredientsApiPrivateGetIngredientsData, ThrowOnError>) => (options?.client ?? client).get<IngredientsApiPrivateGetIngredientsResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/private/ingredients/ingredients/',
+    ...options
+});
+
+/**
  * Create Ingredient
  */
-export const recipesApiPrivateCreateIngredient = <ThrowOnError extends boolean = false>(options: Options<RecipesApiPrivateCreateIngredientData, ThrowOnError>) => (options.client ?? client).post<RecipesApiPrivateCreateIngredientResponses, unknown, ThrowOnError>({
+export const ingredientsApiPrivateCreateIngredient = <ThrowOnError extends boolean = false>(options: Options<IngredientsApiPrivateCreateIngredientData, ThrowOnError>) => (options.client ?? client).post<IngredientsApiPrivateCreateIngredientResponses, unknown, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
-    url: '/private/recipes/ingredients/',
+    url: '/private/ingredients/ingredients/',
     ...options,
     headers: {
         'Content-Type': 'application/json',
         ...options.headers
     }
+});
+
+/**
+ * Get Ingredient Detail
+ */
+export const ingredientsApiPrivateGetIngredientDetail = <ThrowOnError extends boolean = false>(options: Options<IngredientsApiPrivateGetIngredientDetailData, ThrowOnError>) => (options.client ?? client).get<IngredientsApiPrivateGetIngredientDetailResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/private/ingredients/ingredients/{sqid}/',
+    ...options
+});
+
+/**
+ * Update Ingredient
+ */
+export const ingredientsApiPrivateUpdateIngredient = <ThrowOnError extends boolean = false>(options: Options<IngredientsApiPrivateUpdateIngredientData, ThrowOnError>) => (options.client ?? client).put<IngredientsApiPrivateUpdateIngredientResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/private/ingredients/ingredients/{sqid}/',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Get Allergies
+ */
+export const ingredientsApiPrivateGetAllergies = <ThrowOnError extends boolean = false>(options?: Options<IngredientsApiPrivateGetAllergiesData, ThrowOnError>) => (options?.client ?? client).get<IngredientsApiPrivateGetAllergiesResponses, unknown, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/private/ingredients/allergies/',
+    ...options
 });

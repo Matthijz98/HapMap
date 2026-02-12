@@ -3,8 +3,8 @@
 import { type DefaultError, type MutationOptions, queryOptions } from '@tanstack/svelte-query';
 
 import { client } from '../client.gen';
-import { type Options, recipesApiPrivateCreateIngredient, recipesApiPrivateCreatePrivateRecipe, recipesApiPrivateDeletePrivateRecipe, recipesApiPrivateGetCurrentUser, recipesApiPrivateGetPrivateRecipeDetail, recipesApiPrivateListPrivateRecipes, recipesApiPrivateUpdatePrivateRecipe } from '../sdk.gen';
-import type { RecipesApiPrivateCreateIngredientData, RecipesApiPrivateCreatePrivateRecipeData, RecipesApiPrivateDeletePrivateRecipeData, RecipesApiPrivateGetCurrentUserData, RecipesApiPrivateGetCurrentUserResponse, RecipesApiPrivateGetPrivateRecipeDetailData, RecipesApiPrivateGetPrivateRecipeDetailResponse, RecipesApiPrivateListPrivateRecipesData, RecipesApiPrivateUpdatePrivateRecipeData, RecipesApiPrivateUpdatePrivateRecipeResponse } from '../types.gen';
+import { ingredientsApiPrivateCreateIngredient, ingredientsApiPrivateGetAllergies, ingredientsApiPrivateGetIngredientDetail, ingredientsApiPrivateGetIngredients, ingredientsApiPrivateUpdateIngredient, type Options, recipesApiPrivateCreatePrivateRecipe, recipesApiPrivateDeletePrivateRecipe, recipesApiPrivateGetPrivateRecipeDetail, recipesApiPrivateListPrivateRecipes, recipesApiPrivateUpdatePrivateRecipe } from '../sdk.gen';
+import type { IngredientsApiPrivateCreateIngredientData, IngredientsApiPrivateGetAllergiesData, IngredientsApiPrivateGetAllergiesResponse, IngredientsApiPrivateGetIngredientDetailData, IngredientsApiPrivateGetIngredientDetailResponse, IngredientsApiPrivateGetIngredientsData, IngredientsApiPrivateGetIngredientsResponse, IngredientsApiPrivateUpdateIngredientData, IngredientsApiPrivateUpdateIngredientResponse, RecipesApiPrivateCreatePrivateRecipeData, RecipesApiPrivateDeletePrivateRecipeData, RecipesApiPrivateGetPrivateRecipeDetailData, RecipesApiPrivateGetPrivateRecipeDetailResponse, RecipesApiPrivateListPrivateRecipesData, RecipesApiPrivateUpdatePrivateRecipeData, RecipesApiPrivateUpdatePrivateRecipeResponse } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -38,26 +38,6 @@ const createQueryKey = <TOptions extends Options>(id: string, options?: TOptions
     }
     return [params];
 };
-
-export const recipesApiPrivateGetCurrentUserQueryKey = (options?: Options<RecipesApiPrivateGetCurrentUserData>) => createQueryKey('recipesApiPrivateGetCurrentUser', options);
-
-/**
- * Get Current User
- *
- * Get current authenticated user information
- */
-export const recipesApiPrivateGetCurrentUserOptions = (options?: Options<RecipesApiPrivateGetCurrentUserData>) => queryOptions<RecipesApiPrivateGetCurrentUserResponse, DefaultError, RecipesApiPrivateGetCurrentUserResponse, ReturnType<typeof recipesApiPrivateGetCurrentUserQueryKey>>({
-    queryFn: async ({ queryKey, signal }) => {
-        const { data } = await recipesApiPrivateGetCurrentUser({
-            ...options,
-            ...queryKey[0],
-            signal,
-            throwOnError: true
-        });
-        return data;
-    },
-    queryKey: recipesApiPrivateGetCurrentUserQueryKey(options)
-});
 
 export const recipesApiPrivateListPrivateRecipesQueryKey = (options?: Options<RecipesApiPrivateListPrivateRecipesData>) => createQueryKey('recipesApiPrivateListPrivateRecipes', options);
 
@@ -146,13 +126,31 @@ export const recipesApiPrivateUpdatePrivateRecipeMutation = (options?: Partial<O
     return mutationOptions;
 };
 
+export const ingredientsApiPrivateGetIngredientsQueryKey = (options?: Options<IngredientsApiPrivateGetIngredientsData>) => createQueryKey('ingredientsApiPrivateGetIngredients', options);
+
+/**
+ * Get Ingredients
+ */
+export const ingredientsApiPrivateGetIngredientsOptions = (options?: Options<IngredientsApiPrivateGetIngredientsData>) => queryOptions<IngredientsApiPrivateGetIngredientsResponse, DefaultError, IngredientsApiPrivateGetIngredientsResponse, ReturnType<typeof ingredientsApiPrivateGetIngredientsQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await ingredientsApiPrivateGetIngredients({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: ingredientsApiPrivateGetIngredientsQueryKey(options)
+});
+
 /**
  * Create Ingredient
  */
-export const recipesApiPrivateCreateIngredientMutation = (options?: Partial<Options<RecipesApiPrivateCreateIngredientData>>): MutationOptions<unknown, DefaultError, Options<RecipesApiPrivateCreateIngredientData>> => {
-    const mutationOptions: MutationOptions<unknown, DefaultError, Options<RecipesApiPrivateCreateIngredientData>> = {
+export const ingredientsApiPrivateCreateIngredientMutation = (options?: Partial<Options<IngredientsApiPrivateCreateIngredientData>>): MutationOptions<unknown, DefaultError, Options<IngredientsApiPrivateCreateIngredientData>> => {
+    const mutationOptions: MutationOptions<unknown, DefaultError, Options<IngredientsApiPrivateCreateIngredientData>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await recipesApiPrivateCreateIngredient({
+            const { data } = await ingredientsApiPrivateCreateIngredient({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -162,3 +160,56 @@ export const recipesApiPrivateCreateIngredientMutation = (options?: Partial<Opti
     };
     return mutationOptions;
 };
+
+export const ingredientsApiPrivateGetIngredientDetailQueryKey = (options: Options<IngredientsApiPrivateGetIngredientDetailData>) => createQueryKey('ingredientsApiPrivateGetIngredientDetail', options);
+
+/**
+ * Get Ingredient Detail
+ */
+export const ingredientsApiPrivateGetIngredientDetailOptions = (options: Options<IngredientsApiPrivateGetIngredientDetailData>) => queryOptions<IngredientsApiPrivateGetIngredientDetailResponse, DefaultError, IngredientsApiPrivateGetIngredientDetailResponse, ReturnType<typeof ingredientsApiPrivateGetIngredientDetailQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await ingredientsApiPrivateGetIngredientDetail({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: ingredientsApiPrivateGetIngredientDetailQueryKey(options)
+});
+
+/**
+ * Update Ingredient
+ */
+export const ingredientsApiPrivateUpdateIngredientMutation = (options?: Partial<Options<IngredientsApiPrivateUpdateIngredientData>>): MutationOptions<IngredientsApiPrivateUpdateIngredientResponse, DefaultError, Options<IngredientsApiPrivateUpdateIngredientData>> => {
+    const mutationOptions: MutationOptions<IngredientsApiPrivateUpdateIngredientResponse, DefaultError, Options<IngredientsApiPrivateUpdateIngredientData>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await ingredientsApiPrivateUpdateIngredient({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const ingredientsApiPrivateGetAllergiesQueryKey = (options?: Options<IngredientsApiPrivateGetAllergiesData>) => createQueryKey('ingredientsApiPrivateGetAllergies', options);
+
+/**
+ * Get Allergies
+ */
+export const ingredientsApiPrivateGetAllergiesOptions = (options?: Options<IngredientsApiPrivateGetAllergiesData>) => queryOptions<IngredientsApiPrivateGetAllergiesResponse, DefaultError, IngredientsApiPrivateGetAllergiesResponse, ReturnType<typeof ingredientsApiPrivateGetAllergiesQueryKey>>({
+    queryFn: async ({ queryKey, signal }) => {
+        const { data } = await ingredientsApiPrivateGetAllergies({
+            ...options,
+            ...queryKey[0],
+            signal,
+            throwOnError: true
+        });
+        return data;
+    },
+    queryKey: ingredientsApiPrivateGetAllergiesQueryKey(options)
+});

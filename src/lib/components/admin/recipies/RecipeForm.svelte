@@ -3,12 +3,13 @@
 		RecipeOutSchema,
 		RecipeStepOutSchema,
 		RecipeIngredientOutSchema,
+		RecipeNoteOutSchema,
 		IngredientOutSchema,
 		RecipeCategoryOutSchema,
 		AllergyOutSchema
 	} from '$lib/api/public-client/types.gen';
-	import { recipesApiPrivateCreateIngredientMutation } from '$lib/api/private-client/@tanstack/svelte-query.gen';
-	import { ingredientsApiGetAllergies } from '$lib/api/public-client/sdk.gen';
+	import { ingredientsApiPrivateCreateIngredientMutation } from '$lib/api/private-client/@tanstack/svelte-query.gen';
+	import { ingredientsApiPrivateGetAllergies } from '$lib/api/private-client/sdk.gen';
 	import { createMutation } from '@tanstack/svelte-query';
 	import AlternativeIngredientsEditor from './AlternativeIngredientsEditor.svelte';
 	import FuzzyIngredientSearch from './FuzzyIngredientSearch.svelte';
@@ -16,6 +17,7 @@
 	import CategorySelect from './CategorySelect.svelte';
 	import MarkdownEditor from './MarkdownEditor.svelte';
 	import DraggableList from '$lib/components/utils/DraggableList.svelte';
+	import IngredientForm from '$lib/components/admin/ingredients/IngredientForm.svelte';
 
 	interface Props {
 		recipe?: RecipeOutSchema;
@@ -40,9 +42,6 @@
 
 	// Modal state for creating new ingredients
 	let showIngredientModal = $state(false);
-	let newIngredientNameSingular = $state('');
-	let newIngredientNamePlural = $state('');
-	let newIngredientAllergySqids = $state<string[]>([]);
 	let availableAllergies = $state<AllergyOutSchema[]>([]);
 
 	// Load allergies on mount
@@ -52,7 +51,7 @@
 
 	async function loadAllergies() {
 		try {
-			const response = await ingredientsApiGetAllergies();
+			const response = await ingredientsApiPrivateGetAllergies();
 			if (response.data && Array.isArray(response.data)) {
 				availableAllergies = response.data as AllergyOutSchema[];
 			}
@@ -62,37 +61,29 @@
 	}
 
 	const createIngredientMutation = createMutation(() => ({
-		...recipesApiPrivateCreateIngredientMutation(),
-		onSuccess: (data: IngredientOutSchema) => {
+		...ingredientsApiPrivateCreateIngredientMutation(),
+		onSuccess: (data) => {
+			const created = data as IngredientOutSchema | undefined;
 			// Add the new ingredient to the available list
-			if (data && data.sqid) {
-				availableIngredients = [...availableIngredients, data];
+			if (created && created.sqid) {
+				availableIngredients = [...availableIngredients, created];
 			}
 			// Reset modal
 			showIngredientModal = false;
-			newIngredientNameSingular = '';
-			newIngredientNamePlural = '';
-			newIngredientAllergySqids = [];
 		}
 	}));
 
-	function handleCreateIngredient() {
+	type IngredientFormPayload = {
+		name_singular: string;
+		name_plural: string;
+		allergy_sqids: string[];
+	};
+
+	function handleCreateIngredient(payload: IngredientFormPayload) {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		createIngredientMutation.mutate({
-			body: {
-				name_singular: newIngredientNameSingular,
-				name_plural: newIngredientNamePlural,
-				allergy_sqids: newIngredientAllergySqids
-			} as any
+			body: payload as any
 		});
-	}
-
-	function toggleAllergy(sqid: string) {
-		if (newIngredientAllergySqids.includes(sqid)) {
-			newIngredientAllergySqids = newIngredientAllergySqids.filter((s) => s !== sqid);
-		} else {
-			newIngredientAllergySqids = [...newIngredientAllergySqids, sqid];
-		}
 	}
 
 	// Steps state
@@ -572,77 +563,13 @@
 {#if showIngredientModal}
 	<div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
 		<div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-			<h3 class="text-xl font-bold mb-4">Nieuw Ingredient Toevoegen</h3>
-
-			<div class="space-y-4">
-				<div>
-					<label for="name_singular" class="block text-sm font-medium text-gray-700 mb-1">
-						Enkelvoud *
-					</label>
-					<input
-						id="name_singular"
-						type="text"
-						bind:value={newIngredientNameSingular}
-						required
-						class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-						placeholder="bijv. ui"
-					/>
-				</div>
-
-				<div>
-					<label for="name_plural" class="block text-sm font-medium text-gray-700 mb-1">
-						Meervoud *
-					</label>
-					<input
-						id="name_plural"
-						type="text"
-						bind:value={newIngredientNamePlural}
-						required
-						class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-						placeholder="bijv. uien"
-					/>
-				</div>
-
-				<div>
-					<label class="block text-sm font-medium text-gray-700 mb-2">Allergieën</label>
-					<div class="space-y-2 max-h-48 overflow-y-auto border border-gray-300 rounded p-2">
-						{#each availableAllergies as allergy (allergy.sqid)}
-							<label class="flex items-center gap-2 cursor-pointer hover:bg-gray-50 p-1 rounded">
-								<input
-									type="checkbox"
-									checked={newIngredientAllergySqids.includes(allergy.sqid)}
-									onchange={() => toggleAllergy(allergy.sqid)}
-									class="rounded"
-								/>
-								<span class="text-sm">{allergy.name}</span>
-							</label>
-						{/each}
-					</div>
-				</div>
-			</div>
-
-			<div class="flex gap-3 justify-end mt-6">
-				<button
-					type="button"
-					onclick={() => {
-						showIngredientModal = false;
-						newIngredientNameSingular = '';
-						newIngredientNamePlural = '';
-						newIngredientAllergySqids = [];
-					}}
-					class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50"
-				>
-					Annuleren
-				</button>
-				<button
-					type="button"
-					onclick={handleCreateIngredient}
-					disabled={!newIngredientNameSingular || !newIngredientNamePlural}
-					class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
-				>
-					Toevoegen
-				</button>
-			</div>
+			<IngredientForm
+				title="Nieuw ingredient toevoegen"
+				submitLabel="Toevoegen"
+				{availableAllergies}
+				onSave={handleCreateIngredient}
+				onCancel={() => (showIngredientModal = false)}
+			/>
 		</div>
 	</div>
 {/if}

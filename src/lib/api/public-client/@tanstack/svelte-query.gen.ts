@@ -3,8 +3,8 @@
 import { type DefaultError, type MutationOptions, queryOptions } from '@tanstack/svelte-query';
 
 import { client } from '../client.gen';
-import { camplistsApiGetKamplijst, camplistsApiListKamplijsts, ingredientsApiGetAllergies, ingredientsApiGetIngredientDetail, ingredientsApiGetIngredients, type Options, recipesApiPublicGetCategories, recipesApiPublicGetRecipeDetail, recipesApiPublicGetRecipes, recipesApiPublicSearchRecipes } from '../sdk.gen';
-import type { CamplistsApiGetKamplijstData, CamplistsApiListKamplijstsData, IngredientsApiGetAllergiesData, IngredientsApiGetAllergiesResponse, IngredientsApiGetIngredientDetailData, IngredientsApiGetIngredientDetailResponse, IngredientsApiGetIngredientsData, IngredientsApiGetIngredientsResponse, RecipesApiPublicGetCategoriesData, RecipesApiPublicGetCategoriesResponse, RecipesApiPublicGetRecipeDetailData, RecipesApiPublicGetRecipeDetailResponse, RecipesApiPublicGetRecipesData, RecipesApiPublicGetRecipesResponse, RecipesApiPublicSearchRecipesData } from '../types.gen';
+import { camplistsApiGetKamplijst, camplistsApiListKamplijsts, ingredientsApiPublicGetAllergies, ingredientsApiPublicGetIngredientDetail, ingredientsApiPublicGetIngredients, type Options, recipesApiPublicGetCategories, recipesApiPublicGetRecipeDetail, recipesApiPublicGetRecipes, recipesApiPublicSearchRecipes } from '../sdk.gen';
+import type { CamplistsApiGetKamplijstData, CamplistsApiListKamplijstsData, IngredientsApiPublicGetAllergiesData, IngredientsApiPublicGetAllergiesResponse, IngredientsApiPublicGetIngredientDetailData, IngredientsApiPublicGetIngredientDetailResponse, IngredientsApiPublicGetIngredientsData, IngredientsApiPublicGetIngredientsResponse, RecipesApiPublicGetCategoriesData, RecipesApiPublicGetCategoriesResponse, RecipesApiPublicGetRecipeDetailData, RecipesApiPublicGetRecipeDetailResponse, RecipesApiPublicGetRecipesData, RecipesApiPublicGetRecipesResponse, RecipesApiPublicSearchRecipesData } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -39,14 +39,14 @@ const createQueryKey = <TOptions extends Options>(id: string, options?: TOptions
     return [params];
 };
 
-export const ingredientsApiGetIngredientsQueryKey = (options?: Options<IngredientsApiGetIngredientsData>) => createQueryKey('ingredientsApiGetIngredients', options);
+export const ingredientsApiPublicGetIngredientsQueryKey = (options?: Options<IngredientsApiPublicGetIngredientsData>) => createQueryKey('ingredientsApiPublicGetIngredients', options);
 
 /**
  * Get Ingredients
  */
-export const ingredientsApiGetIngredientsOptions = (options?: Options<IngredientsApiGetIngredientsData>) => queryOptions<IngredientsApiGetIngredientsResponse, DefaultError, IngredientsApiGetIngredientsResponse, ReturnType<typeof ingredientsApiGetIngredientsQueryKey>>({
+export const ingredientsApiPublicGetIngredientsOptions = (options?: Options<IngredientsApiPublicGetIngredientsData>) => queryOptions<IngredientsApiPublicGetIngredientsResponse, DefaultError, IngredientsApiPublicGetIngredientsResponse, ReturnType<typeof ingredientsApiPublicGetIngredientsQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await ingredientsApiGetIngredients({
+        const { data } = await ingredientsApiPublicGetIngredients({
             ...options,
             ...queryKey[0],
             signal,
@@ -54,17 +54,17 @@ export const ingredientsApiGetIngredientsOptions = (options?: Options<Ingredient
         });
         return data;
     },
-    queryKey: ingredientsApiGetIngredientsQueryKey(options)
+    queryKey: ingredientsApiPublicGetIngredientsQueryKey(options)
 });
 
-export const ingredientsApiGetIngredientDetailQueryKey = (options: Options<IngredientsApiGetIngredientDetailData>) => createQueryKey('ingredientsApiGetIngredientDetail', options);
+export const ingredientsApiPublicGetIngredientDetailQueryKey = (options: Options<IngredientsApiPublicGetIngredientDetailData>) => createQueryKey('ingredientsApiPublicGetIngredientDetail', options);
 
 /**
  * Get Ingredient Detail
  */
-export const ingredientsApiGetIngredientDetailOptions = (options: Options<IngredientsApiGetIngredientDetailData>) => queryOptions<IngredientsApiGetIngredientDetailResponse, DefaultError, IngredientsApiGetIngredientDetailResponse, ReturnType<typeof ingredientsApiGetIngredientDetailQueryKey>>({
+export const ingredientsApiPublicGetIngredientDetailOptions = (options: Options<IngredientsApiPublicGetIngredientDetailData>) => queryOptions<IngredientsApiPublicGetIngredientDetailResponse, DefaultError, IngredientsApiPublicGetIngredientDetailResponse, ReturnType<typeof ingredientsApiPublicGetIngredientDetailQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await ingredientsApiGetIngredientDetail({
+        const { data } = await ingredientsApiPublicGetIngredientDetail({
             ...options,
             ...queryKey[0],
             signal,
@@ -72,17 +72,17 @@ export const ingredientsApiGetIngredientDetailOptions = (options: Options<Ingred
         });
         return data;
     },
-    queryKey: ingredientsApiGetIngredientDetailQueryKey(options)
+    queryKey: ingredientsApiPublicGetIngredientDetailQueryKey(options)
 });
 
-export const ingredientsApiGetAllergiesQueryKey = (options?: Options<IngredientsApiGetAllergiesData>) => createQueryKey('ingredientsApiGetAllergies', options);
+export const ingredientsApiPublicGetAllergiesQueryKey = (options?: Options<IngredientsApiPublicGetAllergiesData>) => createQueryKey('ingredientsApiPublicGetAllergies', options);
 
 /**
  * Get Allergies
  */
-export const ingredientsApiGetAllergiesOptions = (options?: Options<IngredientsApiGetAllergiesData>) => queryOptions<IngredientsApiGetAllergiesResponse, DefaultError, IngredientsApiGetAllergiesResponse, ReturnType<typeof ingredientsApiGetAllergiesQueryKey>>({
+export const ingredientsApiPublicGetAllergiesOptions = (options?: Options<IngredientsApiPublicGetAllergiesData>) => queryOptions<IngredientsApiPublicGetAllergiesResponse, DefaultError, IngredientsApiPublicGetAllergiesResponse, ReturnType<typeof ingredientsApiPublicGetAllergiesQueryKey>>({
     queryFn: async ({ queryKey, signal }) => {
-        const { data } = await ingredientsApiGetAllergies({
+        const { data } = await ingredientsApiPublicGetAllergies({
             ...options,
             ...queryKey[0],
             signal,
@@ -90,7 +90,7 @@ export const ingredientsApiGetAllergiesOptions = (options?: Options<IngredientsA
         });
         return data;
     },
-    queryKey: ingredientsApiGetAllergiesQueryKey(options)
+    queryKey: ingredientsApiPublicGetAllergiesQueryKey(options)
 });
 
 export const recipesApiPublicGetRecipesQueryKey = (options?: Options<RecipesApiPublicGetRecipesData>) => createQueryKey('recipesApiPublicGetRecipes', options);
