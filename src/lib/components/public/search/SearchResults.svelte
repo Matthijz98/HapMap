@@ -8,8 +8,9 @@
             <a
                 href={`/recepten/${result.name}-${result.sqid}`}
                 class={`p-2 rounded shadow ${index === selectedIndex ? "bg-slate-200 ring-2 ring-slate-500" : "bg-slate-300"}`}
+                role="option"
                 aria-selected={index === selectedIndex}
-                on:click={onSelect}
+                onclick={onSelect}
             >
                 <h3 class="text-xl font-bold">{result.name}</h3>
                 <div class="flex flex-wrap gap-1 mt-1.5">

@@ -94,7 +94,7 @@
 	</div>
 
 	<div>
-		<label class="block text-sm font-medium text-gray-700 mb-2">Allergieen</label>
+		<label class="block text-sm font-medium text-gray-700 mb-2" id="allergieen-label">Allergieen</label>
 		<div class="space-y-2 max-h-48 overflow-y-auto border border-gray-300 rounded p-2">
 			{#if availableAllergies.length === 0}
 				<div class="text-sm text-gray-500">Geen allergieen gevonden.</div>
@@ -106,6 +106,7 @@
 							checked={selectedAllergySqids.includes(allergy.sqid)}
 							onchange={() => toggleAllergy(allergy.sqid)}
 							class="rounded"
+							aria-labelledby="allergieen-label"
 						/>
 						<span class="text-sm">{allergy.name}</span>
 					</label>

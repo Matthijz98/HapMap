@@ -12,7 +12,7 @@
 				<a class="bg-white rounded py-1 px-2 cursor-pointer" href="/admin/recepten">Recepten</a>
 				<a class="bg-white rounded py-1 px-2 cursor-pointer" href="/admin/ingredienten">Ingredienten</a>
 				<a class="bg-white rounded py-1 px-2 cursor-pointer" href="/admin/handleiding">Handleiding</a>
-				<a class="bg-white rounded py-1 px-2">Stats (soon)</a>
+				<a class="bg-white rounded py-1 px-2 cursor-not-allowed" href="#" aria-disabled="true" tabindex="-1">Stats (soon)</a>
 			</div>
 			<div class="text-white font-black">Logout</div>
 		</div>
