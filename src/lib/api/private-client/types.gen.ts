@@ -186,17 +186,17 @@ export type AllergyInSchema = {
  */
 export type IngredientInSchema = {
     /**
-     * Sqid
+     * Allergy Sqids
      */
-    sqid: string;
+    allergy_sqids?: Array<string>;
     /**
      * Name Singular
      */
-    name_singular?: string | null;
+    name_singular: string;
     /**
      * Name Plural
      */
-    name_plural?: string | null;
+    name_plural: string;
 };
 
 /**
@@ -481,7 +481,7 @@ export type IngredientsApiPrivateGetIngredientsResponses = {
 export type IngredientsApiPrivateGetIngredientsResponse = IngredientsApiPrivateGetIngredientsResponses[keyof IngredientsApiPrivateGetIngredientsResponses];
 
 export type IngredientsApiPrivateCreateIngredientData = {
-    body: IngredientOutSchema;
+    body: IngredientInSchema;
     path?: never;
     query?: never;
     url: '/private/ingredients/ingredients/';
@@ -489,10 +489,12 @@ export type IngredientsApiPrivateCreateIngredientData = {
 
 export type IngredientsApiPrivateCreateIngredientResponses = {
     /**
-     * OK
+     * Created
      */
-    200: unknown;
+    201: IngredientOutSchema;
 };
+
+export type IngredientsApiPrivateCreateIngredientResponse = IngredientsApiPrivateCreateIngredientResponses[keyof IngredientsApiPrivateCreateIngredientResponses];
 
 export type IngredientsApiPrivateGetIngredientDetailData = {
     body?: never;
@@ -516,7 +518,7 @@ export type IngredientsApiPrivateGetIngredientDetailResponses = {
 export type IngredientsApiPrivateGetIngredientDetailResponse = IngredientsApiPrivateGetIngredientDetailResponses[keyof IngredientsApiPrivateGetIngredientDetailResponses];
 
 export type IngredientsApiPrivateUpdateIngredientData = {
-    body: IngredientOutSchema;
+    body: IngredientInSchema;
     path: {
         /**
          * Sqid

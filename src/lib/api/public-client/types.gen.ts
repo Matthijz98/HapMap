@@ -336,6 +336,29 @@ export type RecipesApiPublicGetRecipesResponses = {
 
 export type RecipesApiPublicGetRecipesResponse = RecipesApiPublicGetRecipesResponses[keyof RecipesApiPublicGetRecipesResponses];
 
+export type RecipesApiPublicSearchRecipesData = {
+    body?: never;
+    path?: never;
+    query: {
+        /**
+         * Query
+         */
+        query: string;
+    };
+    url: '/recipes/search/';
+};
+
+export type RecipesApiPublicSearchRecipesResponses = {
+    /**
+     * Response
+     *
+     * OK
+     */
+    200: Array<RecipeListOutSchema>;
+};
+
+export type RecipesApiPublicSearchRecipesResponse = RecipesApiPublicSearchRecipesResponses[keyof RecipesApiPublicSearchRecipesResponses];
+
 export type RecipesApiPublicGetRecipeDetailData = {
     body?: never;
     path: {
@@ -356,25 +379,6 @@ export type RecipesApiPublicGetRecipeDetailResponses = {
 };
 
 export type RecipesApiPublicGetRecipeDetailResponse = RecipesApiPublicGetRecipeDetailResponses[keyof RecipesApiPublicGetRecipeDetailResponses];
-
-export type RecipesApiPublicSearchRecipesData = {
-    body?: never;
-    path?: never;
-    query: {
-        /**
-         * Query
-         */
-        query: string;
-    };
-    url: '/recipes/search/';
-};
-
-export type RecipesApiPublicSearchRecipesResponses = {
-    /**
-     * OK
-     */
-    200: unknown;
-};
 
 export type RecipesApiPublicGetCategoriesData = {
     body?: never;

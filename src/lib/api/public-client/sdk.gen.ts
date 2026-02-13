@@ -39,14 +39,14 @@ export const ingredientsApiPublicGetAllergies = <ThrowOnError extends boolean = 
 export const recipesApiPublicGetRecipes = <ThrowOnError extends boolean = false>(options?: Options<RecipesApiPublicGetRecipesData, ThrowOnError>) => (options?.client ?? client).get<RecipesApiPublicGetRecipesResponses, unknown, ThrowOnError>({ url: '/recipes/', ...options });
 
 /**
+ * Search Recipes
+ */
+export const recipesApiPublicSearchRecipes = <ThrowOnError extends boolean = false>(options: Options<RecipesApiPublicSearchRecipesData, ThrowOnError>) => (options.client ?? client).get<RecipesApiPublicSearchRecipesResponses, unknown, ThrowOnError>({ url: '/recipes/search/', ...options });
+
+/**
  * Get Recipe Detail
  */
 export const recipesApiPublicGetRecipeDetail = <ThrowOnError extends boolean = false>(options: Options<RecipesApiPublicGetRecipeDetailData, ThrowOnError>) => (options.client ?? client).get<RecipesApiPublicGetRecipeDetailResponses, unknown, ThrowOnError>({ url: '/recipes/{sqid}/', ...options });
-
-/**
- * Search Recipes
- */
-export const recipesApiPublicSearchRecipes = <ThrowOnError extends boolean = false>(options: Options<RecipesApiPublicSearchRecipesData, ThrowOnError>) => (options.client ?? client).post<RecipesApiPublicSearchRecipesResponses, unknown, ThrowOnError>({ url: '/recipes/search/', ...options });
 
 /**
  * Get Categories

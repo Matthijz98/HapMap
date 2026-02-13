@@ -1,9 +1,13 @@
 <script lang="ts">
     import SearchResults from "./SearchResults.svelte";
-    import {type RecipeListOutSchema, recipesApiPublicGetRecipes} from "$lib/api/public-client";
+    import {
+        type RecipeListOutSchema,
+        recipesApiPublicGetRecipes,
+        recipesApiPublicSearchRecipes
+    } from "$lib/api/public-client";
     import {goto} from "$app/navigation";
 
-    let { recipe_count = 0 }: { recipe_count?: number } = $props();
+    // let { recipe_count = 0 }: { recipe_count?: number } = $props();
 
     let filters = [];
     let query = '';
@@ -36,7 +40,7 @@
         }
 
         try {
-            const {data} = await recipesApiPublicGetRecipes({ query: { name: text } });
+            const {data} = await recipesApiPublicSearchRecipes({ query: { query: text } });
             results = data || [];
             selectedIndex = (data && data.length > 0) ? 0 : -1;
         } catch (err) {
@@ -91,21 +95,18 @@
         if (event.key === 'ArrowDown') {
             event.preventDefault();
             selectedIndex = (selectedIndex + 1) % results.length;
-            console.log('ArrowDown: new selectedIndex =', selectedIndex);
             return;
         }
 
         if (event.key === 'ArrowUp') {
             event.preventDefault();
             selectedIndex = (selectedIndex - 1 + results.length) % results.length;
-            console.log('ArrowUp: new selectedIndex =', selectedIndex);
             return;
         }
 
         if (event.key === 'Enter' && selectedIndex >= 0) {
             event.preventDefault();
             const selected = results[selectedIndex];
-            console.log('Enter pressed, selected:', selected);
             if (selected) {
                 const href = getRecipeHref(selected);
                 handleResultSelect();
@@ -122,11 +123,10 @@
            bind:value={query}
            bind:this={searchInput}
            placeholder={`Zoek door alle recepten`}
-           on:input={handleInputChange}
-           on:keydown={handleKeydown}
+           oninput={handleInputChange}
+           onkeydown={handleKeydown}
            autocapitalize="off"
            autocomplete="off"
-           autocorrect="off"
            spellcheck="false">
     <SearchResults bind:results={results} onSelect={handleResultSelect} {selectedIndex}/>
     <!--  <SearchFilters {filters}/-->

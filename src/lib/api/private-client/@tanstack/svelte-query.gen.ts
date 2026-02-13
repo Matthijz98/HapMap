@@ -4,7 +4,7 @@ import { type DefaultError, type MutationOptions, queryOptions } from '@tanstack
 
 import { client } from '../client.gen';
 import { ingredientsApiPrivateCreateIngredient, ingredientsApiPrivateGetAllergies, ingredientsApiPrivateGetIngredientDetail, ingredientsApiPrivateGetIngredients, ingredientsApiPrivateUpdateIngredient, type Options, recipesApiPrivateCreatePrivateRecipe, recipesApiPrivateDeletePrivateRecipe, recipesApiPrivateGetPrivateRecipeDetail, recipesApiPrivateListPrivateRecipes, recipesApiPrivateUpdatePrivateRecipe } from '../sdk.gen';
-import type { IngredientsApiPrivateCreateIngredientData, IngredientsApiPrivateGetAllergiesData, IngredientsApiPrivateGetAllergiesResponse, IngredientsApiPrivateGetIngredientDetailData, IngredientsApiPrivateGetIngredientDetailResponse, IngredientsApiPrivateGetIngredientsData, IngredientsApiPrivateGetIngredientsResponse, IngredientsApiPrivateUpdateIngredientData, IngredientsApiPrivateUpdateIngredientResponse, RecipesApiPrivateCreatePrivateRecipeData, RecipesApiPrivateDeletePrivateRecipeData, RecipesApiPrivateGetPrivateRecipeDetailData, RecipesApiPrivateGetPrivateRecipeDetailResponse, RecipesApiPrivateListPrivateRecipesData, RecipesApiPrivateUpdatePrivateRecipeData, RecipesApiPrivateUpdatePrivateRecipeResponse } from '../types.gen';
+import type { IngredientsApiPrivateCreateIngredientData, IngredientsApiPrivateCreateIngredientResponse, IngredientsApiPrivateGetAllergiesData, IngredientsApiPrivateGetAllergiesResponse, IngredientsApiPrivateGetIngredientDetailData, IngredientsApiPrivateGetIngredientDetailResponse, IngredientsApiPrivateGetIngredientsData, IngredientsApiPrivateGetIngredientsResponse, IngredientsApiPrivateUpdateIngredientData, IngredientsApiPrivateUpdateIngredientResponse, RecipesApiPrivateCreatePrivateRecipeData, RecipesApiPrivateDeletePrivateRecipeData, RecipesApiPrivateGetPrivateRecipeDetailData, RecipesApiPrivateGetPrivateRecipeDetailResponse, RecipesApiPrivateListPrivateRecipesData, RecipesApiPrivateUpdatePrivateRecipeData, RecipesApiPrivateUpdatePrivateRecipeResponse } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -147,8 +147,8 @@ export const ingredientsApiPrivateGetIngredientsOptions = (options?: Options<Ing
 /**
  * Create Ingredient
  */
-export const ingredientsApiPrivateCreateIngredientMutation = (options?: Partial<Options<IngredientsApiPrivateCreateIngredientData>>): MutationOptions<unknown, DefaultError, Options<IngredientsApiPrivateCreateIngredientData>> => {
-    const mutationOptions: MutationOptions<unknown, DefaultError, Options<IngredientsApiPrivateCreateIngredientData>> = {
+export const ingredientsApiPrivateCreateIngredientMutation = (options?: Partial<Options<IngredientsApiPrivateCreateIngredientData>>): MutationOptions<IngredientsApiPrivateCreateIngredientResponse, DefaultError, Options<IngredientsApiPrivateCreateIngredientData>> => {
+    const mutationOptions: MutationOptions<IngredientsApiPrivateCreateIngredientResponse, DefaultError, Options<IngredientsApiPrivateCreateIngredientData>> = {
         mutationFn: async (fnOptions) => {
             const { data } = await ingredientsApiPrivateCreateIngredient({
                 ...options,
