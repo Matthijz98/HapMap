@@ -280,7 +280,7 @@
 
 			<div>
 				<label for="short_description" class="block text-sm font-medium text-gray-700 mb-1"
-					>Beschrijving *</label
+					>Beschrijving</label
 				>
 				<MarkdownEditor
 					bind:value={short_description}
